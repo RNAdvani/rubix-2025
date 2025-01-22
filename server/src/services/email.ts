@@ -25,3 +25,22 @@ export const sendEmail = async (
     console.error("Error sending email:", error);
   }
 };
+
+export const sendVerification = async (
+  to: string,
+  code: number
+): Promise<void> => {
+  try {
+    const mailOptions: nodemailer.SendMailOptions = {
+      from: "ngenx2831@gmail.com",
+      to,
+      subject: "Email Verification",
+      html: `<h1>Verification Code: ${code}</h1>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`Email sent to ${to}`);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
