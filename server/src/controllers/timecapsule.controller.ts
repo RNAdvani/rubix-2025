@@ -1,10 +1,13 @@
 import { ErrorHandler } from "../lib/ErrorHandler";
 import { TryCatch } from "../lib/TryCatch";
+import { Media } from "../models/media.model";
 import { TimeCapsule } from "../models/timecapsule.model";
 import { uploadOnCloudinary } from "../services/cloudinary";
 
 export const createCapsule = TryCatch(async (req, res, next) => {
-  const { title, description, media, contributors } = req.body;
+  const { title, description, contributors } = req.body;
+
+  const media = req.files as Express.Multer.File[];
 
   if (!title || !description)
     return next(new ErrorHandler(400, "Please provide title and description"));
@@ -26,9 +29,9 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 
   const mediaUrls = await Promise.all(promises);
 
-  capsule.media = mediaUrls.map((m) => {
-    return {
-      url: m.secure_url,
+  const mediaPromises = mediaUrls.map(async (m) => {
+    return Media.create({
+      url: m?.secure_url,
       metadata: {
         type: "",
         timestamp: "",
@@ -38,8 +41,12 @@ export const createCapsule = TryCatch(async (req, res, next) => {
         location: { type: "", coordinates: [0, 0] },
       },
       AIGeneratedSummary: "",
-    };
+    });
   });
+
+  const mediaDocs = await Promise.all(mediaPromises);
+
+  capsule.media = mediaDocs.map((m) => m._id);
 
   if (contributors && contributors.length > 0) {
     capsule.isCollaborative = true;

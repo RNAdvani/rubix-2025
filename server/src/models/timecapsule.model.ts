@@ -13,7 +13,6 @@ const timeCapsuleSchema = new Schema<ITimeCapsule>({
   },
   accessCode: {
     type: String,
-    required: true,
   },
   isCollaborative: {
     type: Boolean,

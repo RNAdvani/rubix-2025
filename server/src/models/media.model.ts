@@ -32,7 +32,6 @@ const mediaSchema = new Schema<IMedia>({
   },
   AIGeneratedSummary: {
     type: String,
-    required: true,
   },
 });
 
