@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -78,4 +65,30 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+
+/* html,
+body {
+  height: 100%;
+  overflow: hidden;
+} */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
 }
