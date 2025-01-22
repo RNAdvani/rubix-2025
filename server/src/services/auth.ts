@@ -28,3 +28,7 @@ export const sendTokenResponse = (
 export const generateVerificationToken = () => {
   return Math.floor(100000 + Math.random() * 900000);
 };
+
+export function formatPhoneNumber(phoneNumber: string) {
+  return phoneNumber.replace(/\+/g, "");
+}
