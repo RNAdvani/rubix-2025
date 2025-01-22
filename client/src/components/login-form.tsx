@@ -1,13 +1,5 @@
 import { api } from "@/lib/api";
-import {
-   AtSign,
-   Check,
-   CircleUser,
-   Loader2,
-   Lock,
-   Mail,
-   Phone,
-} from "lucide-react";
+import { Check, Loader2, Lock, Mail } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 import Confetti from "react-confetti";
@@ -17,7 +9,6 @@ import {
    getPasswordStrength,
    validateEmail,
    validatePassword,
-   validatePhone,
 } from "../../utils/form-utils";
 import { Button } from "./ui/button";
 import {
@@ -31,31 +22,28 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Progress } from "./ui/progress";
 import { Separator } from "./ui/separator";
+import { useUser } from "./hooks/use-user";
 
 type Step = "auth" | "phone" | "profile" | "success";
 interface FormData {
-   name: string;
    email: string;
    password: string;
-   phone: string;
    otp: string;
-   username: string;
 }
 
-export function SignUpForm() {
+export function LoginForm() {
    const [step, setStep] = useState<Step>("auth");
    const [loading, setLoading] = useState(false);
    const [formData, setFormData] = useState<FormData>({
-      name: "",
       email: "",
       password: "",
-      phone: "",
       otp: "",
-      username: "",
    });
    const [otpTimer, setOtpTimer] = useState(30);
    const [canResend, setCanResend] = useState(false);
    const navigate = useNavigate();
+
+   const { setUser } = useUser();
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -67,29 +55,35 @@ export function SignUpForm() {
       if (step === "auth") {
          setStep("phone");
          startOtpTimer();
-      } else if (step === "phone") {
-         setStep("profile");
-      } else if (step === "profile") {
+      }
+      // } else if (step === "phone") {
+      //    setStep("profile");
+      // }
+      else if (step === "profile") {
          setStep("success");
       }
 
       setLoading(false);
    };
 
-   const handleRegister = async () => {
+   const handleLogin = async () => {
       setLoading(true);
 
       try {
-         const res = await api.post("/api/auth/sign-up", {
-            name: formData.name,
+         const res = await api.post("/api/auth/login", {
             email: formData.email,
             password: formData.password,
-            phone: formData.phone,
          });
 
          if (res.data.success) {
             toast.success(res.data.message);
-            setStep("phone");
+            setUser(res.data.user);
+
+            if (res.data.user.isVerified) {
+               navigate("/dashboard");
+            } else {
+               setStep("phone");
+            }
          }
       } catch (error) {
          toast.error("An error occurred. Please try again.");
@@ -132,7 +126,7 @@ export function SignUpForm() {
 
          if (res.data.success) {
             toast.success(res.data.message);
-            setStep("profile");
+            setStep("success");
          }
       } catch (error) {
          toast.error("Invalid OTP. Please try again.");
@@ -141,61 +135,8 @@ export function SignUpForm() {
       }
    };
 
-   //  const handleGoogleLogin = async () => {
-   //     setLoading(true);
-
-   //     try {
-   //        const res = await api.post("/api/auth/google-login");
-
-   //        if (res.data.success) {
-   //           toast.success(res.data.message);
-   //           setStep("profile");
-   //        }
-   //     } catch (error) {
-   //        toast.error("An error occurred. Please try again.");
-   //     } finally {
-   //        setLoading(false);
-   //     }
-   //  };
-
-   const handleUsername = async () => {
-      setLoading(true);
-
-      try {
-         const res = await api.post("/api/auth/username", {
-            username: formData.username,
-            email: formData.email,
-         });
-
-         if (res.data.success) {
-            toast.success(res.data.message);
-            setStep("success");
-         }
-      } catch (error) {
-         toast.error("An error occurred. Please try again.");
-      } finally {
-         setLoading(false);
-      }
-   };
-
    const renderAuthStep = () => (
       <CardContent className="space-y-4">
-         <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <div className="relative">
-               <CircleUser className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-               <Input
-                  id="name"
-                  type="text"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={(e) =>
-                     setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="pl-10"
-               />
-            </div>
-         </div>
          <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <div className="relative">
@@ -207,22 +148,6 @@ export function SignUpForm() {
                   value={formData.email}
                   onChange={(e) =>
                      setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="pl-10"
-               />
-            </div>
-         </div>
-         <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
-            <div className="relative">
-               <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-               <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  value={formData.phone}
-                  onChange={(e) =>
-                     setFormData({ ...formData, phone: e.target.value })
                   }
                   className="pl-10"
                />
@@ -261,16 +186,15 @@ export function SignUpForm() {
             disabled={
                !validateEmail(formData.email) ||
                !validatePassword(formData.password) ||
-               !validatePhone(formData.phone) ||
                loading
             }
-            onClick={handleRegister}
+            onClick={handleLogin}
             className="w-full"
          >
             {loading ? (
                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-               "Continue"
+               "Login"
             )}
          </Button>
          <div className="relative">
@@ -357,40 +281,6 @@ export function SignUpForm() {
       </CardContent>
    );
 
-   const renderProfileStep = () => (
-      <CardContent className="space-y-4">
-         <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <div className="relative">
-               <AtSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-               <Input
-                  id="username"
-                  type="text"
-                  placeholder="Choose a username"
-                  value={formData.username}
-                  onChange={(e) =>
-                     setFormData({ ...formData, username: e.target.value })
-                  }
-                  className="pl-10"
-               />
-            </div>
-         </div>
-
-         <Button
-            type="submit"
-            disabled={!formData.username || loading}
-            className="w-full"
-            onClick={handleUsername}
-         >
-            {loading ? (
-               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-               "Doneeee"
-            )}
-         </Button>
-      </CardContent>
-   );
-
    const renderSuccessStep = () => (
       <CardContent className="space-y-4 text-center">
          <Confetti />
@@ -421,20 +311,17 @@ export function SignUpForm() {
                <CardTitle className="text-2xl font-bold text-center">
                   {step === "auth" && "Create your account"}
                   {step === "phone" && "Verify your account"}
-                  {step === "profile" && "Aap ko bulaye kaise?"}
                   {step === "success" && "Welcome aboard!"}
                </CardTitle>
                <CardDescription className="text-center">
                   {step === "auth" && "Start preserving your memories today"}
                   {step === "phone" &&
                      "Enter the code sent to your phone or email"}
-                  {step === "profile" && "Tell us a bit about yourself"}
                </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit}>
                {step === "auth" && renderAuthStep()}
                {step === "phone" && renderPhoneStep()}
-               {step === "profile" && renderProfileStep()}
                {step === "success" && renderSuccessStep()}
             </form>
          </Card>

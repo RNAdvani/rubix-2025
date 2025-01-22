@@ -1,20 +1,18 @@
 import mongoose, { Schema } from "mongoose";
-import { ITimeCapsule } from "../schema";
+import { ITimeCapsule, IMedia } from "../schema";
 
 const timeCapsuleSchema = new Schema<ITimeCapsule>({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  unlockDate: { type: Date, required: true },
+  unlockDate: { type: Date },
   creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  media: { type: [String], default: [] },
-  isPublic: { type: Boolean, default: false },
+  media: [{ type: Schema.Types.ObjectId, ref: "Media" }],
   recipients: {
     type: [{ type: Schema.Types.ObjectId, ref: "User" }],
     default: [],
   },
   accessCode: {
     type: String,
-    required: true,
   },
   isCollaborative: {
     type: Boolean,

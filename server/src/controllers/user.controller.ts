@@ -50,7 +50,7 @@ export const signInWithGoogle = TryCatch(
 
 export const registerUser = TryCatch(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -64,6 +64,7 @@ export const registerUser = TryCatch(
       name,
       email,
       password: hashedPassword,
+      phone: formatPhoneNumber(phone),
     });
 
     const verificationCode = generateVerificationToken();
@@ -74,11 +75,13 @@ export const registerUser = TryCatch(
       expiresAt: new Date(Date.now() + 10 * 60 * 1000),
     });
 
-    sendVerification(email, verificationCode);
+    await sendWhatsapp(String(verificationCode), user.phone);
+
+    await sendVerification(email, verificationCode);
 
     return res.status(201).json({
       success: true,
-      message: "User created and verification code sent to email",
+      message: "User created and verification code sent to email and whatsapp",
       user,
     });
   }
@@ -105,7 +108,7 @@ export const loginUser = TryCatch(
         expiresAt: new Date(Date.now() + 10 * 60 * 1000),
       });
 
-      await sendWhatsapp(user.phone, String(verificationCode));
+      await sendWhatsapp(String(verificationCode), user.phone);
 
       await sendVerification(email, verificationCode);
 
@@ -155,7 +158,7 @@ export const verifyUser = TryCatch(
       { new: true }
     );
 
-    await userVerificationCode.delete();
+    await userVerificationCode.deleteOne({ user: user._id });
 
     sendTokenResponse(200, res, user);
   }
@@ -175,7 +178,7 @@ export const sendVerificationCode = TryCatch(
 
     await sendVerification(email, verificationCode);
 
-    await sendWhatsapp(phone, String(verificationCode));
+    await sendWhatsapp(String(verificationCode), phone);
 
     return res.status(200).json({
       success: true,
@@ -198,6 +201,48 @@ export const updateUserNumber = TryCatch(
 
     user = await User.findOneAndUpdate({
       phone: formatPhoneNumber(phone),
+    });
+  }
+);
+
+export const updateUsername = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { username, email } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(new ErrorHandler(404, "User not found"));
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      user._id,
+      { username },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Username updated successfully",
+      updatedUser,
+    });
+  }
+);
+
+export const searchUserFromUsernameOrEmail = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { query } = req.query;
+
+    const users = await User.find({
+      $or: [
+        { username: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
+      ],
+    }).select("-password");
+
+    return res.status(200).json({
+      success: true,
+      data: users,
     });
   }
 );

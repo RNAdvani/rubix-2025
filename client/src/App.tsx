@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { OnboardingCarousel } from "./components/carousel-demo";
 import FriendFinder from "./components/friend-finder";
 import PhotoEditor from "./components/image-editor/editor";
@@ -13,17 +13,32 @@ import NotificationsScreen from "./pages/notifications";
 import SearchScreen from "./pages/search";
 import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
+import Cookies from "js-cookie";
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const cookie = Cookies.get("token");
+  if (cookie) {
+    return children;
+  } else {
+    return <Navigate to="/auth/login" />;
+  }
+};
 
 export default function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<OnboardingCarousel />} />
-        <Route path="/editor" element={<PhotoEditor />} />
         <Route path="/auth/register" element={<SignUpForm />} />
         <Route path="/auth/login" element={<SignUpForm />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element={<Home />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >          <Route index element={<Home />} />
           <Route path="accept-invitation" element={<InvitationPage />} />
           <Route path="suggestions" element={<Suggestions />} />
           <Route path="unlocking" element={<Unlocking />} />
@@ -31,6 +46,8 @@ export default function App() {
           <Route path="notifications" element={<NotificationsScreen />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="friends" element={<FriendFinder />} />
+          <Route path="editor" element={<PhotoEditor />} />
+
           <Route path="creategroup" element={<GroupPage />} />
           <Route path="createcapsule" element={<CapsulePage />} />
 

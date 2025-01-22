@@ -46,8 +46,7 @@ export interface ITimeCapsule extends Document {
   description: string;
   unlockDate: Date;
   creator: IUser;
-  media: IMedia[];
-  isPublic: boolean; //remove this
+  media: string[];
   recipients: IUser[]; // self id always
   accessCode: string; //If permanent is false then only code and password should be emailed to receiptents
   isCollaborative: boolean;
