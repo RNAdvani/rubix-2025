@@ -1,6 +1,7 @@
 import type React from "react"
 import { useState } from "react"
-import { Mail, Lock, Phone, User, Loader2, Check } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+import { Mail, Lock, Phone, User, Loader2, Check, AtSign } from "lucide-react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
@@ -8,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Progress } from "./ui/progress"
 import { Separator } from "./ui/separator"
 import { validateEmail, validatePassword, validatePhone, getPasswordStrength } from "../../utils/form-utils"
+import Confetti from "react-confetti"
 
 type Step = "auth" | "phone" | "profile" | "success"
 
@@ -33,6 +35,7 @@ export function SignUpForm() {
   })
   const [otpTimer, setOtpTimer] = useState(30)
   const [canResend, setCanResend] = useState(false)
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -197,7 +200,7 @@ export function SignUpForm() {
       <div className="space-y-2">
         <Label htmlFor="username">Username</Label>
         <div className="relative">
-          <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          <AtSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             id="username"
             type="text"
@@ -223,19 +226,21 @@ export function SignUpForm() {
         </div>
       </div>
       <Button type="submit" disabled={!formData.username || !formData.fullName || loading} className="w-full">
-        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Complete Setup"}
+        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Doneeee"}
       </Button>
     </CardContent>
   )
 
+
   const renderSuccessStep = () => (
     <CardContent className="space-y-4 text-center">
+      <Confetti />
       <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
         <Check className="w-8 h-8 text-green-600" />
       </div>
       <h2 className="text-2xl font-bold">Your time capsule journey begins now</h2>
       <p className="text-muted-foreground">Everything is set up and ready to go!</p>
-      <Button onClick={() => console.log("Start creating...")} className="w-full">
+      <Button onClick={() => {navigate('/peeps')}} className="w-full">
         Start Creating
       </Button>
     </CardContent>
@@ -245,13 +250,13 @@ export function SignUpForm() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">
             {step === "auth" && "Create your account"}
             {step === "phone" && "Verify your phone"}
-            {step === "profile" && "Complete your profile"}
+            {step === "profile" && "Aap ko bulaye kaise?"}
             {step === "success" && "Welcome aboard!"}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-center">
             {step === "auth" && "Start preserving your memories today"}
             {step === "phone" && "Enter the code sent to your phone"}
             {step === "profile" && "Tell us a bit about yourself"}
