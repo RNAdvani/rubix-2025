@@ -3,6 +3,7 @@ import { OnboardingCarousel } from "./components/carousel-demo";
 import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
 import PhotoEditor from "./components/image-editor/editor";
+import InvitationPage from "./pages/acceptInvitation";
 // import { SignUpForm } from "./components/sign-up-form";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/suggestions" element={<Suggestions />} />
         <Route path="/unlocking" element={<Unlocking />} />
         <Route path="/editor" element={<PhotoEditor />} />
+        <Route path="/accept-invitation" element={<InvitationPage />} />
       </Routes>
     </>
   );
