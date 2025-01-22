@@ -1,4 +1,4 @@
-import type { Friend } from "@/types/friend"
+import type { Friend } from "../../types/friend"
 import { motion, AnimatePresence } from "framer-motion"
 import { Loader2, UserPlus, UserMinus } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -67,22 +67,6 @@ export default function FriendList({ friends, isLoading, onInvite, invitedFriend
           </motion.div>
         ))}
       </AnimatePresence>
-      <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.3);
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.5);
-        }
-      `}</style>
     </div>
   )
 }

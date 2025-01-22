@@ -154,6 +154,7 @@ export function SignUpForm() {
             className="pl-10"
           />
         </div>
+        <Button className="w-full" disabled={!validatePhone(formData.phone)}>Send OTP</Button>
       </div>
       <div className="space-y-2">
         <Label htmlFor="otp">Verification Code</Label>
@@ -187,7 +188,7 @@ export function SignUpForm() {
       </div>
       <Button
         type="submit"
-        disabled={!validatePhone(formData.phone) || formData.otp.length !== 6 || loading}
+        disabled={ formData.otp.length !== 6 || loading}
         className="w-full"
       >
         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Verify"}

@@ -76,6 +76,23 @@ export default function Page() {
   const closeDialog = () => setIsDialogOpen(false);
   return (
     <div className="min-h-screen bg-background">
+      <Card className="p-6 m-6 bg-primary text-secondary">
+        <div className="flex justify-between items-start mb-4">
+          <Clock className="h-8 w-8 " />
+          <Sparkles className="h-6 w-6 " />
+        </div>
+        <h3 className="text-xl font-semibold mb-2 text-secondary">
+          Create a Time Capsule
+        </h3>
+        <p className="text-secondary mb-4">
+          Preserve today's moments for tomorrow. AI-powered suggestions help you
+          create meaningful time capsules.
+        </p>
+        <Button variant="secondary" className="w-full">
+          Start Time Capsule
+        </Button>
+      </Card>
+
       {/* Scrollable Cards Section */}
       <div className="flex overflow-x-auto gap-6 p-6 pb-8 snap-x snap-mandatory">
         {items.map((item) => (
@@ -195,10 +212,9 @@ export default function Page() {
             Preserve today's moments for tomorrow. AI-powered suggestions help
             you create meaningful time capsules.
           </p>
-          <Button variant="secondary" className="w-full" onClick={openDialog}>
+          <Button variant="secondary" className="w-full">
             Start Time Capsule
           </Button>
-          <TimeCapsuleDialog isOpen={isDialogOpen} onClose={closeDialog} />
         </Card>
       </div>
     </div>

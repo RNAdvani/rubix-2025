@@ -2,12 +2,17 @@ import { Request, Response, NextFunction } from "express";
 import { TryCatch } from "../lib/TryCatch";
 import * as admin from "firebase-admin";
 import serviceAccount from "../config/firebase-admin.json";
-import { generateVerificationToken, sendTokenResponse } from "../services/auth";
+import {
+  formatPhoneNumber,
+  generateVerificationToken,
+  sendTokenResponse,
+} from "../services/auth";
 import bcrypt from "bcryptjs";
 import User from "../models/user.model";
 import { ErrorHandler } from "../lib/ErrorHandler";
 import { sendVerification } from "../services/email";
 import Verification from "../models/verification.model";
+import { sendWhatsapp } from "../services/whatsapp";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
@@ -100,11 +105,13 @@ export const loginUser = TryCatch(
         expiresAt: new Date(Date.now() + 10 * 60 * 1000),
       });
 
-      sendVerification(email, verificationCode);
+      await sendWhatsapp(user.phone, String(verificationCode));
+
+      await sendVerification(email, verificationCode);
 
       return res.status(200).json({
         success: true,
-        message: "Verification code sent to email",
+        message: "Verification code sent to email and whatsapp",
       });
     }
 
@@ -151,5 +158,46 @@ export const verifyUser = TryCatch(
     await userVerificationCode.delete();
 
     sendTokenResponse(200, res, user);
+  }
+);
+
+export const sendVerificationCode = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, phone } = req.body;
+
+    const verificationCode = generateVerificationToken();
+
+    await Verification.create({
+      user: email,
+      code: verificationCode,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+    });
+
+    await sendVerification(email, verificationCode);
+
+    await sendWhatsapp(phone, String(verificationCode));
+
+    return res.status(200).json({
+      success: true,
+      message: "Verification code sent to email and whatsapp",
+    });
+  }
+);
+
+export const updateUserNumber = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email, phone } = req.body;
+
+    let user;
+
+    user = await User.findOne({ email });
+
+    if (!user) {
+      return next(new ErrorHandler(404, "User not found"));
+    }
+
+    user = await User.findOneAndUpdate({
+      phone: formatPhoneNumber(phone),
+    });
   }
 );
