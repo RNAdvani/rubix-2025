@@ -200,6 +200,7 @@ export default function Page() {
             <Users className="mr-2 h-4 w-4" />
             Create Group
           </Button>
+          <TimeCapsuleDialog isOpen={isDialogOpen} onClose={closeDialog} />
         </Card>
 
         <Card className="p-6 bg-gradient-to-br from-purple-500 to-pink-500 text-white">
@@ -212,7 +213,7 @@ export default function Page() {
             Preserve today's moments for tomorrow. AI-powered suggestions help
             you create meaningful time capsules.
           </p>
-          <Button variant="secondary" className="w-full">
+          <Button variant="secondary" className="w-full" onClick={openDialog}>
             Start Time Capsule
           </Button>
         </Card>
