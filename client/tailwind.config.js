@@ -7,8 +7,8 @@ export default {
   theme: {
   	extend: {
 		fontFamily: {
-			sans: ['Inter', ...defaultTheme.fontFamily.sans], // Inter as sans-serif
-			serif: ['Niconne', ...defaultTheme.fontFamily.serif], // Niconne as serif
+			sans: ['Inter', ...defaultTheme.fontFamily.sans],
+			serif: ['Chonburi', ...defaultTheme.fontFamily.serif],
 			},
   		borderRadius: {
   			lg: 'var(--radius)',

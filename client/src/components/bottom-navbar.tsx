@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 // import { Button } from "../components/ui/button";
-import { Home, User, Search, Bell } from "lucide-react";
+import { Home, Search, Users, Pill } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 
 const navItems = [
   { href: "/dashboard", label: "Home", icon: Home },
   { href: "/dashboard/search", label: "Search", icon: Search },
-  { href: "/dashboard/notifications", label: "Noftifs", icon: Bell },
-  { href: "/dashboard/profile", label: "Profile", icon: User },
+  { href: "/dashboard/creategroup", label: "Groups", icon: Users },
+  { href: "/dashboard/createcapsule", label: "Capsule", icon: Pill },
 ];
 
 export function BottomNav() {
@@ -16,7 +16,7 @@ export function BottomNav() {
   const pathname = window.location.pathname;
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border">
+    <nav className=" fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border">
       <div className="grid grid-cols-4 gap-1 p-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
