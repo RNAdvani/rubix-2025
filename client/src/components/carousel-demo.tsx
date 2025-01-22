@@ -52,18 +52,18 @@ export function OnboardingCarousel() {
 
   const handleCTA = () => {
     if (currentSlide === features.length - 1) {
-      navigate("/auth/register"); // Redirect to the signup page
+      navigate("/auth/register");
     } else {
       api?.scrollNext();
     }
   };
 
   const handleSkip = () => {
-    navigate("/auth/register"); // Redirect to the signup page
+    navigate("/auth/register");
   };
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen bg-background text-foreground">
       <Carousel className="w-full h-screen" setApi={setApi}>
         <CarouselContent>
           {features.map((feature, index) => (
@@ -76,12 +76,12 @@ export function OnboardingCarousel() {
                     alt=""
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/80" />
                 </div>
 
                 {/* Content */}
-                <div className="relative h-full flex flex-col items-center justify-between p-6 text-white md:p-10 lg:p-16">
-                  {/* Top Section */}
+                <div className="relative h-full flex flex-col items-center justify-between p-6 text-primary-foreground md:p-10 lg:p-16">
+                  {/* Icon */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -91,22 +91,22 @@ export function OnboardingCarousel() {
                     <feature.icon className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mb-4" />
                   </motion.div>
 
-                  {/* Middle Section */}
+                  {/* Text */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-center space-y-3 max-w-xs sm:max-w-md md:space-y-4"
                   >
-                    <h2 className="text-3xl text-left font-bold tracking-tight sm:text-3xl lg:text-4xl">
+                    <h2 className="text-3xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
                       {feature.title}
                     </h2>
-                    <p className="font-sans text-justify text-sm text-white/90 sm:text-base lg:text-lg">
+                    <p className="text-sm sm:text-base lg:text-lg">
                       {feature.description}
                     </p>
                   </motion.div>
 
-                  {/* Bottom Section */}
+                  {/* CTA Buttons */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -114,14 +114,14 @@ export function OnboardingCarousel() {
                     className="w-full max-w-xs sm:max-w-md mt-6 mb-10 md:mt-10 space-y-4"
                   >
                     <Button
-                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-white text-black hover:bg-white/90"
+                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                       onClick={handleCTA}
                     >
                       {feature.cta} <MoveRight className="w-5 h-5 ml-2" />
                     </Button>
                     <Button
                       variant="ghost"
-                      className="w-full h-12 text-sm sm:text-base lg:text-lg text-white hover:bg-white/10"
+                      className="w-full h-12 text-sm sm:text-base lg:text-lg hover:bg-muted/10"
                       onClick={handleSkip}
                     >
                       Skip
@@ -140,7 +140,7 @@ export function OnboardingCarousel() {
           <div
             key={index}
             className={`w-3 h-3 rounded-full ${
-              currentSlide === index ? "bg-white" : "bg-white/50"
+              currentSlide === index ? "bg-primary-foreground" : "bg-muted"
             }`}
           />
         ))}

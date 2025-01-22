@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <a               onClick={() => navigate("/dashboard")}
  className="text-xl font-bold font-serif">
-          mypeeps
+          yaadein
         </a>
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="icon" onClick={() => navigate("notifications")}>
