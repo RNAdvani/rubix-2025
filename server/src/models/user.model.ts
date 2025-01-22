@@ -4,6 +4,7 @@ import { IUser } from "../schema";
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, required: true },
+  username: { type: String },
   googleId: { type: String },
   password: { type: String },
   phone: { type: String },

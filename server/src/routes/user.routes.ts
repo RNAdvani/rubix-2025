@@ -16,7 +16,7 @@ router.post("/sign-up", registerUser);
 router.post("/verify", verifyUser);
 router.post("/login", loginUser);
 router.post("/google-login", signInWithGoogle);
-router.post("/username", updateUsername);
+router.post("/username", authenticate, updateUsername);
 router.get("/search", searchUserFromUsernameOrEmail);
 
 export { router as userRoutes };

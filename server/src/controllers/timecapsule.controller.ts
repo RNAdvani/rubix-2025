@@ -61,7 +61,7 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 export const getCreatedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
     creator: req.user._id,
-  });
+  }).populate("media");
 
   return res.status(200).json({ success: true, data: capsules });
 });
@@ -131,6 +131,21 @@ export const addContributors = TryCatch(async (req, res, next) => {
     return next(
       new ErrorHandler(403, "You are not allowed to perform this action")
     );
+
+  if (!capsule.isCollaborative) {
+    capsule.isCollaborative = true;
+  }
+
+  let isError = false;
+
+  contributors.forEach((c: any) => {
+    if (capsule.contributors.includes(c)) {
+      isError = true;
+    }
+  });
+
+  if (isError)
+    return next(new ErrorHandler(400, "Some contributors already exist"));
 
   capsule.contributors = [
     ...new Set([...capsule.contributors, ...contributors]),

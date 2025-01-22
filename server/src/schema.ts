@@ -6,6 +6,7 @@ export interface IUser extends Document {
   email: string;
   googleId?: string;
   password: string;
+  username: string;
   phone: string;
   isVerified: boolean;
   createdAt: Date;
