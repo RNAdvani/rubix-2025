@@ -9,27 +9,32 @@ import SearchScreen from "./pages/search";
 import NotificationsScreen from "./pages/notifications";
 import FriendFinder from "./components/friend-finder";
 import Home from "./pages/home";
-function App() {
+import PhotoEditor from "./components/image-editor/editor";
+import InvitationPage from "./pages/acceptInvitation";
+// import { SignUpForm } from "./components/sign-up-form";
+
+export default function App() {
    return (
       <>
          <Routes>
+
+
             <Route path="/" element={<OnboardingCarousel />} />
             <Route path="/suggestions" element={<Suggestions />} />
             <Route path="/unlocking" element={<Unlocking />} />
+            <Route path="/editor" element={<PhotoEditor />} />
+            <Route path="/accept-invitation" element={<InvitationPage />} />
             <Route path="/auth/register" element={<SignUpForm />} />
             <Route path="/auth/login" element={<SignUpForm />} />
             <Route path="/dashboard" element={<Dashboard />}>
-               <Route index element={<Home/>} />
+               <Route index element={<Home />} />
                <Route path="search" element={<SearchScreen />} />
                <Route path="notifications" element={<NotificationsScreen />} />
                <Route path="profile" element={<UserProfile />} />
                <Route path="peeps" element={<FriendFinder />} />
-
             </Route>
-               <Route path="peeps" element={<FriendFinder />} />
+            <Route path="peeps" element={<FriendFinder />} />
          </Routes>
       </>
-   );
-}
-
-export default App;
+      );
+   }

@@ -1,129 +1,133 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Check } from "lucide-react";
+import { Check, Play, File } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { sampleImages } from "@/lib/data";
+import { MediaFile } from "@/lib/types";
+import { useNavigate } from "react-router-dom";
+import { FileUpload } from "./file-upload";
 
-const sampleImages = [
-   {
-      id: "1",
-      url: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=500&auto=format",
-      alt: "Sunset landscape",
-   },
-   {
-      id: "2",
-      url: "https://images.unsplash.com/photo-1682687221038-404670f05144?w=500&auto=format",
-      alt: "Mountain view",
-   },
-   {
-      id: "3",
-      url: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=500&auto=format",
-      alt: "Ocean waves",
-   },
-   {
-      id: "4",
-      url: "https://images.unsplash.com/photo-1682686581030-7fa4ea2b96c3?w=500&auto=format",
-      alt: "Forest path",
-   },
-   {
-      id: "5",
-      url: "https://images.unsplash.com/photo-1682686580024-580519d4b2d2?w=500&auto=format",
-      alt: "City lights",
-   },
-   {
-      id: "6",
-      url: "https://images.unsplash.com/photo-1682686578289-cf9c8c472c9b?w=500&auto=format",
-      alt: "Desert dunes",
-   },
-   {
-      id: "7",
-      url: "https://images.unsplash.com/photo-1682686580186-b55d2a91053c?w=500&auto=format",
-      alt: "Snow peaks",
-   },
-   {
-      id: "8",
-      url: "https://images.unsplash.com/photo-1682695796954-bad0d0f59ff1?w=500&auto=format",
-      alt: "Autumn leaves",
-   },
-   {
-      id: "9",
-      url: "https://images.unsplash.com/photo-1682695797221-8164ff1fafc9?w=500&auto=format",
-      alt: "Tropical beach",
-   },
-   {
-      id: "10",
-      url: "https://images.unsplash.com/photo-1682695794947-17061dc284dd?w=500&auto=format",
-      alt: "Urban architecture",
-   },
-   {
-      id: "11",
-      url: "https://images.unsplash.com/photo-1682687220199-d0124f48f95b?w=500&auto=format",
-      alt: "Waterfall",
-   },
-   {
-      id: "12",
-      url: "https://images.unsplash.com/photo-1682687221038-404670f05144?w=500&auto=format",
-      alt: "Starry night",
-   },
-];
+interface MediaPickerProps {
+  onPhotosSelected?: (photos: MediaFile[]) => void;
+}
 
-export const MediaPicker = () => {
-   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
+const MEDIA_STORAGE_KEY = "timeCapsule_media";
+const SELECTED_FILES_KEY = "timeCapsule_selectedFiles";
 
-   const toggleSelection = (id: string) => {
-      setSelectedFiles((prev) => {
-         const next = new Set(prev);
-         if (next.has(id)) {
-            next.delete(id);
-         } else {
-            next.add(id);
-         }
-         return next;
-      });
-   };
+export const MediaPicker = ({ onPhotosSelected }: MediaPickerProps) => {
+  const navigate = useNavigate();
 
-   return (
-      <div className="w-full max-w-4xl mx-auto p-6 space-y-6 flex flex-col">
-         <h2 className="text-2xl font-bold">Select Photos</h2>
-         <ScrollArea className="h-[600px] rounded-lg border">
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-1 p-1">
-               {sampleImages.map((image) => (
-                  <div
-                     key={image.id}
-                     className="group relative aspect-square cursor-pointer"
-                     onClick={() => toggleSelection(image.id)}
-                  >
-                     <img
-                        src={image.url}
-                        alt={image.alt}
-                        className={cn(
-                           "object-cover w-full h-full transition-opacity",
-                           selectedFiles.has(image.id)
-                              ? "opacity-75"
-                              : "group-hover:opacity-75"
-                        )}
-                     />
-                     <div
-                        className={cn(
-                           "absolute inset-0 flex items-center justify-center transition-colors",
-                           selectedFiles.has(image.id)
-                              ? "bg-black/20"
-                              : "bg-transparent group-hover:bg-black/10"
-                        )}
-                     >
-                        {selectedFiles.has(image.id) && (
-                           <div className="bg-primary text-primary-foreground rounded-full p-1">
-                              <Check className="w-4 h-4" />
-                           </div>
-                        )}
-                     </div>
-                  </div>
-               ))}
+  const [mediaFiles, setMediaFiles] = useState<MediaFile[]>(() => {
+    const savedMedia = sessionStorage.getItem(MEDIA_STORAGE_KEY);
+    return savedMedia ? JSON.parse(savedMedia) : sampleImages;
+  });
+  const [selectedFiles, setSelectedFiles] = useState<Set<MediaFile>>(() => {
+    const savedSelection = sessionStorage.getItem(SELECTED_FILES_KEY);
+    return savedSelection ? new Set(JSON.parse(savedSelection)) : new Set();
+  });
+  useEffect(() => {
+    sessionStorage.setItem(MEDIA_STORAGE_KEY, JSON.stringify(mediaFiles));
+  }, [mediaFiles]);
+  useEffect(() => {
+    sessionStorage.setItem(
+      SELECTED_FILES_KEY,
+      JSON.stringify(Array.from(selectedFiles))
+    );
+  }, [selectedFiles]);
+  const toggleSelection = (file: MediaFile) => {
+    setSelectedFiles((prev) => {
+      const next = new Set(prev);
+      if (next.has(file)) {
+        next.delete(file);
+      } else {
+        next.add(file);
+      }
+      return next;
+    });
+  };
+
+  const handleAddPhotos = () => {
+    const selectedMedia = mediaFiles.filter((file) => selectedFiles.has(file));
+    if (onPhotosSelected) {
+      onPhotosSelected(selectedMedia);
+    }
+    navigate("/editor");
+  };
+
+  const MediaPreview = ({ file }: { file: MediaFile }) => {
+    const isSelected = selectedFiles.has(file);
+
+    return (
+      <div
+        className="group relative aspect-square cursor-pointer"
+        onClick={() => toggleSelection(file)}
+      >
+        {file.type === "image" && (
+          <img
+            src={file.url}
+            alt={file.alt || ""}
+            className={cn(
+              "object-cover w-full h-full transition-opacity rounded-md",
+              isSelected ? "opacity-75" : "group-hover:opacity-75"
+            )}
+          />
+        )}
+
+        {file.type === "video" && (
+          <div className="relative w-full h-full bg-muted rounded-md">
+            <video src={file.url} className="object-cover w-full h-full" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Play className="w-8 h-8 text-primary" />
             </div>
-         </ScrollArea>
-         <Button disabled={selectedFiles.size === 0} className="gap-2 w-1/3">
-            Add to Capsule ({selectedFiles.size})
-         </Button>
+          </div>
+        )}
+
+        {file.type === "audio" && (
+          <div className="relative w-full h-full bg-muted rounded-md flex items-center justify-center">
+            <File className="w-12 h-12 text-primary" />
+            <div className="absolute bottom-2 left-2 right-2 text-xs text-center">
+              Audio Recording
+            </div>
+          </div>
+        )}
+
+        <div
+          className={cn(
+            "absolute inset-0 flex items-center justify-center transition-colors rounded-md",
+            isSelected
+              ? "bg-black/20"
+              : "bg-transparent group-hover:bg-black/10"
+          )}
+        >
+          {isSelected && (
+            <div className="bg-primary text-primary-foreground rounded-full p-1">
+              <Check className="w-4 h-4" />
+            </div>
+          )}
+        </div>
       </div>
-   );
+    );
+  };
+
+  return (
+    <div className="w-full max-w-4xl mx-auto p-6 space-y-6 flex flex-col">
+      <h2 className="text-2xl font-bold">Select Media</h2>
+      <FileUpload setMediaItems={setMediaFiles} />
+      <ScrollArea className="h-[600px] rounded-lg border">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-1 p-1">
+          {mediaFiles.map((file) => (
+            <MediaPreview key={file.alt} file={file} />
+          ))}
+        </div>
+      </ScrollArea>
+      <Button
+        disabled={selectedFiles.size === 0}
+        onClick={handleAddPhotos}
+        className="gap-2"
+      >
+        Edit Selected ({selectedFiles.size})
+      </Button>
+    </div>
+  );
 };
