@@ -7,7 +7,7 @@ export const validatePassword = (password: string) => {
 }
 
 export const validatePhone = (phone: string) => {
-  return /^\+?[\d\s-]{8,}$/.test(phone)
+  return /^\+?[\d\s-]{10,}$/.test(phone)
 }
 
 export const getPasswordStrength = (password: string) => {

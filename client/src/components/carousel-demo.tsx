@@ -76,7 +76,7 @@ export function OnboardingCarousel() {
                     alt=""
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/80" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80" />
                 </div>
 
                 {/* Content */}
@@ -114,7 +114,7 @@ export function OnboardingCarousel() {
                     className="w-full max-w-xs sm:max-w-md mt-6 mb-10 md:mt-10 space-y-4"
                   >
                     <Button
-                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-white text-primary hover:bg-white/90"
+                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-white text-black hover:bg-white/90"
                       onClick={handleCTA}
                     >
                       {feature.cta} <MoveRight className="w-5 h-5 ml-2" />

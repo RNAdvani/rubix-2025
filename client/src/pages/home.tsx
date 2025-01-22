@@ -71,13 +71,13 @@ const suggestedUsers = [
 export default function Page() {
   return (
     <div className="min-h-screen bg-background">
-       <Card className="p-6 m-6 bg-gradient-to-br from-primary to-pink-500 text-white">
+       <Card className="p-6 m-6 bg-primary text-secondary">
           <div className="flex justify-between items-start mb-4">
-            <Clock className="h-8 w-8" />
-            <Sparkles className="h-6 w-6" />
+            <Clock className="h-8 w-8 " />
+            <Sparkles className="h-6 w-6 " />
           </div>
-          <h3 className="text-xl font-semibold mb-2">Create a Time Capsule</h3>
-          <p className="text-white/90 mb-4">
+          <h3 className="text-xl font-semibold mb-2 text-secondary">Create a Time Capsule</h3>
+          <p className="text-secondary mb-4">
             Preserve today's moments for tomorrow. AI-powered suggestions help you create meaningful time capsules.
           </p>
           <Button variant="secondary" className="w-full">
@@ -127,13 +127,13 @@ export default function Page() {
       </div>
 
       {/* Suggested Users Section */}
-<div className="py-6 px-4">
+<div className="py-6 px-4" >
   <h3 className="text-2xl font-semibold mb-6">Suggested Connections</h3>
-  <div className="flex overflow-x-auto gap-4 w-full max-w-5xl mx-auto">
+  <div className="flex overflow-x-auto gap-4 w-full max-w-5xl mx-auto ">
     {Array.from({ length: suggestedUsers.length }).map((_, userIndex) => (
       <div key={userIndex} className="flex-shrink-0 w-64">
         {/* Card 1 */}
-        <div className="p-4 bg-white shadow rounded-md mb-4">
+        <div className="p-4 bg-primary/10 shadow rounded-md mb-4">
           <div className="flex flex-col items-center text-center">
             <Avatar className="w-16 h-16 mb-2">
               <AvatarImage src={suggestedUsers[userIndex].avatar} />
@@ -143,7 +143,7 @@ export default function Page() {
             <p className="text-sm text-muted-foreground mb-2">
               {suggestedUsers[userIndex].username}
             </p>
-            <Button className="w-full" variant="outline">
+            <Button className="w-full" variant="default">
               Connect
             </Button>
           </div>
