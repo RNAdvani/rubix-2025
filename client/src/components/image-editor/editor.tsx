@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { MediaFile } from "@/lib/types";
+import CreateCapsule from "@/pages/sendCapsule";
 import {
   Check,
   ChevronLeft,
@@ -241,6 +242,10 @@ const PhotoEditor = () => {
     updateSetting("crop", null);
   };
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleNext = () => {
+    setIsDialogOpen(true);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted p-6">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -539,11 +544,15 @@ const PhotoEditor = () => {
 
         {/* Next button */}
         <div className="flex justify-end">
-          <Button size="lg" className="px-8">
+          <Button size="lg" className="px-8" onClick={handleNext}>
             Next
           </Button>
         </div>
       </div>
+      <CreateCapsule
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
     </div>
   );
 };

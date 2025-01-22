@@ -1,18 +1,18 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { OnboardingCarousel } from "./components/carousel-demo";
-import Suggestions from "./pages/suggestions";
-import Unlocking from "./pages/unlocking";
-import { SignUpForm } from "./components/sign-up-form";
-import Dashboard from "./pages/dashboard";
-import UserProfile from "./components/user-profile";
-import SearchScreen from "./pages/search";
-import NotificationsScreen from "./pages/notifications";
 import FriendFinder from "./components/friend-finder";
-import Home from "./pages/home";
 import PhotoEditor from "./components/image-editor/editor";
+import { SignUpForm } from "./components/sign-up-form";
+import UserProfile from "./components/user-profile";
 import InvitationPage from "./pages/acceptInvitation";
 import CapsulePage from "./pages/createcapsule";
 import GroupPage from "./pages/creategroup";
+import Dashboard from "./pages/dashboard";
+import Home from "./pages/home";
+import NotificationsScreen from "./pages/notifications";
+import SearchScreen from "./pages/search";
+import Suggestions from "./pages/suggestions";
+import Unlocking from "./pages/unlocking";
 // import { SignUpForm } from "./components/sign-up-form";
 
 export default function App() {
