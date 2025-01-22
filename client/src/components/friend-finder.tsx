@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, UserPlus, SkipForward } from "lucide-react";
+import { Search, SkipForward } from "lucide-react";
 import FriendList from "./friend-list";
 import type { Friend } from "../../types/friend";
 
