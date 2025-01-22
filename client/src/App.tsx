@@ -13,7 +13,6 @@ import NotificationsScreen from "./pages/notifications";
 import SearchScreen from "./pages/search";
 import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
-// import { SignUpForm } from "./components/sign-up-form";
 
 export default function App() {
   return (
@@ -31,11 +30,12 @@ export default function App() {
           <Route path="search" element={<SearchScreen />} />
           <Route path="notifications" element={<NotificationsScreen />} />
           <Route path="profile" element={<UserProfile />} />
-          <Route path="peeps" element={<FriendFinder />} />
+          <Route path="friends" element={<FriendFinder />} />
           <Route path="creategroup" element={<GroupPage />} />
           <Route path="createcapsule" element={<CapsulePage />} />
+
         </Route>
-        <Route path="peeps" element={<FriendFinder />} />
+        <Route path="friends" element={<FriendFinder />} />
       </Routes>
     </>
   );

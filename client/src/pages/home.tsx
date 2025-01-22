@@ -1,4 +1,5 @@
 import TimeCapsuleDialog from "@/components/modals/CreateCapsuleDialog";
+import { TimelineDemo } from "@/components/timeline";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -217,6 +218,8 @@ export default function Page() {
           </Button>
         </Card>
       </div>
+
+      <TimelineDemo />
     </div>
   );
 }
