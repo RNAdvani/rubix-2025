@@ -1,8 +1,9 @@
-import { Card, CardDescription, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import { Clock, Plus, Sparkles, Users } from "lucide-react"
+import TimeCapsuleDialog from "@/components/modals/CreateCapsuleDialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Clock, Plus, Sparkles, Users } from "lucide-react";
+import { useState } from "react";
 
 // Mock data
 const items = [
@@ -47,7 +48,7 @@ const items = [
       { name: "Jamie", avatar: "/placeholder.svg" },
     ],
   },
-]
+];
 
 const suggestedUsers = [
   {
@@ -66,15 +67,22 @@ const suggestedUsers = [
     avatar: "/placeholder.svg",
   },
   // Add more users
-]
+];
 
 export default function Page() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
   return (
     <div className="min-h-screen bg-background">
       {/* Scrollable Cards Section */}
       <div className="flex overflow-x-auto gap-6 p-6 pb-8 snap-x snap-mandatory">
         {items.map((item) => (
-          <Card key={item.id} className="relative overflow-hidden h-64 min-w-[320px] snap-center">
+          <Card
+            key={item.id}
+            className="relative overflow-hidden h-64 min-w-[320px] snap-center"
+          >
             <img
               src={item.image || "/placeholder.svg"}
               alt={item.title}
@@ -84,11 +92,16 @@ export default function Page() {
             <div className="relative z-10 p-6 flex flex-col h-full justify-between">
               <div>
                 <CardTitle className="text-white mb-2">{item.title}</CardTitle>
-                <CardDescription className="text-white/80">{item.description}</CardDescription>
+                <CardDescription className="text-white/80">
+                  {item.description}
+                </CardDescription>
               </div>
               <div className="flex -space-x-2 overflow-hidden">
                 {item.sharedBy.map((user, index) => (
-                  <Avatar key={index} className="inline-block border-2 border-background">
+                  <Avatar
+                    key={index}
+                    className="inline-block border-2 border-background"
+                  >
                     <AvatarImage src={user.avatar} alt={user.name} />
                     <AvatarFallback>{user.name[0]}</AvatarFallback>
                   </Avatar>
@@ -104,41 +117,47 @@ export default function Page() {
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative z-10 h-full flex items-center justify-center text-center px-6">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-4">Create Lasting Memories Together</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Create Lasting Memories Together
+            </h2>
             <p className="text-white/90 max-w-2xl">
-              Join groups, share moments, and build connections that last a lifetime
+              Join groups, share moments, and build connections that last a
+              lifetime
             </p>
           </div>
         </div>
       </div>
 
       {/* Suggested Users Section */}
-<div className="py-6 px-4">
-  <h3 className="text-2xl font-semibold mb-6">Suggested Connections</h3>
-  <div className="flex overflow-x-auto gap-4 w-full max-w-5xl mx-auto">
-    {Array.from({ length: suggestedUsers.length }).map((_, userIndex) => (
-      <div key={userIndex} className="flex-shrink-0 w-64">
-        {/* Card 1 */}
-        <div className="p-4 bg-white shadow rounded-md mb-4">
-          <div className="flex flex-col items-center text-center">
-            <Avatar className="w-16 h-16 mb-2">
-              <AvatarImage src={suggestedUsers[userIndex].avatar} />
-              <AvatarFallback>{suggestedUsers[userIndex].name[0]}</AvatarFallback>
-            </Avatar>
-            <h4 className="font-medium">{suggestedUsers[userIndex].name}</h4>
-            <p className="text-sm text-muted-foreground mb-2">
-              {suggestedUsers[userIndex].username}
-            </p>
-            <Button className="w-full" variant="outline">
-              Connect
-            </Button>
-          </div>
+      <div className="py-6 px-4">
+        <h3 className="text-2xl font-semibold mb-6">Suggested Connections</h3>
+        <div className="flex overflow-x-auto gap-4 w-full max-w-5xl mx-auto">
+          {Array.from({ length: suggestedUsers.length }).map((_, userIndex) => (
+            <div key={userIndex} className="flex-shrink-0 w-64">
+              {/* Card 1 */}
+              <div className="p-4 bg-white shadow rounded-md mb-4">
+                <div className="flex flex-col items-center text-center">
+                  <Avatar className="w-16 h-16 mb-2">
+                    <AvatarImage src={suggestedUsers[userIndex].avatar} />
+                    <AvatarFallback>
+                      {suggestedUsers[userIndex].name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <h4 className="font-medium">
+                    {suggestedUsers[userIndex].name}
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {suggestedUsers[userIndex].username}
+                  </p>
+                  <Button className="w-full" variant="outline">
+                    Connect
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
-
 
       {/* Create Group & Time Capsule CTAs */}
       <div className="grid md:grid-cols-2 gap-6 p-6">
@@ -157,7 +176,9 @@ export default function Page() {
             </Button>
           </div>
           <h3 className="text-xl font-semibold mb-2">Create a New Group</h3>
-          <p className="text-muted-foreground mb-4">Start a community and invite friends to share memories together</p>
+          <p className="text-muted-foreground mb-4">
+            Start a community and invite friends to share memories together
+          </p>
           <Button className="w-full">
             <Users className="mr-2 h-4 w-4" />
             Create Group
@@ -171,14 +192,15 @@ export default function Page() {
           </div>
           <h3 className="text-xl font-semibold mb-2">Create a Time Capsule</h3>
           <p className="text-white/90 mb-4">
-            Preserve today's moments for tomorrow. AI-powered suggestions help you create meaningful time capsules.
+            Preserve today's moments for tomorrow. AI-powered suggestions help
+            you create meaningful time capsules.
           </p>
-          <Button variant="secondary" className="w-full">
+          <Button variant="secondary" className="w-full" onClick={openDialog}>
             Start Time Capsule
           </Button>
+          <TimeCapsuleDialog isOpen={isDialogOpen} onClose={closeDialog} />
         </Card>
       </div>
     </div>
-  )
+  );
 }
-

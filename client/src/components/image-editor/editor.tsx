@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { MediaFile } from "@/lib/types";
-import CreateCapsule from "@/pages/sendCapsule";
+import CreateCapsule from "@/components/sendCapsule";
 import {
   Check,
   ChevronLeft,
