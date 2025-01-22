@@ -1,6 +1,95 @@
-<p>Hello <%= name %>,</p>
-<p>
-  Just a friendly reminder: Only <strong><%= days %> days</strong> are remaining
-  for <%= event %>.
-</p>
-<p>Don't miss it!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333333;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .email-header {
+        background: #4caf50;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+      }
+      .email-header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .email-content {
+        padding: 20px;
+      }
+      .email-content p {
+        font-size: 16px;
+        margin: 0 0 15px;
+      }
+      .email-content strong {
+        color: #4caf50;
+      }
+      .email-footer {
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+        color: #666666;
+        background: #f1f1f1;
+      }
+      .cta-button {
+        display: inline-block;
+        background: #4caf50;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .cta-button:hover {
+        background: #45a045;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1>Only <%= days %> Days Left!</h1>
+      </div>
+
+      <!-- Content -->
+      <div class="email-content">
+        <p>Dear <%= name %>,</p>
+        <p>
+          The wait is almost over! Only <strong><%= days %> days</strong> remain 
+          until <strong><%= event %></strong> is unlocked.
+        </p>
+        <p>
+          Get ready to relive your memories, share the excitement, and experience 
+          a moment like no other. Your digital time capsule is waiting to reveal 
+          the treasures you've preserved.
+        </p>
+        <a href="<%= action_url %>" class="cta-button">View Your Countdown</a>
+      </div>
+
+      <!-- Footer -->
+      <div class="email-footer">
+        <p>
+          Thank you for trusting us to preserve your cherished memories. If you 
+          have any questions, don't hesitate to contact us.
+        </p>
+        <p><strong>yaadein</strong></p>
+      </div>
+    </div>
+  </body>
+</html>
