@@ -1,16 +1,20 @@
-import { OnboardingCarousel } from './components/carousel-demo'
-import FriendFinder from './components/friend-finder'
-import { SignUpForm } from './components/sign-up-form'
-import UserProfile from './components/user-profile'
+import { Routes, Route } from "react-router-dom";
+import { OnboardingCarousel } from "./components/carousel-demo";
+import Suggestions from "./pages/suggestions";
+import Unlocking from "./pages/unlocking";
+// import { SignUpForm } from "./components/sign-up-form";
 
 function App() {
-
-  return (
-    // <FriendFinder/>
-    // <OnboardingCarousel/>
-    // <SignUpForm/>
-    <UserProfile/>
-  )
+   return (
+      <>
+         {/* <SignUpForm /> */}
+         <Routes>
+            <Route path="/" element={<OnboardingCarousel />} />
+            <Route path="/suggestions" element={<Suggestions />} />
+            <Route path="/unlocking" element={<Unlocking />} />
+         </Routes>
+      </>
+   );
 }
 
-export default App
+export default App;
