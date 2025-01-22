@@ -4,6 +4,7 @@ import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
 import PhotoEditor from "./components/image-editor/editor";
 import InvitationPage from "./pages/acceptInvitation";
+import CreateCapsule from "./pages/sendCapsule";
 // import { SignUpForm } from "./components/sign-up-form";
 
 function App() {
