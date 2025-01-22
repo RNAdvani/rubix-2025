@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Search, SkipForward } from "lucide-react";
 import FriendList from "./friend-list";
 import type { Friend } from "../../types/friend";
+import { useNavigate } from "react-router-dom";
 
 export default function FriendFinder() {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -11,7 +12,7 @@ export default function FriendFinder() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [invitedFriends, setInvitedFriends] = useState<number[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Simulating API call to fetch friends
     setTimeout(() => {
@@ -38,6 +39,7 @@ export default function FriendFinder() {
 
   const handleContinue = () => {
     console.log("Invited friend IDs:", invitedFriends);
+    navigate('/dashboard')
   };
 
   const handleSkip = () => {
@@ -47,14 +49,14 @@ export default function FriendFinder() {
   return (
     <div
       className="min-h-screen bg-cover bg-center relative"
-      style={{ backgroundImage: "url('/background-image.jpg')" }}
+      style={{ backgroundImage: "url('/peeps.jpg')" }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/20"></div>
       <div className="relative z-10 container mx-auto px-4 py-8 flex flex-col h-screen">
         <h1 className="text-4xl md:text-5xl text-white mb-8 animate-fade-in text-center">
-          <span className="font-sans">Find your</span>
+          <span className="font-sans font-bold text-4xl">Find your</span>
           <br />
-          <span className="font-serif">&apos;peeps&apos;</span>
+          <span className="font-serif text-8xl">peeps</span>
         </h1>
         <div className="relative mb-6">
           <Input

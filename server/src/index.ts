@@ -5,7 +5,7 @@ import emailRoutes from "./routes/email.route";
 
 const app = express();
 
-connectDb();
+// connectDb();
 app.use(express.json());
 app.use(morgan("dev"));
 

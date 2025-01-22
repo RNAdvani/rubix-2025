@@ -2,16 +2,31 @@ import { Routes, Route } from "react-router-dom";
 import { OnboardingCarousel } from "./components/carousel-demo";
 import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
-// import { SignUpForm } from "./components/sign-up-form";
-
+import { SignUpForm } from "./components/sign-up-form";
+import Dashboard from "./pages/dashboard";
+import UserProfile from "./components/user-profile";
+import SearchScreen from "./pages/search";
+import NotificationsScreen from "./pages/notifications";
+import FriendFinder from "./components/friend-finder";
+import Home from "./pages/home";
 function App() {
    return (
       <>
-         {/* <SignUpForm /> */}
          <Routes>
             <Route path="/" element={<OnboardingCarousel />} />
             <Route path="/suggestions" element={<Suggestions />} />
             <Route path="/unlocking" element={<Unlocking />} />
+            <Route path="/auth/register" element={<SignUpForm />} />
+            <Route path="/auth/login" element={<SignUpForm />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+               <Route index element={<Home/>} />
+               <Route path="search" element={<SearchScreen />} />
+               <Route path="notifications" element={<NotificationsScreen />} />
+               <Route path="profile" element={<UserProfile />} />
+               <Route path="peeps" element={<FriendFinder />} />
+
+            </Route>
+               <Route path="peeps" element={<FriendFinder />} />
          </Routes>
       </>
    );
