@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 export default {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+		fontFamily: {
+			sans: ['Inter', ...defaultTheme.fontFamily.sans], // Inter as sans-serif
+			serif: ['Niconne', ...defaultTheme.fontFamily.serif], // Niconne as serif
+			},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
