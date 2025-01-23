@@ -11,8 +11,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import debounce from "lodash/debounce";
 import { api } from "@/lib/api";
-import { Loader2, PlusIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Loader2, PlusIcon, UserPlus } from "lucide-react";
 
 interface User {
   _id: string;
@@ -23,13 +22,11 @@ interface User {
 export function SearchUsers({
   onUserSelect,
   title,
-  existingUsers = [],
-  className,
+  existingUsers = []
 }: {
   title: string;
   onUserSelect: (userId: string) => void;
   existingUsers?: string[];
-  className?: string;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -81,9 +78,9 @@ export function SearchUsers({
   };
   return (
     <Dialog>
-      <DialogTrigger asChild className="rounded-lg">
-        <Button variant="outline" className="w-full text-secondary">
-          {title}
+      <DialogTrigger asChild>
+        <Button variant="default" className="w-full">
+          <UserPlus className="w-6 h-6 " />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md w-full p-4 rounded-xl">
