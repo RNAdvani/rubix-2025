@@ -11,7 +11,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Lock, Key, Brain } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { api } from "@/lib/api";
 
@@ -25,6 +25,8 @@ const Unlocking = () => {
   const correctPassword = "mysecret123";
   const securityQuestion = "What was your first pet's name?";
   const correctAnswer = "fluffy";
+
+  const navigate = useNavigate()
 
   const fetchCapsuleData = async () => {
     try {
@@ -45,6 +47,7 @@ const Unlocking = () => {
 
   const handlePasswordUnlock = () => {
     if (password === correctPassword) {
+      navigate(`/story/${id}`)
       setUnlocked(true);
       toast.success("Time Capsule Unlocked! 🎉");
     } else {
