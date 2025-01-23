@@ -19,9 +19,9 @@ export default function NotificationPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Recently Unlocked</h2>
           {recentlyUnlocked.map((item) => (
-            <Card key={item.id} className="mb-4">
+            <Card key={item.id} className="mb-2">
               <CardHeader>
-                <CardTitle>{item.title}</CardTitle>
+                <CardTitle className="text-2xl">{item.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p>Unlocked on: {item.date}</p>
@@ -33,10 +33,10 @@ export default function NotificationPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Countdown to Unlock</h2>
           {upcomingUnlocks.map((item) => (
-            <Card key={item.id} className="mb-4">
-              <CardHeader>
-                <CardTitle>{item.title}</CardTitle>
-              </CardHeader>
+            <Card key={item.id} className="mb-2">
+            <CardHeader>
+              <CardTitle className="text-2xl">{item.title}</CardTitle>
+            </CardHeader>
               <CardContent>
                 <p>{item.daysLeft} days left to unlock</p>
               </CardContent>
