@@ -1,4 +1,3 @@
-import React from "react";
 import {
    Dialog,
    DialogContent,
@@ -11,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useCapsule } from "../hooks/use-capsule";
+import { useUser } from "../hooks/use-user";
 
 type TimeCapsuleDialogProps = {
    isOpen: boolean;
@@ -22,7 +24,31 @@ export default function TimeCapsuleDialog({
    onClose,
 }: TimeCapsuleDialogProps) {
    const navigate = useNavigate();
-   const handleCreateCapsule = () => {
+   const [title, setTitle] = useState("");
+   const [description, setDescription] = useState("");
+
+   const isValid = title && description;
+
+   const { setCapsule } = useCapsule();
+   const { user } = useUser();
+
+   const handleCreateCapsule = async () => {
+      if (user) {
+         setCapsule({
+            _id: "",
+            title,
+            description,
+            creator: user,
+            media: [],
+            recipients: [],
+            accessCode: "",
+            contributors: [],
+         });
+         navigate("/dashboard/suggestions");
+      } else {
+         console.error("User is not logged in");
+      }
+
       navigate("/dashboard/suggestions");
    };
    return (
@@ -42,6 +68,7 @@ export default function TimeCapsuleDialog({
                         id="title"
                         placeholder="Enter time capsule title"
                         className="w-full"
+                        onChange={(e) => setTitle(e.target.value)}
                      />
                   </div>
                   <div className="space-y-2">
@@ -50,6 +77,7 @@ export default function TimeCapsuleDialog({
                         id="description"
                         placeholder="Describe your time capsule..."
                         className="min-h-[100px] w-full"
+                        onChange={(e) => setDescription(e.target.value)}
                      />
                   </div>
                </div>
@@ -126,7 +154,11 @@ export default function TimeCapsuleDialog({
                </div>
 
             </ScrollArea>
-            <Button className="w-full" onClick={handleCreateCapsule}>
+            <Button
+               className="w-full"
+               onClick={handleCreateCapsule}
+               disabled={!isValid}
+            >
                Create Capsule
             </Button>
          </DialogContent>

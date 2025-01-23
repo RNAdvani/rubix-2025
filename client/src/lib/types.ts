@@ -21,3 +21,36 @@ export interface User {
    dob: Date;
    updatedAt: Date;
 }
+
+export interface Media {
+   url: string;
+   metadata: {
+      type: string;
+      timestamp?: number;
+      tags?: string[];
+      description?: string;
+      inPictures?: User[];
+      location?: {
+         type: string;
+         coordinates: [number, number];
+      };
+   };
+   AIGeneratedSummary?: string;
+}
+
+export interface Capsule {
+   _id?: string;
+   title?: string;
+   description?: string;
+   unlockDate?: Date;
+   creator?: User;
+   media?: File[];
+   recipients?: User[]; // self id always
+   accessCode?: string; //If permanent is false then only code and password should be emailed to receiptents
+   isCollaborative?: boolean;
+   contributors?: User[];
+   isInstagramUpload?: boolean; //10 images or videos
+   isPermanentLock?: boolean;
+   isCollaboratorLock?: boolean; // Creator wants to lock(in)
+   isRequiredUpdates?: boolean;
+}
