@@ -1,91 +1,86 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { useUser } from "./hooks/use-user";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Cookies from "js-cookie";
+import { useUser } from "./hooks/use-user";
+import { SettingsIcon } from "lucide-react";
 
-export function Logout() {
-
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="w-full text-red-600">Log out</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-        You can always log out of your account later
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => {
-        Cookies.remove("token");
-        window.location.reload();
-          }}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
+interface SettingsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function Settings() {
-   const [notifications, setNotifications] = useState(true);
-   const [darkMode, setDarkMode] = useState(false);
+export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
+  const [notifications, setNotifications] = useState(true);
 
-   const { user } = useUser();
+  const { user } = useUser();
 
-   return (
-    <div className="space-y-6">
-    <div className="space-y-2">
-      <Label htmlFor="username">Username</Label>
-      <Input
-        id="username"
-        defaultValue={`@${user?.username}` || "@username"}
-      />
-    </div>
-  
-    <div className="space-y-2">
-      <Label htmlFor="email">Email</Label>
-      <Input id="email" type="email" defaultValue={user?.email || "user@example.com"} />
-    </div>
-  
-    <div className="flex items-center justify-between">
-      <Label htmlFor="notifications">Enable Notifications</Label>
-      <Switch
-        id="notifications"
-        checked={notifications}
-        onCheckedChange={setNotifications}
-      />
-    </div>
-  
-    <div className="flex items-center justify-between">
-      <Label htmlFor="darkMode">Dark Mode</Label>
-      <Switch
-        id="darkMode"
-        checked={darkMode}
-        onCheckedChange={setDarkMode}
-      />
-    </div>
-  
-    <Button className="w-full">Save Changes</Button>
-    
-    <Logout />
-  </div>
-  
-   );
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Settings</DialogTitle>
+          <DialogDescription>
+            Manage your account settings below.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              defaultValue={`@${user?.username}` || "@username"}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              defaultValue={user?.email || "user@example.com"}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Label htmlFor="notifications">Enable Notifications</Label>
+            <Switch
+              id="notifications"
+              checked={notifications}
+              onCheckedChange={setNotifications}
+            />
+          </div>
+        </div>
+
+        {/* Footer */}
+        <DialogFooter>
+          <Button className="w-full">Save Changes</Button>
+        </DialogFooter>
+
+        {/* Logout Button */}
+        <Button
+        variant="secondary"
+        className="w-full text-red-600"
+        onClick={() => {
+          Cookies.remove("token");
+          window.location.reload();
+        }}
+      >
+        Log out
+      </Button>
+            </DialogContent>
+    </Dialog>
+  );
 }
