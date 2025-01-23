@@ -40,7 +40,6 @@ export interface IMedia extends Document {
   };
   AIGeneratedSummary: string;
 }
-
 export interface ITimeCapsule extends Document {
   _id: mongoose.Types.ObjectId;
   title: string;
@@ -48,27 +47,27 @@ export interface ITimeCapsule extends Document {
   unlockDate: Date;
   creator: IUser;
   media: string[];
-  recipients: IUser[]; // self id always
-  accessCode: string; //If permanent is false then only code and password should be emailed to receiptents
+  recipients: IUser[]; // Registered users
+  anonymousRecipients: { email: string; accessCode: string }[]; // Anonymous emails with access codes
+  usedAccessCodes?: string[]; // Optional: Track used access codes
+  accessCode: string; // If applicable
   isCollaborative: boolean;
   contributors: IUser[];
-  isInstagramUpload: boolean; //10 images or videos
+  isInstagramUpload: boolean;
   isPermanentLock: boolean;
-  isCollaboratorLock: boolean; // Creator wants to lock(in)
+  isCollaboratorLock: boolean;
   isRequiredUpdates: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
-
 export interface IInvitation extends Document {
-  _id: mongoose.Types.ObjectId;
-  sender: IUser;
-  recipient: IUser;
-  timeCapsule: ITimeCapsule;
-  updatedAt: Date;
-  createdAt: Date;
-  status: "pending" | "accepted";
+  sender: IUser["_id"];
+  recipient: IUser["_id"];
+  timeCapsule: ITimeCapsule["_id"];
+  status: "pending" | "accepted" | "declined";
   invitationLink: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IVerification extends Document {

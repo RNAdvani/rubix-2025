@@ -119,3 +119,67 @@ export const sendVerification = async (
     console.error("Error sending email:", error);
   }
 };
+
+export const sendCapsuleEmail = async ({
+  email,
+  creatorName,
+  creatorEmail,
+  title,
+  description,
+  unlockDate,
+  accessLink,
+  accessCode,
+  isPermanentLock,
+  message,
+}: {
+  email: string;
+  creatorName: string;
+  creatorEmail: string;
+  title: string;
+  description: string;
+  unlockDate: Date;
+  accessLink?: string;
+  accessCode?: string;
+  isPermanentLock?: boolean;
+  message: string;
+}) => {
+  const emailContent = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+      <p>Hello,</p>
+      <p>${creatorName} (${creatorEmail}) has shared a Time Capsule with you.</p>
+      <h3>${title}</h3>
+      <p>${description}</p>
+      <p><strong>Unlock Date:</strong> ${new Date(
+        unlockDate
+      ).toLocaleString()}</p>
+      <p>${message}</p>
+      ${
+        isPermanentLock
+          ? `<p>The Time Capsule is <strong>permanently locked</strong>. No further access codes are required.</p>`
+          : `
+            ${
+              accessLink
+                ? `<p><strong>Access Link:</strong> <a href="${accessLink}" target="_blank">${accessLink}</a></p>`
+                : ""
+            }
+            ${
+              accessCode
+                ? `<p><strong>Access Code:</strong> ${accessCode}</p>`
+                : ""
+            }
+          `
+      }
+      <p>If you have any questions, please reach out to ${creatorName} at ${creatorEmail}.</p>
+      <p>Thank you!</p>
+    </div>
+  `;
+
+  const mailOptions = {
+    from: `"Time Capsule" <"ngenx2831@gmail.com">`,
+    to: email,
+    subject: `You’ve been invited to the Time Capsule: ${title}`,
+    html: emailContent,
+  };
+
+  await transporter.sendMail(mailOptions);
+};

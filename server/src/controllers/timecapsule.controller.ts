@@ -3,6 +3,8 @@ import { TryCatch } from "../lib/TryCatch";
 import { Media } from "../models/media.model";
 import { TimeCapsule } from "../models/timecapsule.model";
 import { uploadOnCloudinary } from "../services/cloudinary";
+import { sendCapsuleEmail } from "../services/email";
+import { generateAccessCode } from "../utils";
 
 export const createCapsule = TryCatch(async (req, res, next) => {
   const { title, description, contributors } = req.body;
@@ -65,34 +67,40 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 
 export const getCreatedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
-    creator: req.user._id,
-  }).populate("media");
+    contributors: req.user._id,
+  })
+    .populate("media recipients contributors")
+    .select("+_id media recipients contributors");
 
   return res.status(200).json({ success: true, data: capsules });
 });
 
 export const getReceivedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
-    recipients: req.user._id,
-  });
+    recipients: req.user._id, // Include capsules where the user is a recipient
+  })
+    .populate("media recipients contributors") // Populate all relevant fields
+    .select("+_id media recipients contributors");
 
   return res.status(200).json({ success: true, data: capsules });
 });
 
 export const getCapsule = TryCatch(async (req, res, next) => {
-  const capsule = await TimeCapsule.findById(req.params.id);
+  const capsule = await TimeCapsule.findById(req.params.id).populate(
+    "media recipients contributors"
+  );
 
   if (!capsule)
     return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
 
-  if (!capsule.recipients.includes(req.user._id)) {
+  if (!capsule.recipients[0].equals(req.user._id)) {
     return next(
       new ErrorHandler(403, "You are not allowed to view this capsule")
     );
   }
 
-  if (Date.now() < capsule.unlockDate.getTime() || capsule.isPermanentLock) {
-    return next(new ErrorHandler(403, "This capsule is locked"));
+  if (Date.now() < capsule.unlockDate || capsule.isPermanentLock) {
+    return res.status(200).json({ redirect: true });
   }
 
   return res.status(200).json({ success: true, data: capsule });
@@ -162,7 +170,8 @@ export const addContributors = TryCatch(async (req, res, next) => {
 });
 
 export const addMedia = TryCatch(async (req, res, next) => {
-  const { capsuleId, media } = req.body;
+  const { capsuleId } = req.body;
+  const media = req.files as Express.Multer.File[];
 
   if (!media || media.length === 0)
     return next(new ErrorHandler(400, "Please provide media"));
@@ -177,29 +186,30 @@ export const addMedia = TryCatch(async (req, res, next) => {
       new ErrorHandler(403, "You are not allowed to perform this action")
     );
 
-  const promises = media.map(async (m: Express.Multer.File) => {
-    return uploadOnCloudinary(m.path, "image");
+  const mediaUrls = await Promise.all(
+    media.map(async (file) => {
+      return uploadOnCloudinary(file.path, "image");
+    })
+  );
+
+  const mediaPromises = mediaUrls.map(async (m) => {
+    return Media.create({
+      url: m?.secure_url,
+      metadata: {
+        type: "",
+        timestamp: Date.now(),
+        tags: [],
+        description: "",
+        inPictures: [],
+        location: { type: "", coordinates: [0, 0] },
+      },
+      AIGeneratedSummary: "",
+    });
   });
 
-  const mediaUrls = await Promise.all(promises);
+  const mediaDocs = await Promise.all(mediaPromises);
 
-  capsule.media = [
-    ...capsule.media,
-    ...mediaUrls.map((m) => {
-      return {
-        url: m.secure_url,
-        metadata: {
-          type: "",
-          timestamp: "",
-          tags: [],
-          description: "",
-          inPictures: [],
-          location: { type: "", coordinates: [0, 0] },
-        },
-        AIGeneratedSummary: "",
-      };
-    }),
-  ];
+  capsule.media.push(...mediaDocs.map((m) => m._id));
 
   await capsule.save();
 
@@ -228,4 +238,83 @@ export const updateCapsule = TryCatch(async (req, res, next) => {
   await capsule.save();
 
   return res.status(200).json({ success: true, data: capsule });
+});
+
+export const lockCapsule = TryCatch(async (req, res, next) => {
+  const { capsuleId, isPermanentLock = false, unlockDate } = req.body;
+
+  const capsule = await TimeCapsule.findById(capsuleId).populate("recipients");
+
+  if (!capsule) {
+    return next(new ErrorHandler(404, "Capsule not found"));
+  }
+
+  if (!capsule.creator.equals(req.user._id)) {
+    return next(
+      new ErrorHandler(403, "You are not authorized to lock this capsule")
+    );
+  }
+
+  capsule.unlockDate = unlockDate;
+
+  if (isPermanentLock) {
+    capsule.isPermanentLock = true;
+    capsule.accessCode = undefined; // Clear access code for permanent lock
+
+    // Notify all recipients about the permanent lock
+    const notifyRecipient = async (email: string) => {
+      await sendCapsuleEmail({
+        email,
+        creatorName: req.user.name,
+        creatorEmail: req.user.email,
+        title: capsule.title,
+        description: capsule.description,
+        unlockDate: capsule.unlockDate,
+        message: "The capsule has been permanently locked.",
+      });
+    };
+
+    for (const recipient of capsule.recipients) {
+      await notifyRecipient(recipient.email);
+    }
+
+    for (const anon of capsule.anonymousRecipients) {
+      await notifyRecipient(anon.email);
+    }
+  } else {
+    const accessCode = generateAccessCode();
+    capsule.accessCode = accessCode;
+
+    // Notify all recipients with the access code
+    const notifyRecipient = async (email: string, code: string) => {
+      await sendCapsuleEmail({
+        email,
+        creatorName: req.user.name,
+        creatorEmail: req.user.email,
+        title: capsule.title,
+        description: capsule.description,
+        unlockDate: capsule.unlockDate,
+        accessLink: `${process.env.APP_URL}/capsule/${capsule._id}`,
+        accessCode: code,
+        message: "You can access the capsule using the link and code provided.",
+      });
+    };
+
+    for (const recipient of capsule.recipients) {
+      await notifyRecipient(recipient.email, accessCode);
+    }
+
+    for (const anon of capsule.anonymousRecipients) {
+      await notifyRecipient(anon.email, accessCode);
+    }
+  }
+
+  await capsule.save();
+
+  return res.status(200).json({
+    success: true,
+    message: isPermanentLock
+      ? "Capsule permanently locked and notifications sent."
+      : "Capsule locked with an access code and notifications sent.",
+  });
 });
