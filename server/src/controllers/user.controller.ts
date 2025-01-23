@@ -207,9 +207,9 @@ export const updateUserNumber = TryCatch(
 
 export const updateUsername = TryCatch(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { username, email } = req.body;
+    const { username } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findById(req.user._id);
 
     if (!user) {
       return next(new ErrorHandler(404, "User not found"));
@@ -238,11 +238,20 @@ export const searchUserFromUsernameOrEmail = TryCatch(
         { username: { $regex: query, $options: "i" } },
         { email: { $regex: query, $options: "i" } },
       ],
-    }).select("-password");
+    }).select("+_id email username");
 
     return res.status(200).json({
       success: true,
-      data: users,
+      users: users,
+    });
+  }
+);
+
+export const getCurrentUser = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json({
+      success: true,
+      data: req.user,
     });
   }
 );

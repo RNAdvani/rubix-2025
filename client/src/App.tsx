@@ -17,47 +17,98 @@ import Cookies from "js-cookie";
 import { LoginForm } from "./components/login-form";
 import AudioRecorder from "./components/audio-recorder";
 import ReviewPage from "./components/review-page";
+import { useEffect } from "react";
+import { User } from "./lib/types";
+import { api } from "./lib/api";
+import { useUser } from "./components/hooks/use-user";
+import Capsule from "./pages/capsule";
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const cookie = Cookies.get("token");
-  if (cookie) {
-    return children;
-  } else {
-    return <Navigate to="/auth/login" />;
-  }
+   const cookie = Cookies.get("token");
+   if (cookie) {
+      return children;
+   } else {
+      return <Navigate to="/auth/login" />;
+   }
+};
+
+const AuthRoute = ({ children }: { children: React.ReactNode }) => {
+   const cookie = Cookies.get("token");
+   if (cookie) {
+      return <Navigate to="/dashboard" />;
+   } else {
+      return children;
+   }
 };
 
 export default function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<OnboardingCarousel />} />
-        <Route path="/auth/register" element={<SignUpForm />} />
-        <Route path="/auth/login" element={<LoginForm />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        >          <Route index element={<Home />} />
-          <Route path="accept-invitation" element={<InvitationPage />} />
-          <Route path="suggestions" element={<Suggestions />} />
-          <Route path="unlocking" element={<Unlocking />} />
-          <Route path="search" element={<SearchScreen />} />
-          <Route path="notifications" element={<NotificationsScreen />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="friends" element={<FriendFinder />} />
-          <Route path="editor" element={<PhotoEditor />} />
+   const { setUser } = useUser();
 
-          <Route path="creategroup" element={<GroupPage />} />
-          <Route path="createcapsule" element={<CapsulePage />} />
+   useEffect(() => {
+      const getUser = async () => {
+         const res = await api.get("/api/auth/current-user");
 
-        </Route>
-        <Route path="friends" element={<FriendFinder />} />
-        <Route path="test" element={<AudioRecorder/>}/>
-        <Route path="review" element={<ReviewPage/>}/>
-      </Routes>
-    </>
-  );
+         if (res.data.success) {
+            setUser(res.data.data as User);
+         }
+      };
+      getUser();
+   }, []);
+
+   return (
+      <>
+         <Routes>
+            <Route path="/" element={<OnboardingCarousel />} />
+            <Route
+               path="/auth/register"
+               element={
+                  <AuthRoute>
+                     <SignUpForm />
+                  </AuthRoute>
+               }
+            />
+            <Route
+               path="/auth/login"
+               element={
+                  <AuthRoute>
+                     <LoginForm />
+                  </AuthRoute>
+               }
+            />
+            <Route
+               path="/dashboard"
+               element={
+                  <ProtectedRoute>
+                     <Dashboard />
+                  </ProtectedRoute>
+               }
+            >
+               <Route index element={<Home />} />
+               <Route path="accept-invitation" element={<InvitationPage />} />
+               <Route path="suggestions" element={<Suggestions />} />
+               <Route path="search" element={<SearchScreen />} />
+               <Route path="notifications" element={<NotificationsScreen />} />
+               <Route path="profile" element={<UserProfile />} />
+               <Route path="friends" element={<FriendFinder />} />
+               <Route path="test" element={<AudioRecorder />} />
+               <Route path="review" element={<ReviewPage />} />
+               <Route path="editor" element={<PhotoEditor />} />
+               <Route path="creategroup" element={<GroupPage />} />
+               <Route path="createcapsule" element={<CapsulePage />} />
+            </Route>
+            <Route
+               path=""
+               element={
+                  <ProtectedRoute>
+                     <Dashboard />
+                  </ProtectedRoute>
+               }
+            >
+               <Route path="unlocking/:id" element={<Unlocking />} />
+               <Route path="capsule/:id" element={<Capsule />} />
+               <Route path="friends" element={<FriendFinder />} />
+            </Route>
+         </Routes>
+      </>
+   );
 }
