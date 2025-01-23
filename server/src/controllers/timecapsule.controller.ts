@@ -98,7 +98,7 @@ export const getCapsule = TryCatch(async (req, res, next) => {
     "media recipients contributors accessCode unlockDate"
   );
 
-  const { accessCode } = req.query;
+  const { accessCode, isTimeNeeded } = req.query;
 
   if (!capsule)
     return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
@@ -122,6 +122,10 @@ export const getCapsule = TryCatch(async (req, res, next) => {
       return next(new ErrorHandler(403, "Invalid access code"));
     }
     return res.status(200).json({ success: true, data: capsule });
+  }
+
+  if (isTimeNeeded) {
+    return res.status(200).json({ success: true, data: capsule.unlockDate });
   }
 
   if (
