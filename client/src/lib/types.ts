@@ -20,6 +20,7 @@ export interface User {
    groups: string[];
    dob: Date;
    updatedAt: Date;
+   username: string;
 }
 
 export interface Media {

@@ -15,46 +15,63 @@ import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
 import Cookies from "js-cookie";
 import { LoginForm } from "./components/login-form";
+import { useEffect } from "react";
+import { User } from "./lib/types";
+import { api } from "./lib/api";
+import { useUser } from "./components/hooks/use-user";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const cookie = Cookies.get("token");
-  if (cookie) {
-    return children;
-  } else {
-    return <Navigate to="/auth/login" />;
-  }
+   const cookie = Cookies.get("token");
+   if (cookie) {
+      return children;
+   } else {
+      return <Navigate to="/auth/login" />;
+   }
 };
 
 export default function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<OnboardingCarousel />} />
-        <Route path="/auth/register" element={<SignUpForm />} />
-        <Route path="/auth/login" element={<LoginForm />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        >          <Route index element={<Home />} />
-          <Route path="accept-invitation" element={<InvitationPage />} />
-          <Route path="suggestions" element={<Suggestions />} />
-          <Route path="unlocking" element={<Unlocking />} />
-          <Route path="search" element={<SearchScreen />} />
-          <Route path="notifications" element={<NotificationsScreen />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="friends" element={<FriendFinder />} />
-          <Route path="editor" element={<PhotoEditor />} />
+   const { setUser } = useUser();
 
-          <Route path="creategroup" element={<GroupPage />} />
-          <Route path="createcapsule" element={<CapsulePage />} />
+   useEffect(() => {
+      const getUser = async () => {
+         const res = await api.get("/api/auth/current-user");
 
-        </Route>
-        <Route path="friends" element={<FriendFinder />} />
-      </Routes>
-    </>
-  );
+         if (res.data.success) {
+            setUser(res.data.data as User);
+         }
+      };
+      getUser();
+   }, []);
+
+   return (
+      <>
+         <Routes>
+            <Route path="/" element={<OnboardingCarousel />} />
+            <Route path="/auth/register" element={<SignUpForm />} />
+            <Route path="/auth/login" element={<LoginForm />} />
+            <Route
+               path="/dashboard"
+               element={
+                  <ProtectedRoute>
+                     <Dashboard />
+                  </ProtectedRoute>
+               }
+            >
+               {" "}
+               <Route index element={<Home />} />
+               <Route path="accept-invitation" element={<InvitationPage />} />
+               <Route path="suggestions" element={<Suggestions />} />
+               <Route path="unlocking" element={<Unlocking />} />
+               <Route path="search" element={<SearchScreen />} />
+               <Route path="notifications" element={<NotificationsScreen />} />
+               <Route path="profile" element={<UserProfile />} />
+               <Route path="friends" element={<FriendFinder />} />
+               <Route path="editor" element={<PhotoEditor />} />
+               <Route path="creategroup" element={<GroupPage />} />
+               <Route path="createcapsule" element={<CapsulePage />} />
+            </Route>
+            <Route path="friends" element={<FriendFinder />} />
+         </Routes>
+      </>
+   );
 }
