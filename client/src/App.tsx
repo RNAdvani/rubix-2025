@@ -30,6 +30,15 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
    }
 };
 
+const AuthRoute = ({ children }: { children: React.ReactNode }) => {
+   const cookie = Cookies.get("token");
+   if (cookie) {
+      return <Navigate to="/dashboard" />;
+   } else {
+      return children;
+   }
+};
+
 export default function App() {
    const { setUser } = useUser();
 
@@ -48,8 +57,22 @@ export default function App() {
       <>
          <Routes>
             <Route path="/" element={<OnboardingCarousel />} />
-            <Route path="/auth/register" element={<SignUpForm />} />
-            <Route path="/auth/login" element={<LoginForm />} />
+            <Route
+               path="/auth/register"
+               element={
+                  <AuthRoute>
+                     <SignUpForm />
+                  </AuthRoute>
+               }
+            />
+            <Route
+               path="/auth/login"
+               element={
+                  <AuthRoute>
+                     <LoginForm />
+                  </AuthRoute>
+               }
+            />
             <Route
                path="/dashboard"
                element={
@@ -58,11 +81,9 @@ export default function App() {
                   </ProtectedRoute>
                }
             >
-               {" "}
                <Route index element={<Home />} />
                <Route path="accept-invitation" element={<InvitationPage />} />
                <Route path="suggestions" element={<Suggestions />} />
-               <Route path="unlocking" element={<Unlocking />} />
                <Route path="search" element={<SearchScreen />} />
                <Route path="notifications" element={<NotificationsScreen />} />
                <Route path="profile" element={<UserProfile />} />
@@ -71,8 +92,18 @@ export default function App() {
                <Route path="creategroup" element={<GroupPage />} />
                <Route path="createcapsule" element={<CapsulePage />} />
             </Route>
-            <Route path="capsule/:id" element={<Capsule />} />
-            <Route path="friends" element={<FriendFinder />} />
+            <Route
+               path=""
+               element={
+                  <ProtectedRoute>
+                     <Dashboard />
+                  </ProtectedRoute>
+               }
+            >
+               <Route path="unlocking/:id" element={<Unlocking />} />
+               <Route path="capsule/:id" element={<Capsule />} />
+               <Route path="friends" element={<FriendFinder />} />
+            </Route>
          </Routes>
       </>
    );
