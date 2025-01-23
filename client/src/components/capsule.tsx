@@ -5,8 +5,6 @@ import {
    Instagram,
    Clock,
    Calendar,
-   Plus,
-   Search,
    Menu,
    AlertTriangle,
    X,
@@ -24,45 +22,31 @@ import {
    DialogTitle,
    DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { base64ToFile, cn } from "@/lib/utils";
 import { Capsule, MediaFile } from "@/lib/types";
 import { FileUpload } from "./file-upload";
+import { SearchUsers } from "./groups/searchUser";
 
 interface CapsulePageProps {
    data: Capsule;
    onAddCollaborator: (userId: string) => void;
+   onAddRecipient: (userId: string) => void;
    onUpdateCollaboratorLock?: (canLock: boolean) => void;
    onAddMedia: (files: File[]) => void;
-   loading?: boolean;
 }
-
-interface User {
-   _id: string;
-   name: string;
-}
-
-const sampleUsers: User[] = [
-   { _id: "1", name: "Alice Johnson" },
-   { _id: "2", name: "Bob Wilson" },
-   { _id: "3", name: "Carol Martinez" },
-   { _id: "4", name: "David Thompson" },
-];
 
 export const CapsulePage = ({
    data,
    onAddCollaborator,
+   onAddRecipient,
    onUpdateCollaboratorLock,
    onAddMedia,
-   loading,
 }: CapsulePageProps) => {
    const [isCollaboratorLock, setIsCollaboratorLock] = useState(
       data.isCollaboratorLock ?? false
    );
-   const [searchQuery, setSearchQuery] = useState("");
-   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
    const [showMobileMenu, setShowMobileMenu] = useState(false);
    const [showMediaUpload, setShowMediaUpload] = useState(false);
    const [mediaItems, setMediaItems] = useState<MediaFile[]>([]);
@@ -71,29 +55,6 @@ export const CapsulePage = ({
       setIsCollaboratorLock(checked);
       onUpdateCollaboratorLock?.(checked);
    };
-
-   const toggleUser = (userId: string) => {
-      setSelectedUsers((prev) => {
-         const next = new Set(prev);
-         if (next.has(userId)) {
-            next.delete(userId);
-         } else {
-            next.add(userId);
-         }
-         return next;
-      });
-   };
-
-   const handleAddCollaborators = () => {
-      selectedUsers.forEach((userId) => {
-         onAddCollaborator(userId);
-      });
-      setSelectedUsers(new Set());
-   };
-
-   const filteredUsers = sampleUsers.filter((user) =>
-      user.name?.toLowerCase().includes(searchQuery.toLowerCase())
-   );
 
    const handleUploadMedia = async () => {
       if (onAddMedia && mediaItems.length > 0) {
@@ -145,7 +106,6 @@ export const CapsulePage = ({
                      <Menu className="h-5 w-5" />
                   </Button>
 
-                  {/* Collaboration Controls */}
                   <div
                      className={cn(
                         "flex flex-col sm:flex-row items-start sm:items-center gap-4",
@@ -165,75 +125,13 @@ export const CapsulePage = ({
                      </div>
 
                      {/* Add Collaborators */}
-                     <Dialog>
-                        <DialogTrigger asChild>
-                           <Button
-                              variant="outline"
-                              size="sm"
-                              className="gap-2 w-full sm:w-auto"
-                           >
-                              <Plus className="w-4 h-4" />
-                              <span className="whitespace-nowrap">
-                                 Add Collaborators
-                              </span>
-                           </Button>
-                        </DialogTrigger>
-                        <DialogContent className="w-[95vw] max-w-[425px] sm:w-full">
-                           <DialogHeader>
-                              <DialogTitle>Add Collaborators</DialogTitle>
-                           </DialogHeader>
-                           <div className="space-y-4 mt-4">
-                              <div className="relative">
-                                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                                 <Input
-                                    placeholder="Search users..."
-                                    value={searchQuery}
-                                    onChange={(e) =>
-                                       setSearchQuery(e.target.value)
-                                    }
-                                    className="pl-8"
-                                 />
-                              </div>
-                              <ScrollArea className="h-[40vh] sm:h-[300px] rounded-md border">
-                                 <div className="p-4 space-y-2">
-                                    {filteredUsers.map((user) => (
-                                       <div
-                                          key={user._id}
-                                          className={cn(
-                                             "flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors",
-                                             selectedUsers.has(user._id)
-                                                ? "bg-primary/10"
-                                                : "hover:bg-muted"
-                                          )}
-                                          onClick={() => toggleUser(user._id)}
-                                       >
-                                          <Avatar>
-                                             <AvatarFallback className="size-8 rounded-full bg-black">
-                                                {user.name
-                                                   .charAt(0)
-                                                   .toUpperCase()}
-                                             </AvatarFallback>
-                                          </Avatar>
-                                          <span className="flex-1 min-w-0 truncate">
-                                             {user.name}
-                                          </span>
-                                          {selectedUsers.has(user._id) && (
-                                             <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
-                                          )}
-                                       </div>
-                                    ))}
-                                 </div>
-                              </ScrollArea>
-                              <Button
-                                 className="w-full"
-                                 disabled={selectedUsers.size === 0 || loading}
-                                 onClick={handleAddCollaborators}
-                              >
-                                 Add Selected Users
-                              </Button>
-                           </div>
-                        </DialogContent>
-                     </Dialog>
+                     <SearchUsers
+                        onUserSelect={(userId) => onAddCollaborator(userId)}
+                        title="Add Collaborators"
+                        existingUsers={(data.contributors ?? []).map(
+                           (c) => c._id
+                        )}
+                     />
                   </div>
                </div>
 
@@ -407,12 +305,10 @@ export const CapsulePage = ({
                                     key={recipient._id}
                                     className="flex items-center gap-2 p-2 bg-muted rounded-lg"
                                  >
-                                    <Avatar className="h-6 w-6 shrink-0">
-                                       <span className="text-xs">
-                                          {recipient.name?.charAt(0)}
-                                       </span>
+                                    <Avatar className="h-6 w-6 shrink-0 rounded-full ml-2">
+                                       {recipient.name?.charAt(0).toUpperCase()}
                                     </Avatar>
-                                    <span className="text-xs sm:text-sm truncate">
+                                    <span className="text-base sm:text-sm truncate">
                                        {recipient.name || recipient._id}
                                     </span>
                                  </div>
@@ -422,6 +318,12 @@ export const CapsulePage = ({
                                  No recipients yet
                               </p>
                            )}
+
+                           <SearchUsers
+                              title="Add Recipients"
+                              onUserSelect={(userId) => onAddRecipient(userId)}
+                              existingUsers={data.recipients.map((r) => r._id)}
+                           />
                         </div>
                      </div>
                   )}
