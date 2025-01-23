@@ -22,7 +22,9 @@ export default function Navbar() {
         <div className="flex items-center space-x-2 shadow-none">
           {/* Notifications Icon */}
           <Button
-            variant={currentPath.endsWith("notifications") ? "secondary" : "default"} // Active state
+            variant={
+              currentPath.endsWith("notifications") ? "secondary" : "default"
+            } // Active state
             size="icon"
             onClick={() => navigate("/dashboard/notifications")}
           >
@@ -31,7 +33,7 @@ export default function Navbar() {
 
           {/* User Profile Icon */}
           <Button
-            variant={currentPath.endsWith("profile") ?  "secondary" : "default"} // Active state
+            variant={currentPath.endsWith("profile") ? "secondary" : "default"} // Active state
             size="icon"
             onClick={() => navigate("/dashboard/profile")}
           >

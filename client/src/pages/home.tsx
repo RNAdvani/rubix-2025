@@ -12,8 +12,7 @@ const items = [
     id: 1,
     title: "Summer Memories 2023",
     description: "A collection of our best moments from this summer",
-    image:
-      "peeps.jpg",
+    image: "peeps.jpg",
     sharedBy: [
       { name: "Alex", avatar: "/placeholder.svg" },
       { name: "Sam", avatar: "/placeholder.svg" },
@@ -71,24 +70,30 @@ const suggestedUsers = [
 ];
 
 export default function Page() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { user } = useUser();
-  console.log(user)
+  console.log(user);
   return (
     <div className="min-h-screen bg-background">
-      <Card className="p-6 m-6 bg-primary text-secondary">
+      <Card className="p-6 m-6 bg-primary/40 text-primary">
         <div className="flex justify-between items-start mb-4">
           <Clock className="h-8 w-8 " />
           <Sparkles className="h-6 w-6 " />
         </div>
-        <h3 className="text-xl font-semibold mb-2 text-secondary">
+        <h3 className="text-xl font-semibold mb-2 text-white">
           Create a Time Capsule
         </h3>
-        <p className="text-secondary mb-4">
+        <p className="text-gray-400 mb-4">
           Preserve today's moments for tomorrow. AI-powered suggestions help you
           create meaningful time capsules.
         </p>
-        <Button variant="secondary" className="w-full" onClick={()=>{navigate('/dashboard/createcapsule')}}>
+        <Button
+          variant="secondary"
+          className="w-full rounded-lg"
+          onClick={() => {
+            navigate("/dashboard/createcapsule");
+          }}
+        >
           Start Time Capsule
         </Button>
       </Card>
@@ -108,7 +113,9 @@ export default function Page() {
             <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 to-secondary/50" />
             <div className="relative z-10 p-6 flex flex-col h-full justify-between">
               <div>
-                <CardTitle className="text-secondary-foreground mb-2 text-3xl">{item.title}</CardTitle>
+                <CardTitle className="text-secondary-foreground mb-2 text-3xl">
+                  {item.title}
+                </CardTitle>
                 <CardDescription className="text-secondary-foreground/80">
                   {item.description}
                 </CardDescription>
