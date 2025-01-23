@@ -6,6 +6,7 @@ import axios from "axios";
 import { useUser } from "@/components/hooks/use-user";
 import { SearchUsers } from "@/components/groups/searchUser";
 import { toast } from "sonner";
+import { PlusIcon, XIcon } from "lucide-react";
 
 interface Group {
   _id: string;
@@ -97,7 +98,7 @@ export default function GroupsPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">My Groups</h1>
         <Button onClick={() => setIsCreatingGroup(!isCreatingGroup)}>
-          {isCreatingGroup ? "Cancel" : "Create Group"}
+          {isCreatingGroup ? <XIcon size={16}/> : <PlusIcon size={16} />}
         </Button>
       </div>
 
@@ -108,19 +109,23 @@ export default function GroupsPage() {
           {groups.map((group) => (
             <Card key={group._id}>
               <CardHeader>
-                <CardTitle className="flex justify-between items-center">
+                <CardTitle className="flex-1 justify-between items-center ">
+                  <p className="text-xl font-semibold truncate pb-2 ">
+
                   {group.name}
+                  </p>
+                  <hr className="py-1"/>
                   <SearchUsers
+                  title="Update Group Members"
                     onUserSelect={(user: any) => {
                       setSelectedGroup(group);
                       handleAddMembers([user]);
                     }}
-                    selectedUsers={group.members}
+                    existingUsers={group.members.map(member => member._id)}
                   />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p>Owner: {group.owner.username}</p>
                 <p>Members: {group.members.length}</p>
                 <div className="mt-2">
                   <h4 className="text-sm font-semibold">Members:</h4>

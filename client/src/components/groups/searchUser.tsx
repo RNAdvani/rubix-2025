@@ -7,13 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import debounce from "lodash/debounce";
 import { api } from "@/lib/api";
-import { Loader2, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Loader2, PlusIcon, UserPlus } from "lucide-react";
 
 interface User {
   _id: string;
@@ -24,13 +22,11 @@ interface User {
 export function SearchUsers({
   onUserSelect,
   title,
-  existingUsers = [],
-  className,
+  existingUsers = []
 }: {
   title: string;
   onUserSelect: (userId: string) => void;
   existingUsers?: string[];
-  className?: string;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -66,7 +62,7 @@ export function SearchUsers({
     debounce((query: string) => {
       fetchSearchResults(query);
     }, 300),
-    [] // Empty dependency array ensures stable reference
+    []
   );
 
   useEffect(() => {
@@ -80,34 +76,38 @@ export function SearchUsers({
     setSearchQuery("");
     setSearchResults([]);
   };
-
   return (
     <Dialog>
-      <DialogTrigger asChild className={cn(className, "rounded-lg")}>
-        <Button variant="outline">{title}</Button>
+      <DialogTrigger asChild>
+        <Button variant="default" className="w-full">
+          <UserPlus className="w-6 h-6 " />
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] rounded-xl">
+      <DialogContent className="sm:max-w-md w-full p-4 rounded-xl">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="text-lg font-bold text-secondary-foreground">
+            {title}
+          </DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="flex space-x-2">
+        <div className="space-y-4">
+          <div>
             <Input
               placeholder="Search by username or email"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full"
             />
           </div>
-          <div className="max-h-[300px] overflow-y-auto">
+          <div className="max-h-[300px] overflow-y-auto space-y-2">
             {loading ? (
-              <div className="flex justify-center">
-                <Loader2 className="size-7 animate-spin" />
+              <div className="flex justify-center py-4">
+                <Loader2 className="w-6 h-6 animate-spin text-secondary-foreground" />
               </div>
             ) : (
               searchResults.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center justify-between p-2 rounded-lg cursor-pointer hover:bg-gray-500/20"
+                  className="flex items-center justify-between p-3 rounded-md border border-secondary hover:bg-primary-foreground transition cursor-pointer"
                   onClick={() => handleUserSelect(user._id)}
                 >
                   <div className="flex items-center space-x-3">
@@ -117,10 +117,21 @@ export function SearchUsers({
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium">{user.username}</p>
-                      <p className="text-xs">{user.email}</p>
+                      <p className="text-sm font-medium text-secondary-foreground">
+                        {user.username}
+                      </p>
+                      <p className="text-xs text-secondary-foreground/80">
+                        {user.email}
+                      </p>
                     </div>
                   </div>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => handleUserSelect(user._id)}
+                  >
+                    <PlusIcon className="w-4 h-4" />
+                  </Button>
                 </div>
               ))
             )}
@@ -129,4 +140,5 @@ export function SearchUsers({
       </DialogContent>
     </Dialog>
   );
+  
 }

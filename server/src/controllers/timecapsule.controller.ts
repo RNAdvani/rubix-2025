@@ -7,6 +7,7 @@ import { uploadOnCloudinary } from "../services/cloudinary";
 import { sendCapsuleEmail, sendCollaboratorEmail } from "../services/email";
 import { postToInstagram } from "../services/instagram";
 import { generateAccessCode } from "../utils";
+import schedule from "node-schedule";
 
 export const createCapsule = TryCatch(async (req, res, next) => {
   const { title, description, contributors } = req.body;
@@ -97,7 +98,7 @@ export const getCapsule = TryCatch(async (req, res, next) => {
     "media recipients contributors accessCode unlockDate"
   );
 
-  const { accessCode } = req.query;
+  const { accessCode, isTimeNeeded } = req.query;
 
   if (!capsule)
     return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
@@ -121,6 +122,10 @@ export const getCapsule = TryCatch(async (req, res, next) => {
       return next(new ErrorHandler(403, "Invalid access code"));
     }
     return res.status(200).json({ success: true, data: capsule });
+  }
+
+  if (isTimeNeeded) {
+    return res.status(200).json({ success: true, data: capsule.unlockDate });
   }
 
   if (
@@ -378,13 +383,42 @@ export const postOnInstagram = TryCatch(async (req, res, next) => {
   //     new ErrorHandler(403, "You are not allowed to perform this action")
   //   );
 
-  await postToInstagram(capsule);
+  const unlockDate = new Date(capsule.unlockDate);
 
-  capsule.isInstagramUpload = true;
+  // Check if unlockDate is valid
+  if (isNaN(unlockDate.getTime())) {
+    return next(new ErrorHandler(400, "Unlock date must be a valid date"));
+  }
 
-  await capsule.save();
+  if (unlockDate.getTime() <= Date.now()) {
+    // If the unlockDate is in the past, post immediately
+    try {
+      await postToInstagram(capsule);
+      capsule.isInstagramUpload = true;
+      await capsule.save();
+      return res.status(200).json({
+        success: true,
+        message: "Posted successfully on Instagram (immediate post)",
+      });
+    } catch (err) {
+      return next(new ErrorHandler(500, "Failed to post to Instagram"));
+    }
+  }
 
-  return res
-    .status(200)
-    .json({ success: true, message: "Posted successfully on instagram" });
+  // If unlockDate is in the future, schedule the post
+  schedule.scheduleJob(unlockDate, async () => {
+    try {
+      await postToInstagram(capsule);
+      capsule.isInstagramUpload = true;
+      await capsule.save();
+      console.log(`Capsule ${capsuleId} successfully posted to Instagram`);
+    } catch (err) {
+      console.error(`Failed to post capsule ${capsuleId}:`, err);
+    }
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: `Capsule scheduled for Instagram posting on ${unlockDate}`,
+  });
 });

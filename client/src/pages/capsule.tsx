@@ -173,6 +173,7 @@ const Capsule = () => {
 
       {data && (
         <CapsulePage
+          id={id!}
           data={data}
           onAddRecipient={handleAddRecipient}
           onAddMedia={handleAddMedia}

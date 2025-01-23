@@ -91,7 +91,7 @@ export default function CreateGroupPage() {
                            onClick={() => handleRemoveMember(memberId)}
                            className="ml-2 text-red-500"
                         >
-                           ×
+                           x
                         </button>
                      </Badge>
                   ))}
