@@ -8,6 +8,9 @@ import {
    Plus,
    Search,
    Menu,
+   AlertTriangle,
+   X,
+   ImagePlus,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,15 +26,17 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
-import { Capsule } from "@/lib/types";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { base64ToFile, cn } from "@/lib/utils";
+import { Capsule, MediaFile } from "@/lib/types";
+import { FileUpload } from "./file-upload";
 
 interface CapsulePageProps {
    data: Capsule;
-   onUpdateCollaborative: (isCollaborative: boolean) => void;
    onAddCollaborator: (userId: string) => void;
    onUpdateCollaboratorLock?: (canLock: boolean) => void;
+   onAddMedia: (files: File[]) => void;
+   loading?: boolean;
 }
 
 interface User {
@@ -48,24 +53,19 @@ const sampleUsers: User[] = [
 
 export const CapsulePage = ({
    data,
-   onUpdateCollaborative,
    onAddCollaborator,
    onUpdateCollaboratorLock,
+   onAddMedia,
+   loading,
 }: CapsulePageProps) => {
-   const [isCollaborative, setIsCollaborative] = useState(
-      data.isCollaborative ?? false
-   );
    const [isCollaboratorLock, setIsCollaboratorLock] = useState(
       data.isCollaboratorLock ?? false
    );
    const [searchQuery, setSearchQuery] = useState("");
    const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
    const [showMobileMenu, setShowMobileMenu] = useState(false);
-
-   const handleCollaborativeToggle = (checked: boolean) => {
-      setIsCollaborative(checked);
-      onUpdateCollaborative(checked);
-   };
+   const [showMediaUpload, setShowMediaUpload] = useState(false);
+   const [mediaItems, setMediaItems] = useState<MediaFile[]>([]);
 
    const handleCollaboratorLockToggle = (checked: boolean) => {
       setIsCollaboratorLock(checked);
@@ -95,6 +95,31 @@ export const CapsulePage = ({
       user.name?.toLowerCase().includes(searchQuery.toLowerCase())
    );
 
+   const handleUploadMedia = async () => {
+      if (onAddMedia && mediaItems.length > 0) {
+         const mediaFiles = mediaItems.map((file, index) => ({
+            id: `${Date.now()}-${index}`,
+            url: base64ToFile(file.url, file.id),
+            alt: file.alt,
+            type: file.type || "image",
+         }));
+
+         onAddMedia(mediaFiles.map((file) => file.url));
+         setMediaItems([]);
+         setShowMediaUpload(false);
+      }
+   };
+
+   if (!data)
+      return (
+         <div className="flex flex-col items-center justify-center h-full">
+            <AlertTriangle />
+            <p className="text-muted-foreground text-sm mt-2">
+               Error fetching capsule
+            </p>
+         </div>
+      );
+
    return (
       <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 max-w-4xl">
          <Card className="overflow-hidden">
@@ -106,7 +131,7 @@ export const CapsulePage = ({
                         {data.title}
                      </CardTitle>
                      <p className="text-muted-foreground text-sm sm:text-base">
-                        {data.description}
+                        {data?.description}
                      </p>
                   </div>
 
@@ -130,135 +155,116 @@ export const CapsulePage = ({
                      <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
                         <div className="flex items-center gap-2">
                            <Switch
-                              checked={isCollaborative}
-                              onCheckedChange={handleCollaborativeToggle}
+                              checked={isCollaboratorLock}
+                              onCheckedChange={handleCollaboratorLockToggle}
                            />
                            <span className="text-sm whitespace-nowrap">
-                              Collaborative
+                              Allow Collaborator Lock
                            </span>
                         </div>
-                        {isCollaborative && (
-                           <div className="flex items-center gap-2">
-                              <Switch
-                                 checked={isCollaboratorLock}
-                                 onCheckedChange={handleCollaboratorLockToggle}
-                              />
-                              <span className="text-sm whitespace-nowrap">
-                                 Allow Collaborator Lock
-                              </span>
-                           </div>
-                        )}
                      </div>
-                     {isCollaborative && (
-                        <Dialog>
-                           <DialogTrigger asChild>
-                              <Button
-                                 variant="outline"
-                                 size="sm"
-                                 className="gap-2 w-full sm:w-auto"
-                              >
-                                 <Plus className="w-4 h-4" />
-                                 <span className="whitespace-nowrap">
-                                    Add Collaborators
-                                 </span>
-                              </Button>
-                           </DialogTrigger>
-                           <DialogContent className="w-[95vw] max-w-[425px] sm:w-full">
-                              <DialogHeader>
-                                 <DialogTitle>Add Collaborators</DialogTitle>
-                              </DialogHeader>
-                              <div className="space-y-4 mt-4">
-                                 <div className="relative">
-                                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                                    <Input
-                                       placeholder="Search users..."
-                                       value={searchQuery}
-                                       onChange={(e) =>
-                                          setSearchQuery(e.target.value)
-                                       }
-                                       className="pl-8"
-                                    />
-                                 </div>
-                                 <ScrollArea className="h-[40vh] sm:h-[300px] rounded-md border">
-                                    <div className="p-4 space-y-2">
-                                       {filteredUsers.map((user) => (
-                                          <div
-                                             key={user._id}
-                                             className={cn(
-                                                "flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors",
-                                                selectedUsers.has(user._id)
-                                                   ? "bg-primary/10"
-                                                   : "hover:bg-muted"
-                                             )}
-                                             onClick={() =>
-                                                toggleUser(user._id)
-                                             }
-                                          >
-                                             <Avatar className="h-8 w-8 shrink-0">
-                                                <span className="text-xs">
-                                                   {user.name?.charAt(0)}
-                                                </span>
-                                             </Avatar>
-                                             <span className="flex-1 min-w-0 truncate">
-                                                {user.name}
-                                             </span>
-                                             {selectedUsers.has(user._id) && (
-                                                <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
-                                             )}
-                                          </div>
-                                       ))}
-                                    </div>
-                                 </ScrollArea>
-                                 <Button
-                                    className="w-full"
-                                    disabled={selectedUsers.size === 0}
-                                    onClick={handleAddCollaborators}
-                                 >
-                                    Add Selected Users
-                                 </Button>
+
+                     {/* Add Collaborators */}
+                     <Dialog>
+                        <DialogTrigger asChild>
+                           <Button
+                              variant="outline"
+                              size="sm"
+                              className="gap-2 w-full sm:w-auto"
+                           >
+                              <Plus className="w-4 h-4" />
+                              <span className="whitespace-nowrap">
+                                 Add Collaborators
+                              </span>
+                           </Button>
+                        </DialogTrigger>
+                        <DialogContent className="w-[95vw] max-w-[425px] sm:w-full">
+                           <DialogHeader>
+                              <DialogTitle>Add Collaborators</DialogTitle>
+                           </DialogHeader>
+                           <div className="space-y-4 mt-4">
+                              <div className="relative">
+                                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                                 <Input
+                                    placeholder="Search users..."
+                                    value={searchQuery}
+                                    onChange={(e) =>
+                                       setSearchQuery(e.target.value)
+                                    }
+                                    className="pl-8"
+                                 />
                               </div>
-                           </DialogContent>
-                        </Dialog>
-                     )}
+                              <ScrollArea className="h-[40vh] sm:h-[300px] rounded-md border">
+                                 <div className="p-4 space-y-2">
+                                    {filteredUsers.map((user) => (
+                                       <div
+                                          key={user._id}
+                                          className={cn(
+                                             "flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors",
+                                             selectedUsers.has(user._id)
+                                                ? "bg-primary/10"
+                                                : "hover:bg-muted"
+                                          )}
+                                          onClick={() => toggleUser(user._id)}
+                                       >
+                                          <Avatar>
+                                             <AvatarFallback className="size-8 rounded-full bg-black">
+                                                {user.name
+                                                   .charAt(0)
+                                                   .toUpperCase()}
+                                             </AvatarFallback>
+                                          </Avatar>
+                                          <span className="flex-1 min-w-0 truncate">
+                                             {user.name}
+                                          </span>
+                                          {selectedUsers.has(user._id) && (
+                                             <div className="h-2 w-2 rounded-full bg-primary shrink-0" />
+                                          )}
+                                       </div>
+                                    ))}
+                                 </div>
+                              </ScrollArea>
+                              <Button
+                                 className="w-full"
+                                 disabled={selectedUsers.size === 0 || loading}
+                                 onClick={handleAddCollaborators}
+                              >
+                                 Add Selected Users
+                              </Button>
+                           </div>
+                        </DialogContent>
+                     </Dialog>
                   </div>
                </div>
 
                {/* Badges */}
                <div className="flex flex-wrap gap-2">
-                  {isCollaboratorLock && (
-                     <Badge
-                        variant="secondary"
-                        className="gap-1 text-xs sm:text-sm"
-                     >
-                        <Lock className="w-3 h-3" />
-                        <span className="hidden xs:inline">
-                           Collaborators Can Lock
-                        </span>
-                        <span className="xs:hidden">Collab Lock</span>
-                     </Badge>
-                  )}
-                  {data.isPermanentLock && (
-                     <Badge
-                        variant="secondary"
-                        className="gap-1 text-xs sm:text-sm"
-                     >
-                        <Lock className="w-3 h-3" />
-                        <span className="hidden xs:inline">Permanent Lock</span>
-                        <span className="xs:hidden">Perm</span>
-                     </Badge>
-                  )}
-                  {data.isInstagramUpload && (
-                     <Badge
-                        variant="secondary"
-                        className="gap-1 text-xs sm:text-sm"
-                     >
-                        <Instagram className="w-3 h-3" />
-                        <span className="hidden xs:inline">
-                           Instagram Upload
-                        </span>
-                        <span className="xs:hidden">IG</span>
-                     </Badge>
-                  )}
+                  <Badge
+                     variant="secondary"
+                     className="gap-1 text-xs sm:text-sm"
+                  >
+                     <Lock className="w-3 h-3" />
+                     <span className="hidden xs:inline">
+                        Collaborators Can Lock
+                     </span>
+                     <span className="xs:hidden">Collab Lock</span>
+                  </Badge>
+                  <Badge
+                     variant="secondary"
+                     className="gap-1 text-xs sm:text-sm"
+                  >
+                     <Lock className="w-3 h-3" />
+                     <span className="hidden xs:inline">Permanent Lock</span>
+                     <span className="xs:hidden">Perm</span>
+                  </Badge>
+                  <Badge
+                     variant="secondary"
+                     className="gap-1 text-xs sm:text-sm"
+                  >
+                     <Instagram className="w-3 h-3" />
+                     <span className="hidden xs:inline">Instagram Upload</span>
+                     <span className="xs:hidden">IG</span>
+                  </Badge>
                </div>
             </CardHeader>
 
@@ -291,7 +297,6 @@ export const CapsulePage = ({
 
                <Separator />
 
-               {/* Media Preview */}
                {data.media && data.media.length > 0 && (
                   <>
                      <div className="space-y-2">
@@ -306,24 +311,87 @@ export const CapsulePage = ({
                               >
                                  <img
                                     src={media?.url}
-                                    alt={media?.metadata.description || "Media"}
+                                    alt={"Media"}
                                     className="object-cover w-full h-full transition-transform group-hover:scale-105"
                                     loading="lazy"
                                  />
-                                 {media?.metadata.description && (
+                                 {/* {media?.metadata?.description && (
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2 sm:p-4">
                                        <p className="text-white text-xs sm:text-sm text-center line-clamp-3">
                                           {media?.metadata.description}
                                        </p>
                                     </div>
-                                 )}
+                                 )} */}
                               </div>
                            ))}
                         </div>
                      </div>
-                     <Separator />
+
+                     <Dialog
+                        open={showMediaUpload}
+                        onOpenChange={setShowMediaUpload}
+                     >
+                        <DialogTrigger asChild>
+                           <Button variant="outline" className="gap-2">
+                              <ImagePlus className="size-10" />
+                              <span className="hidden xs:inline">
+                                 Add Media
+                              </span>
+                           </Button>
+                        </DialogTrigger>
+                        <DialogContent className="w-[95vw] max-w-[425px] sm:w-full">
+                           <DialogHeader>
+                              <DialogTitle>Upload Media</DialogTitle>
+                           </DialogHeader>
+                           <div className="space-y-4 mt-4">
+                              <FileUpload setMediaItems={setMediaItems} />
+
+                              {mediaItems.length > 0 && (
+                                 <ScrollArea className="h-[200px] rounded-md border">
+                                    <div className="p-4 space-y-2">
+                                       {mediaItems.map((item, index) => (
+                                          <div
+                                             key={item.id}
+                                             className="flex items-center justify-between p-2 bg-muted rounded-lg"
+                                          >
+                                             <span className="text-sm truncate flex-1 mr-2">
+                                                {item.alt}
+                                             </span>
+                                             <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-8 w-8"
+                                                onClick={() =>
+                                                   setMediaItems((prev) =>
+                                                      prev.filter(
+                                                         (_, i) => i !== index
+                                                      )
+                                                   )
+                                                }
+                                             >
+                                                <X className="h-4 w-4" />
+                                             </Button>
+                                          </div>
+                                       ))}
+                                    </div>
+                                 </ScrollArea>
+                              )}
+
+                              <Button
+                                 className="w-full"
+                                 disabled={mediaItems.length === 0}
+                                 onClick={handleUploadMedia}
+                              >
+                                 Upload {mediaItems.length} file
+                                 {mediaItems.length !== 1 ? "s" : ""}
+                              </Button>
+                           </div>
+                        </DialogContent>
+                     </Dialog>
                   </>
                )}
+
+               <Separator />
 
                {/* Recipients and Contributors */}
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -358,7 +426,7 @@ export const CapsulePage = ({
                      </div>
                   )}
 
-                  {isCollaborative && data.contributors && (
+                  {data.contributors && (
                      <div className="space-y-2">
                         <h3 className="font-semibold text-sm sm:text-base">
                            Contributors
