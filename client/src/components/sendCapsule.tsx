@@ -1,8 +1,8 @@
 import {
-   Dialog,
-   DialogContent,
-   DialogHeader,
-   DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,264 +19,254 @@ import { Capsule } from "@/lib/types";
 import { toast } from "sonner";
 
 interface Collaborator {
-   _id: string;
-   name: string;
-   avatar: string;
+  _id: string;
+  name: string;
+  avatar: string;
 }
 
 interface Group {
-   id: string;
-   name: string;
-   members: Collaborator[];
-   createdAt: string;
+  id: string;
+  name: string;
+  members: Collaborator[];
+  createdAt: string;
 }
 
 // This would come from your database
 const sampleGroups: Group[] = [
-   {
-      id: "1",
-      name: "Family",
-      members: [
-         { _id: "1", name: "Alice Smith", avatar: "/api/placeholder/100/100" },
-         { _id: "2", name: "Bob Johnson", avatar: "/api/placeholder/100/100" },
-      ],
-      createdAt: "2024-01-20",
-   },
-   {
-      id: "2",
-      name: "Work Team",
-      members: [
-         {
-            _id: "3",
-            name: "Carol Williams",
-            avatar: "/api/placeholder/100/100",
-         },
-         { _id: "4", name: "David Brown", avatar: "/api/placeholder/100/100" },
-      ],
-      createdAt: "2024-01-21",
-   },
+  {
+    id: "1",
+    name: "Family",
+    members: [
+      { _id: "1", name: "Alice Smith", avatar: "/api/placeholder/100/100" },
+      { _id: "2", name: "Bob Johnson", avatar: "/api/placeholder/100/100" },
+    ],
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "2",
+    name: "Work Team",
+    members: [
+      {
+        _id: "3",
+        name: "Carol Williams",
+        avatar: "/api/placeholder/100/100",
+      },
+      { _id: "4", name: "David Brown", avatar: "/api/placeholder/100/100" },
+    ],
+    createdAt: "2024-01-21",
+  },
 ];
 
 interface CreateCapsuleProps {
-   isOpen: boolean;
-   onClose: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
-   const [username, setUsername] = useState("");
-   const [capsuleType, setCapsuleType] = useState("individual");
-   const [searchQuery, setSearchQuery] = useState("");
-   const [selectedCollaborators, setSelectedCollaborators] = useState<
-      Set<string>
-   >(new Set());
-   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
+  const [capsuleType, setCapsuleType] = useState("individual");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCollaborators, setSelectedCollaborators] = useState<
+    Set<string>
+  >(new Set());
+  const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
 
-   const [searchResults, setSearchResults] = useState<Collaborator[]>([]);
-   const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState<Collaborator[]>([]);
+  const [loading, setLoading] = useState(false);
 
-   const { capsule, setCapsule } = useCapsule();
+  const { capsule, setCapsule } = useCapsule();
 
-   // This would be replaced with your actual data fetching logic
-   const groups = sampleGroups;
+  // This would be replaced with your actual data fetching logic
+  const groups = sampleGroups;
 
-   const collaborators = groups.flatMap((group) => group.members);
+  const collaborators = groups.flatMap((group) => group.members);
 
-   const toggleCollaborator = (id: string) => {
-      setSelectedCollaborators((prev) => {
-         const next = new Set(prev);
-         if (next.has(id)) {
-            next.delete(id);
-         } else {
-            next.add(id);
-         }
-         return next;
-      });
-   };
-
-   const handleGroupSelect = (groupId: string) => {
-      if (selectedGroupId === groupId) {
-         setSelectedGroupId(null);
-         setSelectedCollaborators(new Set());
+  const toggleCollaborator = (id: string) => {
+    setSelectedCollaborators((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
       } else {
-         setSelectedGroupId(groupId);
-         const group = groups.find((g) => g.id === groupId);
-         if (group) {
-            setSelectedCollaborators(new Set(group.members.map((m) => m._id)));
-         }
+        next.add(id);
       }
-   };
+      return next;
+    });
+  };
 
-   const fetchSearchResults = async (query: string) => {
-      if (!query) {
-         setSearchResults([]);
-         return;
+  const handleGroupSelect = (groupId: string) => {
+    if (selectedGroupId === groupId) {
+      setSelectedGroupId(null);
+      setSelectedCollaborators(new Set());
+    } else {
+      setSelectedGroupId(groupId);
+      const group = groups.find((g) => g.id === groupId);
+      if (group) {
+        setSelectedCollaborators(new Set(group.members.map((m) => m._id)));
       }
-      setLoading(true);
-      try {
-         const res = await api.get(`/api/auth/search?query=${query}`);
-         console.log(res.data.data);
+    }
+  };
 
-         if (res.data.success) {
-            setSearchResults(res.data.data);
-         }
-      } catch (error) {
-         console.error("Error fetching search results:", error);
-      } finally {
-         setLoading(false);
+  const fetchSearchResults = async (query: string) => {
+    if (!query) {
+      setSearchResults([]);
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await api.get(`/api/auth/search?query=${query}`);
+      console.log(res.data.data);
+
+      if (res.data.success) {
+        setSearchResults(res.data.data);
       }
-   };
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-   const debouncedSearch = useCallback(debounce(fetchSearchResults, 300), []);
+  const debouncedSearch = useCallback(debounce(fetchSearchResults, 300), []);
 
-   useEffect(() => {
-      debouncedSearch(searchQuery);
-      return () => debouncedSearch.cancel();
-   }, [searchQuery, debouncedSearch]);
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+    return () => debouncedSearch.cancel();
+  }, [searchQuery, debouncedSearch]);
 
-   const handleCreateCapsule = async (capsule: Capsule) => {
-      console.log("Creating capsule...");
+  const handleCreateCapsule = async (capsule: Capsule) => {
+    console.log("Creating capsule...");
 
-      setLoading(true);
+    setLoading(true);
 
-      const formData = new FormData();
+    const formData = new FormData();
 
-      console.log(capsule);
+    console.log(capsule);
 
-      if (capsule.title && capsule.description) {
-         formData.append("title", capsule.title);
-         formData.append("description", capsule.description);
+    if (capsule.title && capsule.description) {
+      formData.append("title", capsule.title);
+      formData.append("description", capsule.description);
+    }
+
+    if (capsule.media) {
+      capsule.media.forEach((file) => {
+        formData.append("media", file as File);
+      });
+    }
+
+    try {
+      const res = await api.post("/api/capsule/create", formData);
+
+      if (res.data.success) {
+        setCapsule({} as Capsule);
+        toast.success(res.data.message);
       }
+    } catch (error) {
+      toast.error("Error creating capsule");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      if (capsule.media) {
-         capsule.media.forEach((file) => {
-            formData.append("media", file as File);
-         });
-      }
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create New Capsule</DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-      try {
-         const res = await api.post("/api/capsule/create", formData);
-
-         if (res.data.success) {
-            setCapsule({} as Capsule);
-            toast.success(res.data.message);
-         }
-      } catch (error) {
-         toast.error("Error creating capsule");
-      } finally {
-         setLoading(false);
-      }
-   };
-
-   return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-         <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-               <DialogTitle>Create New Capsule</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-               <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input
-                     id="username"
-                     placeholder="Enter your username"
-                     value={username}
-                     onChange={(e) => setUsername(e.target.value)}
-                  />
-               </div>
-
-               <div className="space-y-2">
-                  <Label>Capsule Type</Label>
-                  <RadioGroup
-                     value={capsuleType}
-                     onValueChange={setCapsuleType}
-                     className="flex flex-col gap-2"
-                  >
-                     <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="individual" id="individual" />
-                        <Label htmlFor="individual">Individual</Label>
-                     </div>
-                     <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="group" id="group" />
-                        <Label htmlFor="group">Group</Label>
-                     </div>
-                  </RadioGroup>
-               </div>
-
-               {capsuleType === "group" && (
-                  <div className="space-y-4">
-                     <div className="space-y-2">
-                        <Label>Or Add Individual Collaborators</Label>
-                        <div className="relative">
-                           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                           <Input
-                              placeholder="Search collaborators..."
-                              value={searchQuery}
-                              onChange={(e) => setSearchQuery(e.target.value)}
-                              className="pl-8"
-                           />
-                        </div>
-                        <ScrollArea className="h-[200px] rounded-md border">
-                           <div className="p-4 space-y-2">
-                              {loading ? (
-                                 <p>Loading...</p>
-                              ) : (
-                                 searchResults.map((collaborator) => (
-                                    <div
-                                       key={collaborator?._id}
-                                       className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors ${
-                                          selectedCollaborators.has(
-                                             collaborator._id
-                                          )
-                                             ? "bg-primary/10"
-                                             : "hover:bg-muted"
-                                       }`}
-                                       onClick={() =>
-                                          toggleCollaborator(collaborator._id)
-                                       }
-                                    >
-                                       <Avatar className="h-8 w-8">
-                                          <AvatarFallback className="h-8 w-8 bg-primary/20 text-primary text-lg">
-                                             {collaborator.name
-                                                .charAt(0)
-                                                .toUpperCase()}
-                                          </AvatarFallback>
-                                       </Avatar>
-                                       <span className="flex-1">
-                                          {collaborator.name}
-                                       </span>
-                                       {selectedCollaborators.has(
-                                          collaborator._id
-                                       ) && (
-                                          <div className="h-2 w-2 rounded-full bg-primary" />
-                                       )}
-                                    </div>
-                                 ))
-                              )}
-                           </div>
-                        </ScrollArea>
-                     </div>
-                  </div>
-               )}
-            </div>
-            <Button
-               disabled={!loading}
-               className="w-full"
-               onClick={() => {
-                  onClose();
-                  if (capsule) {
-                     handleCreateCapsule(capsule);
-                  }
-               }}
+          <div className="space-y-2">
+            <Label>Capsule Type</Label>
+            <RadioGroup
+              value={capsuleType}
+              onValueChange={setCapsuleType}
+              className="flex flex-col gap-2"
             >
-               {loading ? (
-                  "Create Capsule"
-               ) : (
-                  <Loader2 className="size-8 animate-spin" />
-               )}
-            </Button>
-         </DialogContent>
-      </Dialog>
-   );
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="individual" id="individual" />
+                <Label htmlFor="individual">Individual</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="group" id="group" />
+                <Label htmlFor="group">Group</Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {capsuleType === "group" && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Or Add Individual Collaborators</Label>
+                <div className="relative">
+                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search collaborators..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-8"
+                  />
+                </div>
+                <ScrollArea className="h-[200px] rounded-md border">
+                  <div className="p-4 space-y-2">
+                    {loading ? (
+                      <p>Loading...</p>
+                    ) : (
+                      searchResults?.map((collaborator) => (
+                        <div
+                          key={collaborator?._id}
+                          className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors ${
+                            selectedCollaborators.has(collaborator._id)
+                              ? "bg-primary/10"
+                              : "hover:bg-muted"
+                          }`}
+                          onClick={() => toggleCollaborator(collaborator._id)}
+                        >
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback className="h-8 w-8 bg-primary/20 text-primary text-lg">
+                              {collaborator.name.charAt(0).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="flex-1">{collaborator.name}</span>
+                          {selectedCollaborators.has(collaborator._id) && (
+                            <div className="h-2 w-2 rounded-full bg-primary" />
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </ScrollArea>
+              </div>
+            </div>
+          )}
+        </div>
+        <Button
+          disabled={loading}
+          className="w-full"
+          onClick={() => {
+            onClose();
+            if (capsule) {
+              handleCreateCapsule(capsule);
+            }
+          }}
+        >
+          {!loading ? (
+            "Create Capsule"
+          ) : (
+            <Loader2 className="size-8 animate-spin" />
+          )}
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
 };
 
 export default CreateCapsule;
