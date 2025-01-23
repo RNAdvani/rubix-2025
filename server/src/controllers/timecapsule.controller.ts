@@ -205,3 +205,27 @@ export const addMedia = TryCatch(async (req, res, next) => {
 
   return res.status(200).json({ success: true, data: capsule });
 });
+
+export const updateCapsule = TryCatch(async (req, res, next) => {
+  const { capsuleId, title, description, isCollaboratorLock } = req.body;
+
+  const capsule = await TimeCapsule.findById(capsuleId);
+
+  if (!capsule)
+    return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
+
+  if (!capsule.creator.equals(req.user._id))
+    return next(
+      new ErrorHandler(403, "You are not allowed to perform this action")
+    );
+
+  capsule.title = title || capsule.title;
+
+  capsule.description = description || capsule.description;
+
+  capsule.isCollaboratorLock = isCollaboratorLock || capsule.isCollaboratorLock;
+
+  await capsule.save();
+
+  return res.status(200).json({ success: true, data: capsule });
+});
