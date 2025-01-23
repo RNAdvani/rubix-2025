@@ -24,11 +24,13 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar } from "@/components/ui/avatar";
-import { base64ToFile, cn, identifyFileType } from "@/lib/utils";
+import { base64ToFile, cn } from "@/lib/utils";
 import { Capsule, MediaFile } from "@/lib/types";
 import { FileUpload } from "./file-upload";
 import { SearchUsers } from "./groups/searchUser";
 import { CapsuleLockModal } from "./lock-modal";
+import { api } from "@/lib/api";
+import { toast } from "sonner";
 
 interface CapsulePageProps {
   data: Capsule;
@@ -36,9 +38,11 @@ interface CapsulePageProps {
   onAddRecipient: (userId: string) => void;
   onUpdateCollaboratorLock?: (canLock: boolean) => void;
   onAddMedia: (files: File[]) => void;
+  id: string;
 }
 
 export const CapsulePage = ({
+  id,
   data,
   onAddCollaborator,
   onAddRecipient,
@@ -73,6 +77,17 @@ export const CapsulePage = ({
     }
   };
 
+  const handleScheduleInstagram = async () => {
+    try {
+      const res = await api.post(`/api/capsule/instagram`, {
+        capsuleId: id,
+      });
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error("Error scheduling Instagram post");
+    }
+  };
+
   if (!data)
     return (
       <div className="flex flex-col items-center justify-center h-full">
@@ -89,26 +104,28 @@ export const CapsulePage = ({
         <CardHeader className="space-y-4">
           {/* Header Section */}
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-            <div className="space-y-1 flex-1">
-              <CardTitle className="text-2xl sm:text-3xl font-bold break-words">
-                {data.title}
-              </CardTitle>
-              <p className="text-muted-foreground text-sm sm:text-base">
-                {data?.description}
-              </p>
+            <div className="flex items-center py-4 leading-[1rem]">
+              <div className="space-y-1 flex-1">
+                <CardTitle className="text-2xl sm:text-3xl font-bold break-words">
+                  {data.title}
+                </CardTitle>
+                <p className="text-muted-foreground text-sm sm:text-base">
+                  {data?.description}
+                </p>
+              </div>
+              <div className="w-full flex justify-end">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="sm:hidden self-end border border-muted-foreground"
+                  onClick={() => setShowMobileMenu(!showMobileMenu)}
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="w-full flex justify-end">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="sm:hidden self-end border border-muted-foreground"
-                onClick={() => setShowMobileMenu(!showMobileMenu)}
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
 
             <div
               className={cn(
@@ -141,23 +158,35 @@ export const CapsulePage = ({
           </div>
 
           {/* Badges */}
-          <div className="flex flex-wrap gap-2 ">
-            <Badge variant="secondary" className="gap-1 text-xs sm:text-sm">
-              <Lock className="w-3 h-3" />
-              <span className="hidden xs:inline p-1">
-                Collaborators Can Lock
-              </span>
-              <span className="xs:hidden p-1">Collab Lock</span>
-            </Badge>
-            <Badge variant="secondary" className="gap-1 text-xs sm:text-sm">
-              <Lock className="w-3 h-3" />
-              <span className="hidden xs:inline">Permanent Lock</span>
-              <span className="xs:hidden">Perm</span>
-            </Badge>
-            <Badge variant="secondary" className="gap-1 text-xs sm:text-sm">
-              <Instagram className="w-3 h-3" />
+          <div className="flex flex-wrap gap-2 justify-between ">
+            <div className="flex gap-2">
+              <Badge
+                variant="secondary"
+                className="gap-1 text-xs sm:text-sm h-full rounded-2xl"
+              >
+                <Lock className="w-3 h-3" />
+                <span className="hidden xs:inline p-1">
+                  Collaborators Can Lock
+                </span>
+                <span className="xs:hidden p-1">Collab Lock</span>
+              </Badge>
+              <Badge
+                variant="secondary"
+                className="gap-1 text-xs sm:text-sm h-full rounded-2xl"
+              >
+                <Lock className="w-3 h-3" />
+                <span className="hidden xs:inline">Permanent Lock</span>
+                <span className="xs:hidden">Perm</span>
+              </Badge>
+            </div>
+            <Badge
+              onClick={handleScheduleInstagram}
+              variant="secondary"
+              className="gap-2  text-[14px] bg-gradient-to-r from-pink-500 to-purple-500  text-white font-bold py-2 px-4 rounded-2xl transition duration-300"
+            >
+              <Instagram className="w-5 h-5" />
               <span className="hidden xs:inline">Instagram Upload</span>
-              <span className="xs:hidden p-1">IG</span>
+              <span className="xs:hidden ">IG</span>
             </Badge>
           </div>
         </CardHeader>
@@ -172,7 +201,7 @@ export const CapsulePage = ({
                   Created:
                 </span>
                 <span className="truncate">
-                  {format(new Date(data.createdAt), "PPP")}
+                  {format(new Date(data.createdAt), "PPPp")}
                 </span>
               </div>
             )}
@@ -183,7 +212,7 @@ export const CapsulePage = ({
                   Unlock Date:
                 </span>
                 <span className="truncate">
-                  {format(new Date(data.unlockDate), "PPP")}
+                  {format(new Date(data.unlockDate), "PPPp")}
                 </span>
               </div>
             )}
