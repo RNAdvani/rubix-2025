@@ -67,7 +67,7 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 
 export const getCreatedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
-    contributors: req.user._id,
+    creator: req.user._id,
   })
     .populate("media recipients contributors")
     .select("+_id media recipients contributors");
@@ -77,9 +77,12 @@ export const getCreatedCapsules = TryCatch(async (req, res, next) => {
 
 export const getReceivedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
-    recipients: req.user._id, // Include capsules where the user is a recipient
+    $or: [
+      { recipients: req.user._id }, // Filter where user is a recipient
+      { contributors: req.user._id }, // Filter where user is a collaborator
+    ],
   })
-    .populate("media recipients contributors") // Populate all relevant fields
+    .populate("media recipients contributors") // Populate required fields
     .select("+_id media recipients contributors");
 
   return res.status(200).json({ success: true, data: capsules });
@@ -93,7 +96,11 @@ export const getCapsule = TryCatch(async (req, res, next) => {
   if (!capsule)
     return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
 
-  if (!capsule.recipients[0].equals(req.user._id)) {
+  const isRecipient = capsule.recipients.some(
+    (recipient: any) => recipient.toString() === req.user.toString()
+  );
+
+  if (!capsule.creator.equals(req.user._id) && !isRecipient) {
     return next(
       new ErrorHandler(403, "You are not allowed to view this capsule")
     );
