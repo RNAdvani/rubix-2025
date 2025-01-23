@@ -46,7 +46,7 @@ export interface ITimeCapsule extends Document {
   description: string;
   unlockDate: Date;
   creator: IUser;
-  media: string[];
+  media: IMedia[];
   recipients: IUser[]; // Registered users
   anonymousRecipients: { email: string; accessCode: string }[]; // Anonymous emails with access codes
   usedAccessCodes?: string[]; // Optional: Track used access codes

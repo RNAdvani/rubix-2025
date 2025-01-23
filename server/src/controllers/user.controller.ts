@@ -135,6 +135,17 @@ export const loginUser = TryCatch(
     sendTokenResponse(200, res, user!);
   }
 );
+export const logoutUser = TryCatch(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+});
 
 export const verifyUser = TryCatch(
   async (req: Request, res: Response, next: NextFunction) => {

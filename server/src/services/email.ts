@@ -192,3 +192,47 @@ export const sendCapsuleEmail = async ({
 
   await transporter.sendMail(mailOptions);
 };
+
+export const sendCollaboratorEmail = async ({
+  creatorEmail,
+  creatorName,
+  description,
+  email,
+  message,
+  title,
+  accessLink,
+}: {
+  email: string;
+  creatorName: string;
+  creatorEmail: string;
+  title: string;
+  description: string;
+  message: string;
+  accessLink?: string;
+}) => {
+  const emailContent = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+      <p>Hello,</p>
+      <p>${creatorName} (${creatorEmail}) has invited you to collaborate on a Time Capsule.</p>
+      <h3>${title}</h3>
+      <p>${description}</p>
+      <p>${message}</p>
+      ${
+        accessLink
+          ? `<p><strong>Access Link:</strong> <a href="${accessLink}" target="_blank">${accessLink}</a></p>`
+          : ""
+      }
+      <p>If you have any questions, please reach out to ${creatorName} at ${creatorEmail}.</p>
+      <p>Thank you!</p>
+    </div>
+  `;
+
+  const mailOptions = {
+    from: `"Time Capsule" <"ngenx2831@gmail.com">`,
+    to: email,
+    subject: `You’ve been invited to the Time Capsule: ${title}`,
+    html: emailContent,
+  };
+
+  await transporter.sendMail(mailOptions);
+};

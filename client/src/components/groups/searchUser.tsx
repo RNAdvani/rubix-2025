@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import debounce from "lodash/debounce";
 import { api } from "@/lib/api";
 import { Loader2, PlusIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface User {
   _id: string;
@@ -23,10 +24,12 @@ export function SearchUsers({
   onUserSelect,
   title,
   existingUsers = [],
+  className,
 }: {
   title: string;
   onUserSelect: (userId: string) => void;
   existingUsers?: string[];
+  className?: string;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<User[]>([]);
@@ -57,6 +60,7 @@ export function SearchUsers({
     [existingUsers]
   );
 
+  // Memoize debounced search with stable reference
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       fetchSearchResults(query);
@@ -71,20 +75,22 @@ export function SearchUsers({
 
   const handleUserSelect = (userId: string) => {
     onUserSelect(userId);
+    // Optional: You might want to clear search results after selection
     setSearchQuery("");
     setSearchResults([]);
   };
-
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="rounded-lg">
         <Button variant="outline" className="w-full text-secondary">
           {title}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md w-full p-4">
+      <DialogContent className="sm:max-w-md w-full p-4 rounded-xl">
         <DialogHeader>
-          <DialogTitle className="text-lg font-bold text-secondary-foreground">{title}</DialogTitle>
+          <DialogTitle className="text-lg font-bold text-secondary-foreground">
+            {title}
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
@@ -104,7 +110,8 @@ export function SearchUsers({
               searchResults.map((user) => (
                 <div
                   key={user._id}
-                  className="flex items-center justify-between p-3 rounded-md border border-secondary hover:bg-primary-foreground transition"
+                  className="flex items-center justify-between p-3 rounded-md border border-secondary hover:bg-primary-foreground transition cursor-pointer"
+                  onClick={() => handleUserSelect(user._id)}
                 >
                   <div className="flex items-center space-x-3">
                     <Avatar>
@@ -113,8 +120,12 @@ export function SearchUsers({
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium text-secondary-foreground">{user.username}</p>
-                      <p className="text-xs text-secondary-foreground/80">{user.email}</p>
+                      <p className="text-sm font-medium text-secondary-foreground">
+                        {user.username}
+                      </p>
+                      <p className="text-xs text-secondary-foreground/80">
+                        {user.email}
+                      </p>
                     </div>
                   </div>
                   <Button
@@ -132,4 +143,5 @@ export function SearchUsers({
       </DialogContent>
     </Dialog>
   );
+  
 }
