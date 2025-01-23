@@ -76,11 +76,11 @@ export function OnboardingCarousel() {
                     alt=""
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/80" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-secondary/50 to-secondary/80" />
                 </div>
 
                 {/* Content */}
-                <div className="relative h-full flex flex-col items-center justify-between p-6 text-primary-foreground md:p-10 lg:p-16">
+                <div className="relative h-full flex flex-col items-center justify-between p-6 text-secondary-foreground md:p-10 lg:p-16">
                   {/* Icon */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -114,7 +114,7 @@ export function OnboardingCarousel() {
                     className="w-full max-w-xs sm:max-w-md mt-6 mb-10 md:mt-10 space-y-4"
                   >
                     <Button
-                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                      className="w-full h-12 text-sm sm:text-base lg:text-lg bg-secondary text-secondary-foreground hover:bg-secondary-foreground/90"
                       onClick={handleCTA}
                     >
                       {feature.cta} <MoveRight className="w-5 h-5 ml-2" />
@@ -140,7 +140,7 @@ export function OnboardingCarousel() {
           <div
             key={index}
             className={`w-3 h-3 rounded-full ${
-              currentSlide === index ? "bg-primary-foreground" : "bg-muted"
+              currentSlide === index ? "bg-secondary-foreground" : "bg-muted"
             }`}
           />
         ))}

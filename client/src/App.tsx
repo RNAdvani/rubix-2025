@@ -15,7 +15,8 @@ import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
 import Cookies from "js-cookie";
 import { LoginForm } from "./components/login-form";
-
+import AudioRecorder from "./components/audio-recorder";
+import ReviewPage from "./components/review-page";
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const cookie = Cookies.get("token");
   if (cookie) {
@@ -54,6 +55,8 @@ export default function App() {
 
         </Route>
         <Route path="friends" element={<FriendFinder />} />
+        <Route path="test" element={<AudioRecorder/>}/>
+        <Route path="review" element={<ReviewPage/>}/>
       </Routes>
     </>
   );

@@ -1,10 +1,10 @@
-import TimeCapsuleDialog from "@/components/modals/CreateCapsuleDialog";
+import { useUser } from "@/components/hooks/use-user";
 import { TimelineDemo } from "@/components/timeline";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Clock, Plus, Sparkles, Users } from "lucide-react";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Mock data
 const items = [
@@ -71,10 +71,9 @@ const suggestedUsers = [
 ];
 
 export default function Page() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
+  const navigate=useNavigate()
+  const { user } = useUser();
+  console.log(user)
   return (
     <div className="min-h-screen bg-background">
       <Card className="p-6 m-6 bg-primary text-secondary">
@@ -89,7 +88,7 @@ export default function Page() {
           Preserve today's moments for tomorrow. AI-powered suggestions help you
           create meaningful time capsules.
         </p>
-        <Button variant="secondary" className="w-full">
+        <Button variant="secondary" className="w-full" onClick={()=>{navigate('/dashboard/createcapsule')}}>
           Start Time Capsule
         </Button>
       </Card>
@@ -200,22 +199,6 @@ export default function Page() {
           <Button className="w-full">
             <Users className="mr-2 h-4 w-4" />
             Create Group
-          </Button>
-          <TimeCapsuleDialog isOpen={isDialogOpen} onClose={closeDialog} />
-        </Card>
-
-        <Card className="p-6 bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-          <div className="flex justify-between items-start mb-4">
-            <Clock className="h-8 w-8" />
-            <Sparkles className="h-6 w-6" />
-          </div>
-          <h3 className="text-xl font-semibold mb-2">Create a Time Capsule</h3>
-          <p className="text-white/90 mb-4">
-            Preserve today's moments for tomorrow. AI-powered suggestions help
-            you create meaningful time capsules.
-          </p>
-          <Button variant="secondary" className="w-full" onClick={openDialog}>
-            Start Time Capsule
           </Button>
         </Card>
       </div>

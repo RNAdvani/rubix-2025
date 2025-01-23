@@ -283,7 +283,7 @@ export function SignUpForm() {
                </span>
             </div>
          </div>
-         <Button
+         {/* <Button
             variant="outline"
             className="w-full"
             // onClick={handleGoogleLogin}
@@ -294,7 +294,9 @@ export function SignUpForm() {
                className="mr-2 h-4 w-4"
             />
             Google
-         </Button>
+         </Button> */}
+         <p className="text-sm text-center text-secondary-foreground">Already have an account ? <span className="text-primary" onClick={()=>{navigate('/auth/login')}}>Register here</span></p>
+
       </CardContent>
    );
 
