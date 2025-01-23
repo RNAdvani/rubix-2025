@@ -50,7 +50,7 @@ export default function YouShared() {
                         <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/90"></div>
                         <div className="relative z-10 p-6 flex flex-col h-full justify-between">
                            <div>
-                              <CardTitle className="text-white mb-2">
+                              <CardTitle className="text-white mb-2 text-lg">
                                  {item.title}
                               </CardTitle>
                               <CardDescription className="text-white/80">
@@ -76,7 +76,6 @@ export default function YouShared() {
             ))
          ) : (
             <div className="flex flex-col items-center justify-center py-10 text-center">
-            
                <h2 className="text-lg font-semibold text-gray-700">
                   You haven’t shared anything yet!
                </h2>

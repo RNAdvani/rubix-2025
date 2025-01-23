@@ -2,7 +2,7 @@ import { CapsulePage } from "@/components/capsule";
 import { api } from "@/lib/api";
 import { Capsule as CapsuleTypes } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const Capsule = () => {
@@ -10,12 +10,16 @@ const Capsule = () => {
    const [data, setData] = useState<CapsuleTypes>();
    const [loading, setLoading] = useState(false);
 
+   const navigate = useNavigate();
+
    useEffect(() => {
       const fetchData = async () => {
          const res = await api.get(`/api/capsule/get/${id}`);
 
          if (res.data.success) {
             setData(res.data.data);
+         } else if (res.data.redirect) {
+            navigate(`/unlocking/${id}`);
          } else {
             toast.error("Error fetching capsule");
          }

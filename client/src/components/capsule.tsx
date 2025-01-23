@@ -28,6 +28,7 @@ import { base64ToFile, cn } from "@/lib/utils";
 import { Capsule, MediaFile } from "@/lib/types";
 import { FileUpload } from "./file-upload";
 import { SearchUsers } from "./groups/searchUser";
+import { CapsuleLockModal } from "./lock-modal";
 
 interface CapsulePageProps {
    data: Capsule;
@@ -50,6 +51,7 @@ export const CapsulePage = ({
    const [showMobileMenu, setShowMobileMenu] = useState(false);
    const [showMediaUpload, setShowMediaUpload] = useState(false);
    const [mediaItems, setMediaItems] = useState<MediaFile[]>([]);
+   const [isLockModalOpen, setIsLockModalOpen] = useState(false);
 
    const handleCollaboratorLockToggle = (checked: boolean) => {
       setIsCollaboratorLock(checked);
@@ -290,6 +292,18 @@ export const CapsulePage = ({
                )}
 
                <Separator />
+
+               <div>
+                  <Button onClick={() => setIsLockModalOpen(true)}>
+                     Lock Capsule
+                  </Button>
+
+                  <CapsuleLockModal
+                     capsuleId={data._id as string}
+                     isOpen={isLockModalOpen}
+                     onOpenChange={setIsLockModalOpen}
+                  />
+               </div>
 
                {/* Recipients and Contributors */}
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">

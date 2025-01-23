@@ -70,7 +70,7 @@ export const getCreatedCapsules = TryCatch(async (req, res, next) => {
     creator: req.user._id,
   })
     .populate("media recipients contributors")
-    .select("+_id media recipients contributors");
+    .select("+_id media recipients contributors title description unlockDate");
 
   return res.status(200).json({ success: true, data: capsules });
 });
@@ -82,8 +82,8 @@ export const getReceivedCapsules = TryCatch(async (req, res, next) => {
       { contributors: req.user._id }, // Filter where user is a collaborator
     ],
   })
-    .populate("media recipients contributors") // Populate required fields
-    .select("+_id media recipients contributors");
+    .populate("media recipients contributors") 
+    .select("+_id media recipients contributors title description unlockDate"); 
 
   return res.status(200).json({ success: true, data: capsules });
 });
