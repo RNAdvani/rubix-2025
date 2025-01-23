@@ -24,6 +24,7 @@ export interface User {
 }
 
 export interface Media {
+   _id: string;
    url: string;
    metadata: {
       type: string;
@@ -45,7 +46,7 @@ export interface Capsule {
    description?: string;
    unlockDate?: Date;
    creator?: User;
-   media?: File[];
+   media?: File[] | Media[];
    recipients?: User[]; // self id always
    accessCode?: string; //If permanent is false then only code and password should be emailed to receiptents
    isCollaborative?: boolean;
@@ -54,4 +55,5 @@ export interface Capsule {
    isPermanentLock?: boolean;
    isCollaboratorLock?: boolean; // Creator wants to lock(in)
    isRequiredUpdates?: boolean;
+   createdAt?: Date;
 }

@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { User } from "./lib/types";
 import { api } from "./lib/api";
 import { useUser } from "./components/hooks/use-user";
+import Capsule from "./pages/capsule";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
    const cookie = Cookies.get("token");
@@ -70,6 +71,7 @@ export default function App() {
                <Route path="creategroup" element={<GroupPage />} />
                <Route path="createcapsule" element={<CapsulePage />} />
             </Route>
+            <Route path="capsule/:id" element={<Capsule />} />
             <Route path="friends" element={<FriendFinder />} />
          </Routes>
       </>

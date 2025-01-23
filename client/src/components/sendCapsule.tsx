@@ -149,7 +149,7 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
 
       if (capsule.media) {
          capsule.media.forEach((file) => {
-            formData.append("media", file);
+            formData.append("media", file as File);
          });
       }
 
