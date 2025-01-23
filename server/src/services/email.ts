@@ -35,7 +35,82 @@ export const sendVerification = async (
       from: "ngenx2831@gmail.com",
       to,
       subject: "Email Verification",
-      html: `<h1>Verification Code: ${code}</h1>`,
+      html: `<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        color: #333333;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+      }
+      .email-header {
+        background: #4caf50;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 8px 8px 0 0;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .email-content {
+        padding: 20px;
+        font-size: 18px;
+      }
+      .verification-code {
+        display: inline-block;
+        background: #f1f1f1;
+        color: #333333;
+        font-size: 32px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+        letter-spacing: 2px;
+      }
+      .email-footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        Your Verification Code
+      </div>
+
+      <!-- Content -->
+      <div class="email-content">
+        <p>Use the code below to verify your account:</p>
+        <div class="verification-code">${code}</div>
+        <p>
+          Please note: This code is valid for the next 10 minutes. If you didn't request this, you can safely ignore this email.
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="email-footer">
+        <p>Thank you for choosing yaadein!</p>
+      </div>
+    </div>
+  </body>
+</html>
+`,
     };
 
     await transporter.sendMail(mailOptions);

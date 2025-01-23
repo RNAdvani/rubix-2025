@@ -83,120 +83,76 @@ export default function TimeCapsuleDialog({
                </div>
 
                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-center">
-                     Use Cases
-                  </h3>
+                  <h3 className="text-xl font-semibold text-center">Use Cases</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {/* Families */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://plus.unsplash.com/premium_photo-1661475916373-5aaaeb4a5393?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Updated family image
-                              alt="Family memories"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
+                     {[
+                        {
+                           title: "Families",
+                           image:
+                              "https://plus.unsplash.com/premium_photo-1661475916373-5aaaeb4a5393?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                           alt: "Family memories",
+                           description:
+                              "Hold onto every precious memory before it fades, and send it back when they're older.",
+                        },
+                        {
+                           title: "Students",
+                           image:
+                              "https://plus.unsplash.com/premium_photo-1683135216954-ab7130031b44?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                           alt: "Student growth",
+                           description:
+                              "Capture growth, dreams, and early journeys as you navigate into who you want to be.",
+                        },
+                        {
+                           title: "Leaving a Legacy",
+                           image:
+                              "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+                           alt: "Legacy",
+                           description:
+                              "Ensure your stories live on—share them with exactly who you choose, and when you want it delivered.",
+                        },
+                        {
+                           title: "Dear Future Me...",
+                           image:
+                              "https://images.unsplash.com/photo-1714273709972-f5b3606bf227?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                           alt: "Future self",
+                           description:
+                              "Preserve the dreams, hopes, and memories that make this moment unique, and capture who you are today for your future self.",
+                        },
+                        {
+                           title: "Future Events",
+                           image:
+                              "https://images.unsplash.com/photo-1521356279905-e1d72a443574?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+                           alt: "Special events",
+                           description:
+                              "For the big moments that matter the most—keep those memories alive for years to come.",
+                        },
+                        {
+                           title: "Last Letter",
+                           image:
+                              "https://plus.unsplash.com/premium_photo-1661304840506-c97889ecf08a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                           alt: "Last letter",
+                           description:
+                              "Even when you're no longer by their side, continue to share your love, wisdom, and memories for the future.",
+                        },
+                     ].map(({ title, image, alt, description }) => (
+                        <div
+                           key={title}
+                           className="space-y-3 text-center p-4 rounded-lg hover:bg-primary/10 transition-colors"
+                        >
+                           <div className="relative w-32 h-32 mx-auto">
+                              <img
+                                 src={image}
+                                 alt={alt}
+                                 className="rounded-full object-cover w-full h-full shadow-md"
+                              />
+                           </div>
+                           <h4 className="text-lg font-semibold text-primary">{title}</h4>
+                           <p className="text-sm text-gray-600 text-justify">{description}</p>
                         </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Families
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           Hold onto every precious memory before it fades, and
-                           send it back when they're older.
-                        </p>
-                     </div>
-
-                     {/* Students */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://plus.unsplash.com/premium_photo-1683135216954-ab7130031b44?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Updated student image
-                              alt="Student growth"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
-                        </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Students
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           Capture growth, dreams, and early journeys as you
-                           navigate into who you want to be.
-                        </p>
-                     </div>
-
-                     {/* Legacy */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" // Updated legacy image
-                              alt="Legacy"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
-                        </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Leaving a Legacy
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           Ensure your stories live on—share them with exactly
-                           who you choose, and when you want it delivered.
-                        </p>
-                     </div>
-
-                     {/* Future Me */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://images.unsplash.com/photo-1714273709972-f5b3606bf227?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Updated future self image
-                              alt="Future self"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
-                        </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Dear Future Me...
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           Preserve the dreams, hopes, and memories that make
-                           this moment unique, and capture who you are today for
-                           your future self.
-                        </p>
-                     </div>
-
-                     {/* Events */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://images.unsplash.com/photo-1559736454-21a2d22a29d1" // Updated event image
-                              alt="Special events"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
-                        </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Future Events
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           For the big moments that matter the most—keep those
-                           memories alive for years to come.
-                        </p>
-                     </div>
-
-                     {/* Last Letter */}
-                     <div className="space-y-3 text-center p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="relative w-32 h-32 mx-auto">
-                           <img
-                              src="https://plus.unsplash.com/premium_photo-1661304840506-c97889ecf08a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Updated last letter image
-                              alt="Last letter"
-                              className="rounded-full object-cover w-full h-full shadow-md"
-                           />
-                        </div>
-                        <h4 className="text-lg font-semibold text-blue-600">
-                           Last Letter
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                           Even when you're no longer by their side, continue to
-                           share your love, wisdom, and memories for the future.
-                        </p>
-                     </div>
+                     ))}
                   </div>
                </div>
+
             </ScrollArea>
             <Button
                className="w-full"

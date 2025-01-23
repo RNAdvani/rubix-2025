@@ -8,6 +8,7 @@ export const createCapsule = TryCatch(async (req, res, next) => {
   const { title, description, contributors } = req.body;
 
   const media = req.files as Express.Multer.File[];
+  console.log(media);
 
   if (!title || !description)
     return next(new ErrorHandler(400, "Please provide title and description"));
@@ -55,13 +56,17 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 
   await capsule.save();
 
-  return res.status(201).json({ success: true, data: capsule });
+  return res.status(201).json({
+    success: true,
+    data: capsule,
+    message: "Capsule created successfully",
+  });
 });
 
 export const getCreatedCapsules = TryCatch(async (req, res, next) => {
   const capsules = await TimeCapsule.find({
     creator: req.user._id,
-  });
+  }).populate("media");
 
   return res.status(200).json({ success: true, data: capsules });
 });
@@ -132,6 +137,21 @@ export const addContributors = TryCatch(async (req, res, next) => {
       new ErrorHandler(403, "You are not allowed to perform this action")
     );
 
+  if (!capsule.isCollaborative) {
+    capsule.isCollaborative = true;
+  }
+
+  let isError = false;
+
+  contributors.forEach((c: any) => {
+    if (capsule.contributors.includes(c)) {
+      isError = true;
+    }
+  });
+
+  if (isError)
+    return next(new ErrorHandler(400, "Some contributors already exist"));
+
   capsule.contributors = [
     ...new Set([...capsule.contributors, ...contributors]),
   ];
@@ -180,6 +200,30 @@ export const addMedia = TryCatch(async (req, res, next) => {
       };
     }),
   ];
+
+  await capsule.save();
+
+  return res.status(200).json({ success: true, data: capsule });
+});
+
+export const updateCapsule = TryCatch(async (req, res, next) => {
+  const { capsuleId, title, description, isCollaboratorLock } = req.body;
+
+  const capsule = await TimeCapsule.findById(capsuleId);
+
+  if (!capsule)
+    return next(new ErrorHandler(404, "Capsule not found or has been deleted"));
+
+  if (!capsule.creator.equals(req.user._id))
+    return next(
+      new ErrorHandler(403, "You are not allowed to perform this action")
+    );
+
+  capsule.title = title || capsule.title;
+
+  capsule.description = description || capsule.description;
+
+  capsule.isCollaboratorLock = isCollaboratorLock || capsule.isCollaboratorLock;
 
   await capsule.save();
 

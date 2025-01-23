@@ -8,9 +8,5 @@ interface UserState {
 
 export const useUser = create<UserState>((set) => ({
    user: null,
-   setUser: (user) => {
-      console.log(user);
-
-      set({ user });
-   },
+   setUser: (user) => set({ user }),
 }));
