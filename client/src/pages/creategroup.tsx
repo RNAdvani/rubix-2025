@@ -6,6 +6,7 @@ import axios from "axios";
 import { useUser } from "@/components/hooks/use-user";
 import { SearchUsers } from "@/components/groups/searchUser";
 import { toast } from "sonner";
+import { PlusIcon, XIcon } from "lucide-react";
 
 interface Group {
   _id: string;
@@ -97,7 +98,7 @@ export default function GroupsPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">My Groups</h1>
         <Button onClick={() => setIsCreatingGroup(!isCreatingGroup)}>
-          {isCreatingGroup ? "Cancel" : "Create Group"}
+          {isCreatingGroup ? <XIcon size={16}/> : <PlusIcon size={16} />}
         </Button>
       </div>
 
