@@ -8,6 +8,7 @@ export const createCapsule = TryCatch(async (req, res, next) => {
   const { title, description, contributors } = req.body;
 
   const media = req.files as Express.Multer.File[];
+  console.log(media);
 
   if (!title || !description)
     return next(new ErrorHandler(400, "Please provide title and description"));
@@ -55,7 +56,11 @@ export const createCapsule = TryCatch(async (req, res, next) => {
 
   await capsule.save();
 
-  return res.status(201).json({ success: true, data: capsule });
+  return res.status(201).json({
+    success: true,
+    data: capsule,
+    message: "Capsule created successfully",
+  });
 });
 
 export const getCreatedCapsules = TryCatch(async (req, res, next) => {

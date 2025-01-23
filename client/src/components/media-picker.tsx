@@ -127,7 +127,7 @@ export const MediaPicker = ({ onPhotosSelected }: MediaPickerProps) => {
    };
 
    return (
-      <div className="w-full max-w-4xl mx-auto p-6 space-y-6 flex flex-col">
+      <div className="w-full max-w-4xl mx-auto p-2 space-y-6 flex flex-col">
          <h2 className="text-2xl font-bold">Select Media</h2>
          <FileUpload setMediaItems={setMediaFiles} />
          <ScrollArea className="h-[600px] rounded-lg border">

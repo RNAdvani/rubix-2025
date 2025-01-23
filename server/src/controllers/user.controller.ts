@@ -246,3 +246,12 @@ export const searchUserFromUsernameOrEmail = TryCatch(
     });
   }
 );
+
+export const getCurrentUser = TryCatch(
+  async (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json({
+      success: true,
+      data: req.user,
+    });
+  }
+);

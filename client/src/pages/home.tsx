@@ -13,7 +13,7 @@ const items = [
     title: "Summer Memories 2023",
     description: "A collection of our best moments from this summer",
     image:
-      "https://sjc.microlink.io/djxdCugu4CRzM8ahIwkpWPdwFVBurlgy9kNsoZiS3ePsZS9lwa_3Hx2lkMIQwqaTAE45fZzqyN5BAYoCKTVU7A.jpeg",
+      "peeps.jpg",
     sharedBy: [
       { name: "Alex", avatar: "/placeholder.svg" },
       { name: "Sam", avatar: "/placeholder.svg" },
@@ -23,7 +23,7 @@ const items = [
     id: 2,
     title: "Beach Weekend",
     description: "Unforgettable moments by the ocean",
-    image: "/placeholder.svg",
+    image: "csipeeps.jpg",
     sharedBy: [
       { name: "Taylor", avatar: "/placeholder.svg" },
       { name: "Jordan", avatar: "/placeholder.svg" },
@@ -106,11 +106,11 @@ export default function Page() {
               alt={item.title}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-primary/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 to-secondary/50" />
             <div className="relative z-10 p-6 flex flex-col h-full justify-between">
               <div>
-                <CardTitle className="text-white mb-2">{item.title}</CardTitle>
-                <CardDescription className="text-white/80">
+                <CardTitle className="text-secondary-foreground mb-2 text-3xl">{item.title}</CardTitle>
+                <CardDescription className="text-secondary-foreground/80">
                   {item.description}
                 </CardDescription>
               </div>
@@ -153,7 +153,7 @@ export default function Page() {
           {Array.from({ length: suggestedUsers.length }).map((_, userIndex) => (
             <div key={userIndex} className="flex-shrink-0 w-64">
               {/* Card 1 */}
-              <div className="p-4 bg-white shadow rounded-md mb-4">
+              <div className="p-4 bg-secondary/25 shadow rounded-md mb-4">
                 <div className="flex flex-col items-center text-center">
                   <Avatar className="w-16 h-16 mb-2">
                     <AvatarImage src={suggestedUsers[userIndex].avatar} />
