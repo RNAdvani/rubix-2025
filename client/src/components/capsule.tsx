@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar } from "@/components/ui/avatar";
-import { base64ToFile, cn } from "@/lib/utils";
+import { base64ToFile, cn, identifyFileType } from "@/lib/utils";
 import { Capsule, MediaFile } from "@/lib/types";
 import { FileUpload } from "./file-upload";
 import { SearchUsers } from "./groups/searchUser";

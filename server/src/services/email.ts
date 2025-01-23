@@ -38,7 +38,16 @@ export const sendVerification = async (
       html: `<!DOCTYPE html>
 <html>
   <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <style>
+      .chonburi-regular {
+  font-family: "Chonburi", serif;
+  font-weight: 400;
+  font-style: normal;
+}
       body {
         font-family: 'Inter', sans-serif;
         line-height: 1.6;
@@ -58,7 +67,7 @@ export const sendVerification = async (
         padding: 20px;
       }
       .email-header {
-        background: #4caf50;
+        background: #ff0073;
         color: #ffffff;
         padding: 20px;
         border-radius: 8px 8px 0 0;
@@ -105,7 +114,7 @@ export const sendVerification = async (
 
       <!-- Footer -->
       <div class="email-footer">
-        <p>Thank you for choosing yaadein!</p>
+        <p>Thank you for choosing <span class="chonburi-regular"><strong class="chonburi-regular">yaadein</strong></p>!</span>
       </div>
     </div>
   </body>

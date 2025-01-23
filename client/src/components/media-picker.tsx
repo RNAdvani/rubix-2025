@@ -61,7 +61,11 @@ export const MediaPicker = ({ onPhotosSelected }: MediaPickerProps) => {
          setCapsule({
             ...capsule,
             media: selectedMedia.map((file) =>
-               base64ToFile(file.url, file.id)
+               file.type === "image" ||
+               file.type === "audio" ||
+               file.type === "video"
+                  ? base64ToFile(file.url, `media_${file.id}`)
+                  : file.url
             ) as File[],
          });
       }
