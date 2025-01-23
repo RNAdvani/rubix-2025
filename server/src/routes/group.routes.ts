@@ -2,19 +2,15 @@
 import { Router } from "express";
 import {
   createGroup,
-  deleteGroup,
-  getAllGroups,
-  getGroupById,
+  getAllGroupsOfUsers,
   updateGroup,
 } from "../controllers/group.controller";
 
 const router = Router();
 
 // Define routes
-router.post("/", createGroup);
-router.get("/", getAllGroups);
-router.get("/:id", getGroupById);
-router.put("/:id", updateGroup);
-router.delete("/:id", deleteGroup);
+router.post("/create", createGroup);
+router.post("/getgroups", getAllGroupsOfUsers);
+router.put("/update", updateGroup);
 
 export default router;

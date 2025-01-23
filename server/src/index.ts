@@ -7,6 +7,7 @@ import { instagramRoutes } from "./routes/instagram.route";
 import { errorMiddleware } from "./lib/ErrorHandler";
 import { userRoutes } from "./routes/user.routes";
 import { timeCapsuleRoutes } from "./routes/timecapsule.routes";
+import groupRoutes from "./routes/group.routes";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/email", emailRoutes);
 app.use("/api/instagram", instagramRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/capsule", timeCapsuleRoutes);
+app.use("/api/group", groupRoutes);
 
 // Middleware to handle errors
 app.use(errorMiddleware);
