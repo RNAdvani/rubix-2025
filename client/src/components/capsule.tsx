@@ -74,6 +74,16 @@ export const CapsulePage = ({
       original: string;
       recolorized: string;
    } | null>(null);
+   const [removedBgImages, setRemovedBgImages] = useState<{
+      [key: string]: string;
+   }>({});
+   const [isRemovingBg, setIsRemovingBg] = useState<{
+      [key: string]: boolean;
+   }>({});
+   const [removeBgDialogImage, setRemoveBgDialogImage] = useState<{
+      original: string;
+      removedBg: string;
+   } | null>(null);
 
    const handleCollaboratorLockToggle = (checked: boolean) => {
       setIsCollaboratorLock(checked);
@@ -138,6 +148,34 @@ export const CapsulePage = ({
       }
    };
 
+   const removeBackground = async (mediaId: string, imageUrl: string) => {
+      try {
+         setIsRemovingBg((prev) => ({ ...prev, [mediaId]: true }));
+
+         const response = await api.post("/api/capsule/remove-bg", {
+            url: imageUrl,
+            mediaId,
+         });
+
+         const removedBgUrl = response.data.data;
+
+         setRemovedBgImages((prev) => ({
+            ...prev,
+            [mediaId]: removedBgUrl,
+         }));
+
+         setRemoveBgDialogImage({
+            original: imageUrl,
+            removedBg: removedBgUrl,
+         });
+      } catch (error) {
+         console.error("Background removal failed:", error);
+         toast.error("Failed to remove background");
+      } finally {
+         setIsRemovingBg((prev) => ({ ...prev, [mediaId]: false }));
+      }
+   };
+
    const renderMediaItem = (media: any) => {
       const fileType = identifyFileType(media.url);
 
@@ -174,6 +212,17 @@ export const CapsulePage = ({
                         {isRecolorizingStatus
                            ? "Recolorizing..."
                            : "Recolorize"}
+                     </DropdownMenuItem>
+                     <DropdownMenuItem
+                        disabled={
+                           isRemovingBg[media?._id] ||
+                           !!removedBgImages[media?._id]
+                        }
+                        onClick={() => removeBackground(media?._id, media?.url)}
+                     >
+                        {isRemovingBg[media?._id]
+                           ? "Removing Background..."
+                           : "Remove Background"}
                      </DropdownMenuItem>
                   </DropdownMenuContent>
                </DropdownMenu>
@@ -418,6 +467,7 @@ export const CapsulePage = ({
                            </div>
                         </DialogContent>
                      </Dialog>
+
                      {/* Recolorize Dialog */}
                      <Dialog
                         open={!!recolorizeDialogImage}
@@ -432,6 +482,28 @@ export const CapsulePage = ({
                                  <img
                                     src={recolorizeDialogImage.recolorized}
                                     alt="Recolorized"
+                                    className="w-full object-contain max-h-[70vh]"
+                                 />
+                              </div>
+                           )}
+                        </DialogContent>
+                     </Dialog>
+
+                     <Dialog
+                        open={!!removeBgDialogImage}
+                        onOpenChange={() => setRemoveBgDialogImage(null)}
+                     >
+                        <DialogContent className="max-w-4xl">
+                           <DialogHeader>
+                              <DialogTitle>
+                                 Removed Background Image
+                              </DialogTitle>
+                           </DialogHeader>
+                           {removeBgDialogImage && (
+                              <div className="w-full">
+                                 <img
+                                    src={removeBgDialogImage.removedBg}
+                                    alt="Background Removed"
                                     className="w-full object-contain max-h-[70vh]"
                                  />
                               </div>

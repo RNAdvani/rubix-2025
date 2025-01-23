@@ -8,6 +8,7 @@ import { sendCapsuleEmail, sendCollaboratorEmail } from "../services/email";
 import { postToInstagram } from "../services/instagram";
 import { generateAccessCode } from "../utils";
 import schedule from "node-schedule";
+import { removeBackgroundFromImageUrl } from "remove.bg";
 
 export const createCapsule = TryCatch(async (req, res, next) => {
   const { title, description, contributors } = req.body;
@@ -422,3 +423,37 @@ export const postOnInstagram = TryCatch(async (req, res, next) => {
     message: `Capsule scheduled for Instagram posting on ${unlockDate}`,
   });
 });
+
+export const removeBackgroundFromImage  = TryCatch(async (req, res, next) => {
+  const { url } = req.body;
+
+  if (!url) {
+    return next(new ErrorHandler(400, "Please provide an image URL"));
+  }
+
+  const outputFile = `./public/uploads/${Date.now()}.png`;
+
+  try {
+    await removeBackgroundFromImageUrl({
+      url,
+      apiKey:process.env.REMOVE_BG_API_KEY!,
+      size: "regular",
+      type: "auto",
+      outputFile
+    })
+  } catch (error) {
+    console.log(error);
+  }
+
+  const resp = await uploadOnCloudinary(outputFile, "image")
+
+  if(!resp) {
+    return next(new ErrorHandler(500, "Failed to upload image to cloudinary"))
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Background removed successfully",
+    data: resp?.secure_url,
+  });
+})
