@@ -10,9 +10,11 @@ import {
 import bcrypt from "bcryptjs";
 import User from "../models/user.model";
 import { ErrorHandler } from "../lib/ErrorHandler";
-import { sendVerification } from "../services/email";
+import { sendEmail, sendVerification } from "../services/email";
 import Verification from "../models/verification.model";
 import { sendWhatsapp } from "../services/whatsapp";
+import { TimeCapsule } from "../models/timecapsule.model";
+import { IUser } from "../schema";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
@@ -53,10 +55,7 @@ export const registerUser = TryCatch(
     const { name, email, password, phone } = req.body;
 
     let user = await User.findOne({ email });
-
-    if (user) {
-      return next(new ErrorHandler(400, "User already exists"));
-    }
+    if (user) return next(new ErrorHandler(400, "User already exists"));
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -67,21 +66,30 @@ export const registerUser = TryCatch(
       phone: formatPhoneNumber(phone),
     });
 
+    // Link anonymous capsules to registered user
+    const capsules = await TimeCapsule.find({ anonymousEmails: email });
+    for (const capsule of capsules) {
+      capsule.recipients.push(user._id);
+      capsule.anonymousEmails = capsule.anonymousEmails.filter(
+        (e: any) => e !== email
+      );
+      await capsule.save();
+    }
+
     const verificationCode = generateVerificationToken();
 
     await Verification.create({
       user: user._id,
       code: verificationCode,
-      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes expiry
     });
 
     await sendWhatsapp(String(verificationCode), user.phone);
-
     await sendVerification(email, verificationCode);
 
     return res.status(201).json({
       success: true,
-      message: "User created and verification code sent to email and whatsapp",
+      message: "User created and verification code sent to email and WhatsApp",
       user,
     });
   }
