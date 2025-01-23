@@ -295,7 +295,7 @@ export function LoginForm() {
          </p>
          <Button
             onClick={() => {
-               navigate("/peeps");
+               navigate("/friends");
             }}
             className="w-full"
          >

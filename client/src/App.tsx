@@ -14,6 +14,7 @@ import SearchScreen from "./pages/search";
 import Suggestions from "./pages/suggestions";
 import Unlocking from "./pages/unlocking";
 import Cookies from "js-cookie";
+import { LoginForm } from "./components/login-form";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const cookie = Cookies.get("token");
@@ -30,7 +31,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<OnboardingCarousel />} />
         <Route path="/auth/register" element={<SignUpForm />} />
-        <Route path="/auth/login" element={<SignUpForm />} />
+        <Route path="/auth/login" element={<LoginForm />} />
         <Route
           path="/dashboard"
           element={

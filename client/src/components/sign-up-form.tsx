@@ -405,7 +405,7 @@ export function SignUpForm() {
          </p>
          <Button
             onClick={() => {
-               navigate("/peeps");
+               navigate("/friends");
             }}
             className="w-full"
          >
