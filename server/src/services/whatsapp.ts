@@ -3,14 +3,14 @@ import axios from "axios";
 export const sendWhatsapp = async (message: string, phone: string) => {
   try {
     const res = await axios.post(
-      "https://api.zaply.dev/v1/instance/i50n26wf01/message/send",
+      "https://api.zaply.dev/v1/instance/3wybo32lg8/message/send",
       {
         message: message,
         number: phone,
       },
       {
         headers: {
-          Authorization: "Bearer ss8yzxfg7fqhivpfq86p9fh16g3gam",
+          Authorization: "Bearer ozi0e49y1wj3k7e000v1wa4k347nb2",
         },
       }
     );

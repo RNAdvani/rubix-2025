@@ -9,6 +9,7 @@ import {
   getCreatedCapsules,
   getReceivedCapsules,
   lockCapsule,
+  postOnInstagram,
   updateCapsule,
 } from "../controllers/timecapsule.controller";
 import { authenticate } from "../middleware/authenticated";
@@ -24,5 +25,6 @@ router.get("/get-received", authenticate, getReceivedCapsules);
 router.get("/get/:id", authenticate, getCapsule);
 router.patch("/update", authenticate, updateCapsule);
 router.patch("/add-media", authenticate, upload.array("media", 10), addMedia);
+router.post("/instagram", postOnInstagram);
 
 export { router as timeCapsuleRoutes };
