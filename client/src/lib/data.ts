@@ -8,12 +8,6 @@ export const sampleImages: MediaFile[] = [
       type: "image",
    },
    {
-      id: "2",
-      url: "https://images.unsplash.com/photo-1682687221038-404670f05144?w=500&auto=format",
-      alt: "Mountain view",
-      type: "image",
-   },
-   {
       id: "3",
       url: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=500&auto=format",
       alt: "Ocean waves",
@@ -66,11 +60,5 @@ export const sampleImages: MediaFile[] = [
       url: "https://images.unsplash.com/photo-1682687220199-d0124f48f95b?w=500&auto=format",
       alt: "Waterfall",
       type: "image",
-   },
-   {
-      id: "12",
-      url: "https://images.unsplash.com/photo-1682687221038-404670f05144?w=500&auto=format",
-      alt: "Starry night",
-      type: "image",
-   },
+   }
 ];

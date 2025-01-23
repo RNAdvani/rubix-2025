@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-// import { Button } from "../components/ui/button";
 import { Home, Search, Users, Pill } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
@@ -15,11 +14,16 @@ export function BottomNav() {
   const navigate = useNavigate();
   const pathname = window.location.pathname;
 
+  // Utility function to remove "/dashboard" from paths
+  const removeDashboardPrefix = (path: string): string =>
+    path.replace(/^\/dashboard\//, "");
+
   return (
-    <nav className=" fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-t border-border">
       <div className="grid grid-cols-4 gap-1 p-2">
         {navItems.map((item) => {
-          const isActive = pathname.endsWith(item.href);
+          // Determine active state
+          const isActive = removeDashboardPrefix(pathname) === removeDashboardPrefix(item.href);
           const Icon = item.icon;
 
           return (

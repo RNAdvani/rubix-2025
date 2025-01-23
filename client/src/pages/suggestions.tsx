@@ -58,9 +58,8 @@ const Suggestions = () => {
    };
 
    return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted p-6">
-         <div className="max-w-4xl mx-auto space-y-6">
-            <Card className="border-2">
+         <div className="space-y-6">
+            <div className="border-2">
                <CardHeader>
                   <CardTitle className="text-3xl font-bold">
                      Create Your Time Capsule Memory
@@ -92,7 +91,7 @@ const Suggestions = () => {
                      </TabsContent>
 
                      <TabsContent value="record" className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                            <RecordCard
                               icon={Camera}
                               title="Take Photo"
@@ -115,7 +114,7 @@ const Suggestions = () => {
                      </TabsContent>
                   </Tabs>
                </CardContent>
-            </Card>
+            </div>
 
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent">
                <div className="max-w-4xl mx-auto">
@@ -129,7 +128,6 @@ const Suggestions = () => {
                </div>
             </div>
          </div>
-      </div>
    );
 };
 

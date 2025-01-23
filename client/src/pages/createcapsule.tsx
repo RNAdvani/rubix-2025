@@ -39,7 +39,7 @@ export default function TimeCapsuleDialog() {
                 accessCode: "",
                 contributors: [],
             });
-            navigate("/dashboard/suggestions");
+            navigate("/dashboard/createcapsule/suggestions");
         } else {
             console.error("User is not logged in");
         }
@@ -131,7 +131,7 @@ export default function TimeCapsuleDialog() {
                 </Button>
                 <div className="w-full">
                     <hr />
-                    <h3 className="text-2xl font-bold text-center my-6">Use Cases</h3>
+                    <h3 className="text-xl font-bold text-center my-6">Use Cases</h3>
                     <Carousel className="w-full">
                         <CarouselContent>
                             {useCases.map(({ title, image, alt, description }, index) => (

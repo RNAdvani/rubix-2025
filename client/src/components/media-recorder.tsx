@@ -140,7 +140,7 @@ export const MediaRecorder = ({ type, onCapture }: MediaRecorderProps) => {
                ref={videoRef}
                autoPlay
                playsInline
-               className="w-full aspect-video rounded-lg border"
+               className="w-full aspect-video rounded-lg border h-96"
             />
             <Button onClick={takePhoto} variant="outline" className="w-full">
                <Camera className="mr-2 h-4 w-4" />
@@ -157,7 +157,7 @@ export const MediaRecorder = ({ type, onCapture }: MediaRecorderProps) => {
                ref={videoRef}
                autoPlay
                playsInline
-               className="w-full aspect-video rounded-lg border"
+               className="w-full aspect-video rounded-lg border h-96"
             />
             {!isRecording ? (
                <Button

@@ -85,7 +85,6 @@ export default function App() {
             >
                <Route index element={<Home />} />
                <Route path="accept-invitation" element={<InvitationPage />} />
-               <Route path="suggestions" element={<Suggestions />} />
                <Route path="search" element={<SearchScreen />} />
                <Route path="notifications" element={<NotificationsScreen />} />
                <Route path="profile" element={<UserProfile />} />
@@ -94,6 +93,7 @@ export default function App() {
                <Route path="review" element={<ReviewPage />} />
                <Route path="editor" element={<PhotoEditor />} />
                <Route path="creategroup" element={<GroupPage />} />
+               <Route path="createcapsule/suggestions" element={<Suggestions />} />
                <Route path="createcapsule" element={<CapsulePage />} />
             </Route>
             <Route
