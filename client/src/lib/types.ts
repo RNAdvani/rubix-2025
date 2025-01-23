@@ -57,3 +57,12 @@ export interface Capsule {
    isRequiredUpdates?: boolean;
    createdAt?: Date;
 }
+
+export interface Group {
+   _id: string;
+   name: string;
+   owner: User;
+   members: User[];
+   createdAt: Date;
+   updatedAt: Date;
+}

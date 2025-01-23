@@ -24,39 +24,6 @@ interface Collaborator {
   avatar: string;
 }
 
-interface Group {
-  id: string;
-  name: string;
-  members: Collaborator[];
-  createdAt: string;
-}
-
-// This would come from your database
-const sampleGroups: Group[] = [
-  {
-    id: "1",
-    name: "Family",
-    members: [
-      { _id: "1", name: "Alice Smith", avatar: "/api/placeholder/100/100" },
-      { _id: "2", name: "Bob Johnson", avatar: "/api/placeholder/100/100" },
-    ],
-    createdAt: "2024-01-20",
-  },
-  {
-    id: "2",
-    name: "Work Team",
-    members: [
-      {
-        _id: "3",
-        name: "Carol Williams",
-        avatar: "/api/placeholder/100/100",
-      },
-      { _id: "4", name: "David Brown", avatar: "/api/placeholder/100/100" },
-    ],
-    createdAt: "2024-01-21",
-  },
-];
-
 interface CreateCapsuleProps {
   isOpen: boolean;
   onClose: () => void;
@@ -76,10 +43,17 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
 
   const { capsule, setCapsule } = useCapsule();
 
-  // This would be replaced with your actual data fetching logic
-  const groups = sampleGroups;
-
-  const collaborators = groups.flatMap((group) => group.members);
+  const fetchGroups = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get("/api/group/getgroups");
+      console.log(res.data.data);
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const toggleCollaborator = (id: string) => {
     setSelectedCollaborators((prev) => {
@@ -91,19 +65,6 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
       }
       return next;
     });
-  };
-
-  const handleGroupSelect = (groupId: string) => {
-    if (selectedGroupId === groupId) {
-      setSelectedGroupId(null);
-      setSelectedCollaborators(new Set());
-    } else {
-      setSelectedGroupId(groupId);
-      const group = groups.find((g) => g.id === groupId);
-      if (group) {
-        setSelectedCollaborators(new Set(group.members.map((m) => m._id)));
-      }
-    }
   };
 
   const fetchSearchResults = async (query: string) => {

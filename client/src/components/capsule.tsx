@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar } from "@/components/ui/avatar";
-import { base64ToFile, cn } from "@/lib/utils";
+import { base64ToFile, cn, identifyFileType } from "@/lib/utils";
 import { Capsule, MediaFile } from "@/lib/types";
 import { FileUpload } from "./file-upload";
 import { SearchUsers } from "./groups/searchUser";
@@ -207,14 +207,30 @@ export const CapsulePage = ({
                            {data.media.map((media: any) => (
                               <div
                                  key={media?._id}
-                                 className="group relative aspect-square rounded-lg overflow-hidden bg-muted"
+                                 className="group relative aspect-square rounded-lg overflow-hidden "
                               >
-                                 <img
-                                    src={media?.url}
-                                    alt={"Media"}
-                                    className="object-cover w-full h-full transition-transform group-hover:scale-105"
-                                    loading="lazy"
-                                 />
+                                 {identifyFileType(media.url) === "image" && (
+                                    <img
+                                       src={media?.url}
+                                       alt={"Media"}
+                                       className="object-cover w-full h-full transition-transform group-hover:scale-105"
+                                       loading="lazy"
+                                    />
+                                 )}
+                                 {identifyFileType(media.url) === "video" && (
+                                    <video
+                                       src={media?.url}
+                                       className="object-cover w-full h-full"
+                                       controls
+                                    />
+                                 )}
+                                 {identifyFileType(media.url) === "audio" && (
+                                    <audio
+                                       src={media?.url}
+                                       controls
+                                       className="mt-8"
+                                    />
+                                 )}
                                  {/* {media?.metadata?.description && (
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-2 sm:p-4">
                                        <p className="text-white text-xs sm:text-sm text-center line-clamp-3">
