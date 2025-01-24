@@ -17,6 +17,7 @@ import debounce from "lodash/debounce";
 import { useCapsule } from "./hooks/use-capsule";
 import { Capsule } from "@/lib/types";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 interface Collaborator {
   _id: string;
@@ -53,7 +54,7 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const toggleCollaborator = (id: string) => {
     setSelectedCollaborators((prev) => {
@@ -66,7 +67,7 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
       return next;
     });
   };
-
+  const navigate = useNavigate();
   const fetchSearchResults = async (query: string) => {
     if (!query) {
       setSearchResults([]);
@@ -95,13 +96,15 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
   }, [searchQuery, debouncedSearch]);
 
   const handleCreateCapsule = async (capsule: Capsule) => {
-    console.log("Creating capsule...");
+    // Show a loading toast that persists until the operation completes
+    const loadingToast = toast.loading("Creating capsule...", {
+      // Optional: you can add duration if you want it to auto-dismiss
+      duration: Infinity, // Stays until manually dismissed
+    });
 
     setLoading(true);
 
     const formData = new FormData();
-
-    console.log(capsule);
 
     if (capsule.title && capsule.description) {
       formData.append("title", capsule.title);
@@ -119,9 +122,16 @@ const CreateCapsule = ({ isOpen, onClose }: CreateCapsuleProps) => {
 
       if (res.data.success) {
         setCapsule({} as Capsule);
+
+        // Dismiss the loading toast and show success
+        toast.dismiss(loadingToast);
         toast.success(res.data.message);
+
+        navigate("/dashboard");
       }
     } catch (error) {
+      // Dismiss the loading toast and show error
+      toast.dismiss(loadingToast);
       toast.error("Error creating capsule");
     } finally {
       setLoading(false);

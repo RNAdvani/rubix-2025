@@ -10,6 +10,7 @@ import {
   getReceivedCapsules,
   lockCapsule,
   postOnInstagram,
+  removeBackgroundFromImage,
   updateCapsule,
 } from "../controllers/timecapsule.controller";
 import { authenticate } from "../middleware/authenticated";
@@ -26,5 +27,6 @@ router.get("/get/:id", authenticate, getCapsule);
 router.patch("/update", authenticate, updateCapsule);
 router.patch("/add-media", authenticate, upload.array("media", 10), addMedia);
 router.post("/instagram", postOnInstagram);
+router.post("/remove-bg", authenticate, removeBackgroundFromImage)
 
 export { router as timeCapsuleRoutes };

@@ -3,8 +3,12 @@ import { TimelineDemo } from "@/components/timeline";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Capsule, Media } from "@/lib/types"; // Import Capsule type
+import axios from "axios";
 import { Clock, Plus, Sparkles, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 // Mock data
 const items = [
@@ -72,7 +76,35 @@ const suggestedUsers = [
 export default function Page() {
   const navigate = useNavigate();
   const { user } = useUser();
-  console.log(user);
+
+  const [allCapsules, setAllCapsules] = useState<Capsule[]>([]); // use Capsule type
+  useEffect(() => {
+    const fetchCapsules = async () => {
+      try {
+        const res = axios.get("http://localhost:3000/api/capsule/get-all", {
+          withCredentials: true,
+        });
+        const res2 = axios.get(
+          "http://localhost:3000/api/capsule/get-received",
+          {
+            withCredentials: true,
+          }
+        );
+
+        const responses = await Promise.all([res, res2]);
+        const capsules = responses[0].data.data;
+        const receivedCapsules = responses[1].data.data;
+        if (!capsules || !receivedCapsules) return;
+        setAllCapsules([...capsules, ...receivedCapsules]); // setting capsules data
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
+      }
+    };
+
+    fetchCapsules();
+  }, []);
+  console.log(allCapsules);
+
   return (
     <div className="min-h-screen bg-background">
       <Card className="p-6 m-6 bg-primary/40 text-primary">
@@ -99,35 +131,45 @@ export default function Page() {
       </Card>
 
       {/* Scrollable Cards Section */}
+      {/* Scrollable Cards Section */}
       <div className="flex overflow-x-auto gap-6 p-6 pb-8 snap-x snap-mandatory">
-        {items.map((item) => (
+        {allCapsules.map((capsule) => (
           <Card
-            key={item.id}
+            key={capsule._id}
             className="relative overflow-hidden h-64 min-w-[320px] snap-center"
           >
             <img
-              src={item.image || "/placeholder.svg"}
-              alt={item.title}
+              src={
+                capsule.media && (capsule.media[0] as Media)?.url
+                  ? (capsule.media[0] as Media).url
+                  : "/placeholder.svg"
+              }
+              alt={capsule.title || "Capsule Image"}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 to-secondary/50" />
             <div className="relative z-10 p-6 flex flex-col h-full justify-between">
               <div>
                 <CardTitle className="text-secondary-foreground mb-2 text-3xl">
-                  {item.title}
+                  {capsule.title || "Untitled Capsule"}
                 </CardTitle>
                 <CardDescription className="text-secondary-foreground/80">
-                  {item.description}
+                  {capsule.description || "No description available."}
                 </CardDescription>
               </div>
               <div className="flex -space-x-2 overflow-hidden">
-                {item.sharedBy.map((user, index) => (
+                {capsule.recipients?.map((recipient, index) => (
                   <Avatar
                     key={index}
                     className="inline-block border-2 border-background"
                   >
-                    <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback>{user.name[0]}</AvatarFallback>
+                    {/* <AvatarImage
+                      src={recipient.avatar || "/placeholder.svg"}
+                      alt={recipient.name || "User"}
+                    /> */}
+                    <AvatarFallback>
+                      {recipient.name ? recipient.name[0] : "?"}
+                    </AvatarFallback>
                   </Avatar>
                 ))}
               </div>
@@ -195,15 +237,17 @@ export default function Page() {
                 </Avatar>
               ))}
             </div>
-            <Button size="icon" variant="secondary">
-              <Plus className="h-4 w-4" />
-            </Button>
           </div>
           <h3 className="text-xl font-semibold mb-2">Create a New Group</h3>
           <p className="text-muted-foreground mb-4">
             Start a community and invite friends to share memories together
           </p>
-          <Button className="w-full">
+          <Button
+            className="w-full"
+            onClick={() => {
+              navigate("/dashboard/creategroup");
+            }}
+          >
             <Users className="mr-2 h-4 w-4" />
             Create Group
           </Button>
