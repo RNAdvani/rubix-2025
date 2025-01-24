@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { Home, Search, Users, Pill } from "lucide-react";
+import { Home, Users, Pill, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 
 const navItems = [
   { href: "/dashboard", label: "Home", icon: Home },
-  { href: "/dashboard/search", label: "Search", icon: Search },
+  { href: "/dashboard/ai", label: "Ai", icon: Sparkles },
   { href: "/dashboard/creategroup", label: "Groups", icon: Users },
   { href: "/dashboard/createcapsule", label: "Capsule", icon: Pill },
 ];

@@ -1,18 +1,38 @@
-import { useState } from "react";
+"use client"
 
-const VoiceGenerator = () => {
-  const [text, setText] = useState("");
-  const [tone, setTone] = useState("");
-  const [context, setContext] = useState("");
-  const [maxTokens, setMaxTokens] = useState(100);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [audioUrl, setAudioUrl] = useState("");
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-  const handleGenerateVoice = async () => {
-    setLoading(true);
-    setError("");
-    setAudioUrl("");
+const ChatUI = () => {
+  const [messages, setMessages] = useState<Array<{ type: "user" | "bot"; content: string }>>([])
+  const [input, setInput] = useState("")
+  const [audioUrl, setAudioUrl] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("chatMessages")
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages))
+  }, [messages])
+
+  const handleSendMessage = async () => {
+    if (!input.trim()) return
+
+    const newMessages = [...messages, { type: "user", content: input }]
+    setMessages(newMessages)
+    setInput("")
+
+    setLoading(true)
+    setError("")
+    setAudioUrl("")
 
     try {
       const response = await fetch("http://localhost:5000/generatevoice", {
@@ -21,116 +41,71 @@ const VoiceGenerator = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text,
-          tone,
-          context,
-          max_tokens: maxTokens,
+          text: input,
+          // tone: "mild, motivating, manly",
+          max_tokens: 50,
         }),
-      });
+      })
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to generate audio");
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to generate audio")
       }
 
-      const blob = await response.blob();
-      // Create a URL for the audio file and set it in the state
-      const url = URL.createObjectURL(blob);
-      setAudioUrl(url);
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
+      setAudioUrl(url)
+      setMessages([...newMessages, { type: "bot", content: url }])
     } catch (err) {
-      setError(err.message || "An error occurred");
+      setError(err.message || "An error occurred")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
+
+  const handleVoiceInput = () => {
+    // Implement voice input functionality here
+    console.log("Voice input not implemented")
+  }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-primary mb-6">Voice Generator</h1>
-
-      <div className="w-full max-w-md shadow-md rounded-lg p-2">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-secondary bg-background mb-1">
-            Text
-          </label>
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter text"
-            rows={4}
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Tone (Optional)
-          </label>
-          <input
-            type="text"
-            value={tone}
-            onChange={(e) => setTone(e.target.value)}
-            placeholder="Enter tone"
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Context (Optional)
-          </label>
-          <input
-            type="text"
-            value={context}
-            onChange={(e) => setContext(e.target.value)}
-            placeholder="Enter context"
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Max Tokens
-          </label>
-          <input
-            type="number"
-            value={maxTokens}
-            onChange={(e) => setMaxTokens(parseInt(e.target.value, 10))}
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
-          />
-        </div>
-
-        <button
-          onClick={handleGenerateVoice}
-          className={`w-full py-2 px-4 rounded-md font-medium text-white ${
-            loading ? "bg-gray-400" : "bg-primary hover:bg-primary-dark"
-          }`}
-          disabled={loading}
-        >
-          {loading ? "Generating..." : "Generate Voice"}
-        </button>
-
-        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
-
-        {audioUrl && (
-          <div className="mt-6">
-            <h2 className="text-lg font-medium text-primary mb-2">Generated Audio</h2>
-            <audio controls className="w-full">
-              <source src={audioUrl} type="audio/wav" />
-              Your browser does not support the audio element.
-            </audio>
-            <a
-              href={audioUrl}
-              download="audio.wav"
-              className="block mt-4 text-primary underline"
-            >
-              Download Audio
-            </a>
+    <Card className="w-full max-w-md mx-auto h-[90vh] ">
+      <CardHeader>
+      <h1 className="text-3xl font-bold text-primary text-center">Talk With Your</h1>
+      <p className="text-3xl font-bold text-primary font-serif text-center">AI Fam</p>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {messages.map((message, index) => (
+          <div key={index} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`rounded-lg p-2 ${message.type === "user" ? "bg-primary text-secondary-foreground" : "bg-secondary"}`}>
+              {message.type === "user" ? (
+                message.content
+              ) : (
+                <audio controls src={message.content}>
+                  Your browser does not support the audio element.
+                </audio>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </div>
-  );
-};
+        ))}
+      </CardContent>
+      <CardFooter className="flex space-x-2">
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your message..."
+          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+        />
+        <Button onClick={handleSendMessage} disabled={loading}>
+          Send
+        </Button>
+        <Button onClick={handleVoiceInput} variant="outline">
+          🎤
+        </Button>
+      </CardFooter>
+    </Card>
+  )
+}
 
-export default VoiceGenerator;
+export default ChatUI
+

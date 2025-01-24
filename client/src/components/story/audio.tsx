@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Music } from "lucide-react";
 
 interface AudioStoryProps {
@@ -15,9 +15,9 @@ const AudioStory: React.FC<AudioStoryProps> = ({ url }) => {
    }, [url]);
 
    return (
-      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500">
-         <Music size={64} className="text-white mb-4" />
-         <audio ref={audioRef} src={url} className="w-3/4" controls />
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+         <Music className="text-white w-24 h-24" />
+         <audio ref={audioRef} src={url} className="hidden" controls autoPlay />
       </div>
    );
 };

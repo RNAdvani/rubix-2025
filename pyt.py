@@ -30,6 +30,7 @@ def predict():
             return jsonify({"error": "Request body must be JSON."}), 400
 
         text = data.get('text')
+        print(text)
         tone = data.get('tone')  # Optional parameter
         context = data.get('context')  # Optional parameter
         max_tokens = data.get('max_tokens', 100)  # Default to 100 tokens
@@ -39,6 +40,7 @@ def predict():
 
         # Build the prompt dynamically based on provided inputs
         prompt_parts = ["Give a reply"]
+        prompt_parts.append(f"to the question: {text}")
         if tone:
             prompt_parts.append(f"with a tone: {tone}")
         if context:

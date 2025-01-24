@@ -43,7 +43,7 @@ const Unlocking = () => {
   }, []);
 
   const unlockDate = data ? new Date(data) : new Date();
-  const timeLeft = useTimeLeft(unlockDate);
+  const timeLeft = useTimeLeft(unlockDate, id);
 
   const handlePasswordUnlock = () => {
     if (password === correctPassword) {
@@ -57,6 +57,7 @@ const Unlocking = () => {
 
   const handleQuizUnlock = () => {
     if (answer.toLowerCase() === correctAnswer.toLowerCase()) {
+      navigate(`/story/${id}`)
       setUnlocked(true);
       toast.success("Time Capsule Unlocked! 🎉");
     } else {
@@ -101,8 +102,6 @@ const Unlocking = () => {
               <TimeUnit value={timeLeft.minutes} unit="Minutes" />
               <TimeUnit value={timeLeft.seconds} unit="Seconds" />
             </div>
-
-            {/* <div className="text-center font-bold text-2xl">OR</div> */}
 
             <Tabs defaultValue="password" className="space-y-4">
               <TabsList className="grid grid-cols-2">
@@ -163,7 +162,8 @@ function TimeUnit({ value, unit }: { value: number; unit: string }) {
   );
 }
 
-function useTimeLeft(unlockDate: Date) {
+function useTimeLeft(unlockDate: Date, id: string | undefined) {
+  const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   function calculateTimeLeft() {
@@ -191,11 +191,25 @@ function useTimeLeft(unlockDate: Date) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
+
+      // Check if time has run out and navigate to story page
+      if (
+        newTimeLeft.days === 0 &&
+        newTimeLeft.hours === 0 &&
+        newTimeLeft.minutes === 0 &&
+        newTimeLeft.seconds === 0
+      ) {
+        if (id) {
+          navigate(`/story/${id}`);
+        }
+        clearInterval(timer);
+      }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [unlockDate]);
+  }, [unlockDate, id, navigate]);
 
   return timeLeft;
 }

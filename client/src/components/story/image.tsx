@@ -1,10 +1,12 @@
+import React from "react";
+
 interface ImageStoryProps {
    url: string;
 }
 
 const ImageStory: React.FC<ImageStoryProps> = ({ url }) => {
    return (
-      <div className="h-screen w-auto flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center">
          <img
             src={url || "/placeholder.svg"}
             alt="Story"
