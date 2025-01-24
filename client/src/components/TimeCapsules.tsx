@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import VoiceGenerator from "./review-page"
 
 const dummyTimeCapsules = [
   { id: 1, title: "Summer Vacation 2022", date: "2023-08-01" },
@@ -9,6 +10,7 @@ const dummyTimeCapsules = [
 export default function TimeCapsules() {
   return (
     <div className="mt-8">
+        <VoiceGenerator/>
       <h2 className="text-2xl font-semibold mb-4">Time Capsules</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {dummyTimeCapsules.map((capsule) => (

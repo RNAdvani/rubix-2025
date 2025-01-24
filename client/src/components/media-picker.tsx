@@ -134,6 +134,8 @@ export const MediaPicker = ({ onPhotosSelected }: MediaPickerProps) => {
       <div className="w-full max-w-4xl mx-auto p-2 space-y-6 flex flex-col">
          <h2 className="text-2xl font-bold">Select Media</h2>
          <FileUpload setMediaItems={setMediaFiles} />
+         <hr className="py-1"/>
+         <h2 className="text-2xl font-bold">Your Media</h2>
          <ScrollArea className="h-[600px] rounded-lg border">
             <div className="grid grid-cols-3 md:grid-cols-4 gap-1 p-1">
                {mediaFiles.map((file) => (

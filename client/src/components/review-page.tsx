@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const App = () => {
+const VoiceGenerator = () => {
   const [text, setText] = useState("");
   const [tone, setTone] = useState("");
   const [context, setContext] = useState("");
@@ -45,10 +45,10 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6 flex flex-col items-center">
+    <div className="min-h-screen bg-background flex flex-col items-center">
       <h1 className="text-3xl font-bold text-primary mb-6">Voice Generator</h1>
 
-      <div className="w-full max-w-md shadow-md rounded-lg p-6">
+      <div className="w-full max-w-md shadow-md rounded-lg p-2">
         <div className="mb-4">
           <label className="block text-sm font-medium text-secondary bg-background mb-1">
             Text
@@ -133,4 +133,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default VoiceGenerator;
