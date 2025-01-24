@@ -2,6 +2,7 @@ import logging
 import traceback
 import sys
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from deepface import DeepFace
 from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import normalize
@@ -20,6 +21,7 @@ logging.basicConfig(
 )
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:5173"])  # Allow requests from localhost:5173
 
 # Graceful shutdown handler
 def graceful_shutdown(signum, frame):
@@ -109,6 +111,7 @@ def group_images():
                 grouped_images.setdefault(label, []).append(valid_images[idx])
             
             result = {
+                "success": True,
                 "groups": list(grouped_images.values()),
                 "skipped_images": skipped_images
             }

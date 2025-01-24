@@ -8,14 +8,14 @@ import { Toaster } from "./components/ui/sonner.tsx";
 import ScreenshotPreventionWrapper from "./utils/PreventScreenshot.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <ScreenshotPreventionWrapper>
-          <Toaster />
-          <App />
-        </ScreenshotPreventionWrapper>
-      </ThemeProvider>
-    </BrowserRouter>
-  </StrictMode>
+  // <StrictMode>
+  <BrowserRouter>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ScreenshotPreventionWrapper>
+        <Toaster />
+        <App />
+      </ScreenshotPreventionWrapper>
+    </ThemeProvider>
+  </BrowserRouter>
+  // {/* </StrictMode> */}
 );

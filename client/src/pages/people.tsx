@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Folder, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import ImageModal from "../components/ImageModal";
 import { useParams } from "react-router-dom";
+
 interface GroupedImagesResponse {
   success: boolean;
   groupedImages: {
@@ -20,14 +21,25 @@ const People: React.FC = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.post<GroupedImagesResponse>(
+        const response = await axios.post(
           "http://localhost:3000/api/capsule/group-images",
           {
             capsuleId: id,
           }
         );
-        if (response.data.success) {
-          setGroupedImages(response.data.groupedImages.groups);
+
+        const res = await fetch("http://127.0.0.1:5000/group-images", {
+          method: "POST",
+          body: JSON.stringify({ image_urls: response.data.imageUrls }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json();
+
+        console.log(data);
+
+        if (data.success) {
+          setGroupedImages(data.groups);
         } else {
           setError("Failed to fetch image groups");
         }
@@ -39,7 +51,7 @@ const People: React.FC = () => {
     };
 
     fetchImages();
-  }, []);
+  }, [id]); // Added id to dependency array
 
   if (loading) {
     return (
@@ -70,10 +82,14 @@ const People: React.FC = () => {
             <button
               key={index}
               onClick={() => setSelectedGroup(group)}
-              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col items-center"
+              className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col items-center"
             >
-              <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-4">
-                <Folder className="w-12 h-12 text-blue-500" />
+              <div className="w-full aspect-square mb-4 overflow-hidden rounded-lg">
+                <img
+                  src={group[0]}
+                  alt={`Group ${index + 1} thumbnail`}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-lg font-semibold text-gray-800">
                 Group {index + 1}

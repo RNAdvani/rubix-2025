@@ -138,3 +138,468 @@ Connection: keep-alive
 2025-01-24 12:25:37,592 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
 2025-01-24 12:25:38,837 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
 2025-01-24 12:25:38,933 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:21,105 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.246:5000
+2025-01-24 12:44:21,106 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 12:44:21,108 - INFO -  * Restarting with stat
+2025-01-24 12:44:30,185 - WARNING -  * Debugger is active!
+2025-01-24 12:44:30,194 - INFO -  * Debugger PIN: 324-486-580
+2025-01-24 12:44:30,644 - DEBUG - Request received - Full headers: Accept: application/json, text/plain, */*
+Content-Type: application/json
+User-Agent: axios/1.7.9
+Content-Length: 1796
+Accept-Encoding: gzip, compress, deflate, br
+Host: 127.0.0.1:5000
+Connection: keep-alive
+
+
+2025-01-24 12:44:30,645 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 12:44:30,647 - INFO - Processing 20 images
+2025-01-24 12:44:30,651 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:30,838 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 12:44:33,591 - DEBUG - Creating converter from 3 to 5
+2025-01-24 12:44:34,994 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:35,100 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 12:44:35,565 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:35,679 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:38,104 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:38,264 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:39,863 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:39,970 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg HTTP/1.1" 200 239673
+2025-01-24 12:44:40,526 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:40,621 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:41,987 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:42,094 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:43,471 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:43,601 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:45,068 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:45,150 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:46,453 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:46,536 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:47,776 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:47,920 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
+2025-01-24 12:44:49,983 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:50,065 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg HTTP/1.1" 200 416514
+2025-01-24 12:44:51,407 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:51,525 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg HTTP/1.1" 200 239673
+2025-01-24 12:44:52,079 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:52,198 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg HTTP/1.1" 200 508785
+2025-01-24 12:44:54,273 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:54,385 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg HTTP/1.1" 200 186192
+2025-01-24 12:44:56,232 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:56,323 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png HTTP/1.1" 200 45345
+2025-01-24 12:44:56,567 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:56,659 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png HTTP/1.1" 200 45345
+2025-01-24 12:44:56,865 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:56,972 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png HTTP/1.1" 200 26537
+2025-01-24 12:44:57,178 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:57,252 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg HTTP/1.1" 200 69839
+2025-01-24 12:44:57,575 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:44:57,684 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg HTTP/1.1" 200 969160
+2025-01-24 12:45:00,147 - INFO - Processing completed successfully
+2025-01-24 12:45:00,149 - INFO - 127.0.0.1 - - [24/Jan/2025 12:45:00] "POST /group-images HTTP/1.1" 200 -
+2025-01-24 12:52:35,872 - INFO - Received shutdown signal. Cleaning up...
+2025-01-24 12:52:36,825 - INFO - Received shutdown signal. Cleaning up...
+2025-01-24 12:56:19,701 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.246:5000
+2025-01-24 12:56:19,701 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 12:56:19,704 - INFO -  * Restarting with stat
+2025-01-24 12:56:27,549 - WARNING -  * Debugger is active!
+2025-01-24 12:56:27,557 - INFO -  * Debugger PIN: 324-486-580
+2025-01-24 12:56:27,932 - INFO - 127.0.0.1 - - [24/Jan/2025 12:56:27] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 12:56:27,934 - INFO - 127.0.0.1 - - [24/Jan/2025 12:56:27] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 12:56:27,936 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: application/json, text/plain, */*
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?0
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 12:56:27,940 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 12:56:27,941 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+Accept: application/json, text/plain, */*
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?0
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 12:56:27,943 - INFO - Processing 20 images
+2025-01-24 12:56:27,944 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 12:56:27,947 - INFO - Processing 20 images
+2025-01-24 12:56:27,951 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:56:27,951 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:56:28,049 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 12:56:28,120 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 12:56:30,565 - DEBUG - Creating converter from 3 to 5
+2025-01-24 12:56:31,946 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:56:32,013 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 12:56:32,356 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 12:56:33,178 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:00:06,332 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.246:5000
+2025-01-24 13:00:06,332 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 13:00:06,334 - INFO -  * Restarting with stat
+2025-01-24 13:00:13,336 - WARNING -  * Debugger is active!
+2025-01-24 13:00:13,344 - INFO -  * Debugger PIN: 324-486-580
+2025-01-24 13:00:17,499 - INFO - 127.0.0.1 - - [24/Jan/2025 13:00:17] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:00:17,502 - INFO - 127.0.0.1 - - [24/Jan/2025 13:00:17] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:00:17,504 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:00:17,507 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:00:17,507 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:00:17,509 - INFO - Processing 20 images
+2025-01-24 13:00:17,511 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:00:17,513 - INFO - Processing 20 images
+2025-01-24 13:00:17,516 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:00:17,517 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:00:17,801 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:00:17,810 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:00:20,288 - DEBUG - Creating converter from 3 to 5
+2025-01-24 13:00:21,818 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:00:21,901 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:00:22,269 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:00:22,362 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:01:00,421 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.246:5000
+2025-01-24 13:01:00,422 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 13:01:00,424 - INFO -  * Restarting with stat
+2025-01-24 13:01:07,027 - WARNING -  * Debugger is active!
+2025-01-24 13:01:07,035 - INFO -  * Debugger PIN: 324-486-580
+2025-01-24 13:01:09,694 - INFO - 127.0.0.1 - - [24/Jan/2025 13:01:09] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:01:09,702 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:01:09,705 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:01:09,707 - INFO - Processing 20 images
+2025-01-24 13:01:09,712 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:09,803 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:01:11,685 - DEBUG - Creating converter from 3 to 5
+2025-01-24 13:01:12,700 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:12,770 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:01:13,171 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:13,293 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:15,077 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:15,160 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:16,551 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:16,675 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg HTTP/1.1" 200 239673
+2025-01-24 13:01:17,222 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:17,312 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:18,459 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:18,540 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:19,583 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:19,680 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:20,672 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:20,755 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:21,740 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:21,864 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:22,903 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:22,990 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
+2025-01-24 13:01:24,519 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:24,606 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg HTTP/1.1" 200 416514
+2025-01-24 13:01:25,606 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:25,683 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg HTTP/1.1" 200 239673
+2025-01-24 13:01:26,082 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:26,159 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg HTTP/1.1" 200 508785
+2025-01-24 13:01:27,716 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:27,819 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg HTTP/1.1" 200 186192
+2025-01-24 13:01:29,330 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:29,431 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png HTTP/1.1" 200 45345
+2025-01-24 13:01:29,593 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:29,665 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png HTTP/1.1" 200 45345
+2025-01-24 13:01:29,832 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:29,945 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png HTTP/1.1" 200 26537
+2025-01-24 13:01:30,115 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:30,182 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg HTTP/1.1" 200 69839
+2025-01-24 13:01:30,461 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:01:30,592 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg HTTP/1.1" 200 969160
+2025-01-24 13:01:32,691 - INFO - Processing completed successfully
+2025-01-24 13:01:32,692 - INFO - 127.0.0.1 - - [24/Jan/2025 13:01:32] "POST /group-images HTTP/1.1" 200 -
+2025-01-24 13:02:27,625 - INFO - 127.0.0.1 - - [24/Jan/2025 13:02:27] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:02:27,628 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:02:27,629 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:02:27,630 - INFO - Processing 20 images
+2025-01-24 13:02:27,632 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:27,726 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:02:28,086 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:28,164 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:02:28,510 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:28,593 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:29,752 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:29,844 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:30,940 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:31,071 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg HTTP/1.1" 200 239673
+2025-01-24 13:02:31,550 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:31,691 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:32,776 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:32,863 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:34,010 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:34,085 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:35,105 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:35,170 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:36,218 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:36,317 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:37,297 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:37,417 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
+2025-01-24 13:02:39,101 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:39,169 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg HTTP/1.1" 200 416514
+2025-01-24 13:02:40,355 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:40,432 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg HTTP/1.1" 200 239673
+2025-01-24 13:02:40,691 - INFO - 127.0.0.1 - - [24/Jan/2025 13:02:40] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:02:40,704 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:02:40,705 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:02:40,707 - INFO - Processing 20 images
+2025-01-24 13:02:40,710 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:40,797 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:02:41,068 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:41,152 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg HTTP/1.1" 200 508785
+2025-01-24 13:02:41,297 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:02:41,377 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:03:00,058 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.246:5000
+2025-01-24 13:03:00,059 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 13:03:00,061 - INFO -  * Restarting with stat
+2025-01-24 13:03:07,280 - WARNING -  * Debugger is active!
+2025-01-24 13:03:07,287 - INFO -  * Debugger PIN: 324-486-580
+2025-01-24 13:03:07,625 - INFO - 127.0.0.1 - - [24/Jan/2025 13:03:07] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:03:07,629 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:03:07,631 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:03:07,632 - INFO - Processing 20 images
+2025-01-24 13:03:07,635 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:07,714 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:03:09,045 - DEBUG - Creating converter from 3 to 5
+2025-01-24 13:03:09,819 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:09,894 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:03:10,160 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:10,227 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:11,487 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:11,570 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:12,535 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:12,686 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg HTTP/1.1" 200 239673
+2025-01-24 13:03:13,078 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:13,161 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:14,122 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:14,193 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:15,136 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:15,203 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:16,144 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:16,268 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:17,236 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:17,387 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:18,396 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:18,487 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
+2025-01-24 13:03:19,999 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:20,101 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg HTTP/1.1" 200 416514
+2025-01-24 13:03:21,081 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:21,168 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg HTTP/1.1" 200 239673
+2025-01-24 13:03:21,579 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:21,730 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg HTTP/1.1" 200 508785
+2025-01-24 13:03:23,350 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:23,432 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg HTTP/1.1" 200 186192
+2025-01-24 13:03:24,983 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:25,062 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png HTTP/1.1" 200 45345
+2025-01-24 13:03:25,227 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:25,323 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png HTTP/1.1" 200 45345
+2025-01-24 13:03:25,482 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:25,594 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png HTTP/1.1" 200 26537
+2025-01-24 13:03:25,753 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:25,840 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg HTTP/1.1" 200 69839
+2025-01-24 13:03:26,104 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:03:26,198 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg HTTP/1.1" 200 969160
+2025-01-24 13:03:28,225 - INFO - Processing completed successfully
+2025-01-24 13:03:28,227 - INFO - 127.0.0.1 - - [24/Jan/2025 13:03:28] "POST /group-images HTTP/1.1" 200 -
+2025-01-24 13:08:17,642 - INFO - 127.0.0.1 - - [24/Jan/2025 13:08:17] "OPTIONS /group-images HTTP/1.1" 200 -
+2025-01-24 13:08:17,645 - DEBUG - Request received - Full headers: Host: 127.0.0.1:5000
+Connection: keep-alive
+Content-Length: 1796
+Sec-Ch-Ua-Platform: "Android"
+User-Agent: Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36
+Sec-Ch-Ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"
+Content-Type: application/json
+Sec-Ch-Ua-Mobile: ?1
+Accept: */*
+Origin: http://localhost:5173
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:5173/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2025-01-24 13:08:17,646 - DEBUG - Request data: {'image_urls': ['https://res.cloudinary.com/dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg', 'https://res.cloudinary.com/dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg']}
+2025-01-24 13:08:17,647 - INFO - Processing 20 images
+2025-01-24 13:08:17,649 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:17,743 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641209/vaviiklig9eewaxzqpuq.png HTTP/1.1" 200 21192
+2025-01-24 13:08:18,198 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:18,287 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641250/sk1lpwbmuaypwec6b7pr.png HTTP/1.1" 200 1561
+2025-01-24 13:08:18,652 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:18,766 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641505/v2mr6fqgjxrkqlvzsnb1.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:20,025 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:20,102 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641606/ouvxowcrzrxaulc7ntad.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:21,099 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:21,207 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737641731/mbxcd1nck899pcucluhf.jpg HTTP/1.1" 200 239673
+2025-01-24 13:08:21,628 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:21,707 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642139/jlyd4ltzq2cjads7kd3m.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:22,726 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:22,813 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642808/xzvkyi6crdfjvre5t4hu.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:23,820 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:23,958 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642884/hijnuo0wlp1ynwroyuja.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:25,054 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:25,154 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737642982/mydlqmhrpsxjttfojo1v.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:26,135 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:26,226 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737643327/g68gmg6bkqf7tm1ailgg.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:27,433 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:27,512 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737651650/bmnsnufyias0fhhz27ge.jpg HTTP/1.1" 200 508785
+2025-01-24 13:08:29,403 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:29,476 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654361/iw9s1isclpigwc5p2ozd.jpg HTTP/1.1" 200 416514
+2025-01-24 13:08:30,677 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:30,765 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737654427/l4h8kddrwg1u3yagxnog.jpg HTTP/1.1" 200 239673
+2025-01-24 13:08:31,302 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:31,381 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737655292/ydtjw2gjsrgiyk7bvewx.jpg HTTP/1.1" 200 508785
+2025-01-24 13:08:33,284 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:33,367 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696758/bgjv8xrbbtnqhu8h4jt6.jpg HTTP/1.1" 200 186192
+2025-01-24 13:08:35,134 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:35,204 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737696821/xejdv2dwuymy5zt6d0af.png HTTP/1.1" 200 45345
+2025-01-24 13:08:35,415 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:35,499 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697036/r1tz9jfc7odiunqhjetb.png HTTP/1.1" 200 45345
+2025-01-24 13:08:35,701 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:35,810 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697322/jgsnuzv5tykrzrlkdhsx.png HTTP/1.1" 200 26537
+2025-01-24 13:08:35,987 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:36,072 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697466/yxpgjovjbw4evtnopbep.jpg HTTP/1.1" 200 69839
+2025-01-24 13:08:36,358 - DEBUG - Starting new HTTPS connection (1): res.cloudinary.com:443
+2025-01-24 13:08:36,443 - DEBUG - https://res.cloudinary.com:443 "GET /dcntuufh9/image/upload/v1737697467/luvc3ufpzbo3w4ndrazb.jpg HTTP/1.1" 200 969160
+2025-01-24 13:08:38,379 - INFO - Processing completed successfully
+2025-01-24 13:08:38,380 - INFO - 127.0.0.1 - - [24/Jan/2025 13:08:38] "POST /group-images HTTP/1.1" 200 -
+2025-01-24 13:11:43,948 - INFO - Received shutdown signal. Cleaning up...
+2025-01-24 13:11:44,420 - INFO - Received shutdown signal. Cleaning up...

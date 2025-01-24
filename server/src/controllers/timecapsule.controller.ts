@@ -476,20 +476,20 @@ export const groupImages = TryCatch(async (req, res, next) => {
 
   const imageUrls = capsule.media.map((m: any) => m.url);
 
-  if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
-    return res
-      .status(400)
-      .json({ error: "Please provide a valid array of image URLs." });
-  }
+  // if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: "Please provide a valid array of image URLs." });
+  // }
 
-  const pythonServerUrl = "http://127.0.0.1:5000/group-images";
+  // const pythonServerUrl = "http://127.0.0.1:5000/group-images";
 
-  // Send image URLs to the Python server
-  const response = await axios.post(pythonServerUrl, { image_urls: imageUrls });
-  const groupedImages = response.data;
+  // // Send image URLs to the Python server
+  // const response = await axios.post(pythonServerUrl, { image_urls: imageUrls });
+  // const groupedImages = response.data;
 
   return res.status(200).json({
     success: true,
-    groupedImages,
+    imageUrls,
   });
 });
