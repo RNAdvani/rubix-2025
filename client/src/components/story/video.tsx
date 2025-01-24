@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 interface VideoStoryProps {
    url: string;
@@ -14,7 +14,7 @@ const VideoStory: React.FC<VideoStoryProps> = ({ url }) => {
    }, [url]);
 
    return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center">
          <video
             ref={videoRef}
             src={url}
