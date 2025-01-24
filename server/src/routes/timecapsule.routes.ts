@@ -8,6 +8,7 @@ import {
   getCapsule,
   getCreatedCapsules,
   getReceivedCapsules,
+  groupImages,
   lockCapsule,
   postOnInstagram,
   removeBackgroundFromImage,
@@ -27,6 +28,7 @@ router.get("/get/:id", authenticate, getCapsule);
 router.patch("/update", authenticate, updateCapsule);
 router.patch("/add-media", authenticate, upload.array("media", 10), addMedia);
 router.post("/instagram", postOnInstagram);
-router.post("/remove-bg", authenticate, removeBackgroundFromImage)
+router.post("/remove-bg", authenticate, removeBackgroundFromImage);
+router.post("/group-images", groupImages);
 
 export { router as timeCapsuleRoutes };

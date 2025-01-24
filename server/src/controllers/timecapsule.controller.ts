@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ErrorHandler } from "../lib/ErrorHandler";
 import { TryCatch } from "../lib/TryCatch";
 import { Media } from "../models/media.model";
@@ -424,7 +425,7 @@ export const postOnInstagram = TryCatch(async (req, res, next) => {
   });
 });
 
-export const removeBackgroundFromImage  = TryCatch(async (req, res, next) => {
+export const removeBackgroundFromImage = TryCatch(async (req, res, next) => {
   const { url } = req.body;
 
   if (!url) {
@@ -436,19 +437,19 @@ export const removeBackgroundFromImage  = TryCatch(async (req, res, next) => {
   try {
     await removeBackgroundFromImageUrl({
       url,
-      apiKey:process.env.REMOVE_BG_API_KEY!,
+      apiKey: process.env.REMOVE_BG_API_KEY!,
       size: "regular",
       type: "auto",
-      outputFile
-    })
+      outputFile,
+    });
   } catch (error) {
     console.log(error);
   }
 
-  const resp = await uploadOnCloudinary(outputFile, "image")
+  const resp = await uploadOnCloudinary(outputFile, "image");
 
-  if(!resp) {
-    return next(new ErrorHandler(500, "Failed to upload image to cloudinary"))
+  if (!resp) {
+    return next(new ErrorHandler(500, "Failed to upload image to cloudinary"));
   }
 
   return res.status(200).json({
@@ -456,4 +457,39 @@ export const removeBackgroundFromImage  = TryCatch(async (req, res, next) => {
     message: "Background removed successfully",
     data: resp?.secure_url,
   });
-})
+});
+
+export const groupImages = TryCatch(async (req, res, next) => {
+  const { capsuleId } = req.body;
+
+  const capsule = await TimeCapsule.findById(capsuleId).populate("media");
+
+  if (!capsule) {
+    return next(new ErrorHandler(404, "Capsule not found"));
+  }
+
+  // if (!capsule.creator.equals(req.user._id)) {
+  //   return next(
+  //     new ErrorHandler(403, "You are not authorized to perform this action")
+  //   );
+  // }
+
+  const imageUrls = capsule.media.map((m: any) => m.url);
+
+  if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Please provide a valid array of image URLs." });
+  }
+
+  const pythonServerUrl = "http://127.0.0.1:5000/group-images";
+
+  // Send image URLs to the Python server
+  const response = await axios.post(pythonServerUrl, { image_urls: imageUrls });
+  const groupedImages = response.data;
+
+  return res.status(200).json({
+    success: true,
+    groupedImages,
+  });
+});
