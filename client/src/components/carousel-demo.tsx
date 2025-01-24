@@ -9,6 +9,13 @@ import { type CarouselApi } from "@/components/ui/carousel";
 
 const features = [
   {
+    title: "",
+    description:
+      "",
+    cta: "Thanks for downloading !",
+    image: "./yaadein.png",
+  },
+  {
     title: "Scheduled Unlocking",
     description:
       "Set a specific future date to reveal your time capsule, creating a surprise for yourself or your recipients.",
@@ -82,14 +89,16 @@ export function OnboardingCarousel() {
                 {/* Content */}
                 <div className="relative h-full flex flex-col items-center justify-between p-6 text-secondary-foreground md:p-10 lg:p-16">
                   {/* Icon */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="w-full flex justify-center pt-10 md:pt-16"
-                  >
-                    <feature.icon className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mb-4" />
-                  </motion.div>
+                  {feature.icon && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="w-full flex justify-center pt-10 md:pt-16"
+                    >
+                      <feature.icon className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 mb-4" />
+                    </motion.div>
+                  )}
 
                   {/* Text */}
                   <motion.div

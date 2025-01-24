@@ -23,6 +23,9 @@ import { api } from "./lib/api";
 import { useUser } from "./components/hooks/use-user";
 import Capsule from "./pages/capsule";
 import Story from "./pages/story";
+import ConsentUI from "./pages/consentui";
+import Genai from "./pages/genai";
+import SteganographyApp from "./pages/steganography";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
    const cookie = Cookies.get("token");
@@ -86,12 +89,14 @@ export default function App() {
             >
                <Route index element={<Home />} />
                <Route path="accept-invitation" element={<InvitationPage />} />
-               <Route path="search" element={<SearchScreen />} />
+               <Route path="ai" element={<SearchScreen />} />
+               <Route path="ai/consent" element={<ConsentUI/>}/>
+               <Route path="ai/ask" element={<Genai/>}/>
+               <Route path="ai/fam" element={<ReviewPage/>}/>
                <Route path="notifications" element={<NotificationsScreen />} />
                <Route path="profile" element={<UserProfile />} />
                <Route path="friends" element={<FriendFinder />} />
                <Route path="test" element={<AudioRecorder />} />
-               <Route path="review" element={<ReviewPage />} />
                <Route path="editor" element={<PhotoEditor />} />
                <Route path="creategroup" element={<GroupPage />} />
                <Route
@@ -120,6 +125,7 @@ export default function App() {
                   </ProtectedRoute>
                }
             />
+            <Route path="steganography" element={<SteganographyApp/>} />
          </Routes>
       </>
    );
