@@ -5,17 +5,21 @@ import VideoStory from "./video";
 import AudioStory from "./audio";
 import { Media } from "@/lib/types";
 import { identifyFileType } from "@/lib/utils";
+import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface StoryProps {
    items: Media[];
+   capsuleId?: string;
 }
 
-const Story: React.FC<StoryProps> = ({ items }) => {
+const Story: React.FC<StoryProps> = ({ items, capsuleId }) => {
    const [currentIndex, setCurrentIndex] = useState(0);
    const [progress, setProgress] = useState(0);
    const [isPaused, setIsPaused] = useState(false);
    const timerRef = useRef<NodeJS.Timeout | null>(null);
    const startXRef = useRef(0);
+   const navigate = useNavigate();
 
    const PROGRESS_DURATION = 2500;
    const PROGRESS_INTERVAL = 100;
@@ -56,15 +60,26 @@ const Story: React.FC<StoryProps> = ({ items }) => {
 
    const handleTouchEnd = (e: React.TouchEvent) => {
       const endX = e.changedTouches[0].clientX;
-      const diffX = startXRef.current - endX;
+      const screenWidth = window.innerWidth;
+      const touchPosition = endX / screenWidth;
 
-      if (diffX > 50) {
-         setCurrentIndex((prev) => (prev + 1) % items.length);
-      } else if (diffX < -50) {
+      if (touchPosition < 0.3) {
+         // Left third of screen - previous story
          setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+      } else if (touchPosition > 0.7) {
+         // Right third of screen - next story
+         setCurrentIndex((prev) => (prev + 1) % items.length);
       }
 
       setIsPaused(false);
+   };
+
+   const handleClose = () => {
+      if (capsuleId) {
+         navigate(`/capsule/${capsuleId}`);
+      } else {
+         navigate(-1);
+      }
    };
 
    const currentItem = items[currentIndex];
@@ -85,10 +100,16 @@ const Story: React.FC<StoryProps> = ({ items }) => {
 
    return (
       <div
-         className="relative w-full h-full bg-black"
+         className="relative w-full h-screen bg-black"
          onTouchStart={handleTouchStart}
          onTouchEnd={handleTouchEnd}
       >
+         <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 z-20 bg-white/30 rounded-full p-2 hover:bg-white/50 transition-colors"
+         >
+            <X className="text-white" />
+         </button>
          <div className="absolute top-0 z-10 w-full flex items-center gap-2 p-2">
             {items.map((_, index) => (
                <Progress

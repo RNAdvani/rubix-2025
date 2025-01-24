@@ -40,6 +40,7 @@ import axios from "axios";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { CapsuleInsights } from "./story/Insights";
+import { useNavigate } from "react-router-dom";
 interface CapsulePageProps {
   data: Capsule;
   onAddCollaborator: (userId: string) => void;
@@ -85,6 +86,8 @@ export const CapsulePage = ({
     original: string;
     removedBg: string;
   } | null>(null);
+
+  const navigate = useNavigate();
 
   const handleCollaboratorLockToggle = (checked: boolean) => {
     setIsCollaboratorLock(checked);
@@ -503,6 +506,16 @@ export const CapsulePage = ({
           <div>
             <Button onClick={() => setIsLockModalOpen(true)}>
               Lock Capsule
+            </Button>
+            <Button
+              disabled={
+                  data.unlockDate
+                    ? new Date(data.unlockDate).getTime() > Date.now()
+                    : true
+              }
+              onClick={() => navigate(`/story/${id}`)}
+            >
+              Unlock
             </Button>
 
             <CapsuleLockModal
